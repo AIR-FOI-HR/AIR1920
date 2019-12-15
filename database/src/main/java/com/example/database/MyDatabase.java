@@ -6,8 +6,20 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(version = 1, entities = {Store.class, Discount.class},
-        views = {DiscountDetails.class}, exportSchema = false)
+import com.example.database.Entities.Favourites;
+import com.example.database.Entities.KategorijaZnamenitosti;
+import com.example.database.Entities.Komentar;
+import com.example.database.Entities.Korisnik;
+import com.example.database.Entities.KorisnikLokacija;
+import com.example.database.Entities.Lokacija;
+import com.example.database.Entities.OcjenaKomentar;
+import com.example.database.Entities.Slika;
+import com.example.database.Entities.SlikaGalerije;
+import com.example.database.Entities.Znamenitost;
+
+@Database(version = 1, entities = {Korisnik.class, Favourites.class, KategorijaZnamenitosti.class, Komentar.class,
+        KorisnikLokacija.class, Lokacija.class, OcjenaKomentar.class, Slika.class, SlikaGalerije.class, Znamenitost.class},
+        exportSchema = false)
 public abstract class MyDatabase extends RoomDatabase {
     public static final String NAME = "main";
     public static final int VERSION = 1;
@@ -25,5 +37,5 @@ public abstract class MyDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    public abstract DAO getDAO();
+    //public abstract DAO getDAO();
 }
