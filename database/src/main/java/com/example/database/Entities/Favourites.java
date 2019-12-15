@@ -1,20 +1,21 @@
 package com.example.database.Entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "favourites", primaryKeys = {"id_slika", "id_znamenitost"})
+@Entity(tableName = "favourites", primaryKeys = {"korisnicko_ime", "id_znamenitost"})
 public class Favourites {
 
     @ForeignKey(entity = Korisnik.class, parentColumns = "korisnicko_ime", childColumns = "korisnicko_ime")
     @ColumnInfo(index = true)
-    String korisnicko_ime;
+    @NonNull String korisnicko_ime;
 
     @ForeignKey(entity = Znamenitost.class, parentColumns = "id_znamenitost", childColumns = "id_znamenitost")
     @ColumnInfo(index = true)
-    int id_znamenitost;
+    @NonNull int id_znamenitost;
 
     public String getKorisnicko_ime() {
         return korisnicko_ime;

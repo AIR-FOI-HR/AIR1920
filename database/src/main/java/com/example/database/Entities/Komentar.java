@@ -1,5 +1,6 @@
 package com.example.database.Entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -12,11 +13,11 @@ public class Komentar {
 
     @ForeignKey(entity = Korisnik.class, parentColumns = "korisnicko_ime", childColumns = "korisnicko_ime")
     @ColumnInfo(index = true)
-    String korisnicko_ime;
+    @NonNull String korisnicko_ime;
 
     @ForeignKey(entity = Znamenitost.class, parentColumns = "id_znamenitost", childColumns = "id_znamenitost")
     @ColumnInfo(index = true)
-    int id_znamenitost;
+    @NonNull int id_znamenitost;
 
     String opis;
 
