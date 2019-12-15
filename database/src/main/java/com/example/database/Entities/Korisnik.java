@@ -1,0 +1,63 @@
+package com.example.database.Entities;
+
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "korisnik")
+public class Korisnik {
+    @PrimaryKey(autoGenerate = true)
+    int korisnicko_ime;
+
+    @ForeignKey(entity = Slika.class, parentColumns = "id_slika", childColumns = "id_slika")
+    @ColumnInfo(index = true)
+    int id_slika;
+
+    String ime;
+    String prezime;
+    String email;
+    String lozinka;
+
+
+    public int getKorisnicko_ime() {
+        return korisnicko_ime;
+    }
+
+    public void setKorisnicko_ime(int korisnicko_ime) {
+        this.korisnicko_ime = korisnicko_ime;
+    }
+
+    public String getIme() {
+        return ime;
+    }
+
+    public void setIme(String ime) {
+        this.ime = ime;
+    }
+
+    public String getPrezime() {
+        return prezime;
+    }
+
+    public void setPrezime(String prezime) {
+        this.prezime = prezime;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLozinka() {
+        return lozinka;
+    }
+
+    public void setLozinka(String lozinka) {
+        this.lozinka = lozinka;
+    }
+
+}
