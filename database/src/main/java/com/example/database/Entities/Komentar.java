@@ -13,13 +13,15 @@ public class Komentar {
 
     @ForeignKey(entity = Korisnik.class, parentColumns = "korisnicko_ime", childColumns = "korisnicko_ime")
     @ColumnInfo(index = true)
-    @NonNull public String korisnicko_ime;
+    @NonNull String korisnicko_ime;
 
     @ForeignKey(entity = Znamenitost.class, parentColumns = "id_znamenitost", childColumns = "id_znamenitost")
     @ColumnInfo(index = true)
-    @NonNull public int id_znamenitost;
+    @NonNull int id_znamenitost;
 
     String opis;
+
+    int ocjena;
 
     public int getId_komentar() {
         return id_komentar;
@@ -60,8 +62,4 @@ public class Komentar {
     public void setOcjena(int ocjena) {
         this.ocjena = ocjena;
     }
-
-    int ocjena;
-
-
 }

@@ -14,17 +14,17 @@ public class Znamenitost {
     @ForeignKey(entity = KategorijaZnamenitosti.class, parentColumns = "id_kategorija_znamenitosti", childColumns = "id_kategorija_znamenitosti")
     @ColumnInfo(index = true)
     @NonNull
-    public int id_kategorija_znamenitosti;
+    int id_kategorija_znamenitosti;
 
     @ForeignKey(entity = Lokacija.class, parentColumns = "id_lokacija", childColumns = "id_lokacija")
     @ColumnInfo(index = true)
     @NonNull
-    public int id_lokacija;
+    int id_lokacija;
 
     @ForeignKey(entity = Slika.class, parentColumns = "id_slika", childColumns = "id_slika")
     @ColumnInfo(index = true)
     @NonNull
-    public int id_slika;
+    int id_slika;
 
     String naziv;
     String adresa;
@@ -38,6 +38,30 @@ public class Znamenitost {
 
     public void setId_znamenitost(int id_znamenitost) {
         this.id_znamenitost = id_znamenitost;
+    }
+
+    public int getId_kategorija_znamenitosti() {
+        return id_kategorija_znamenitosti;
+    }
+
+    public void setId_kategorija_znamenitosti(int id_kategorija_znamenitosti) {
+        this.id_kategorija_znamenitosti = id_kategorija_znamenitosti;
+    }
+
+    public int getId_lokacija() {
+        return id_lokacija;
+    }
+
+    public void setId_lokacija(int id_lokacija) {
+        this.id_lokacija = id_lokacija;
+    }
+
+    public int getId_slika() {
+        return id_slika;
+    }
+
+    public void setId_slika(int id_slika) {
+        this.id_slika = id_slika;
     }
 
     public String getNaziv() {

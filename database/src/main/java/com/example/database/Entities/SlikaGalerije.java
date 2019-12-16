@@ -12,11 +12,11 @@ public class SlikaGalerije {
     @ForeignKey(entity = Slika.class, parentColumns = "id_slika", childColumns = "id_slika")
     @ColumnInfo(index = true)
     @NonNull
-    public int id_slika;
+    int id_slika;
 
     @ForeignKey(entity = Znamenitost.class, parentColumns = "id_znamenitost", childColumns = "id_znamenitost")
     @ColumnInfo(index = true)
-    @NonNull public int id_znamenitost;
+    @NonNull int id_znamenitost;
 
     public int getId_slika() {
         return id_slika;

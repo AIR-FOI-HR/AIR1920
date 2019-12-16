@@ -13,7 +13,7 @@ public class Lokacija {
 
     @ForeignKey(entity = Slika.class, parentColumns = "id_slika", childColumns = "id_slika")
     @ColumnInfo(index = true)
-    @NonNull public int id_slika;
+    @NonNull int id_slika;
 
     String naziv;
     String opis;
@@ -25,6 +25,10 @@ public class Lokacija {
     public void setId_lokacija(int id_lokacija) {
         this.id_lokacija = id_lokacija;
     }
+
+    public int getId_slika() { return id_slika; }
+
+    public void setId_slika(int id_slika) { this.id_slika = id_slika; }
 
     public String getNaziv() {
         return naziv;

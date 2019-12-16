@@ -14,7 +14,7 @@ public class Korisnik {
     @ForeignKey(entity = Slika.class, parentColumns = "id_slika", childColumns = "id_slika")
     @ColumnInfo(index = true)
     @NonNull
-    public int id_slika;
+    int id_slika;
 
     String ime;
     String prezime;
@@ -25,6 +25,10 @@ public class Korisnik {
     public String getKorisnicko_ime() {
         return korisnicko_ime;
     }
+
+    public int getId_slika() { return id_slika; }
+
+    public void setId_slika(int id_slika) { this.id_slika = id_slika; }
 
     public void setKorisnicko_ime(String korisnicko_ime) {
         this.korisnicko_ime = korisnicko_ime;
