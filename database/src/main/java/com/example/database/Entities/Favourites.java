@@ -11,11 +11,11 @@ public class Favourites {
 
     @ForeignKey(entity = Korisnik.class, parentColumns = "korisnicko_ime", childColumns = "korisnicko_ime")
     @ColumnInfo(index = true)
-    @NonNull String korisnicko_ime;
+    @NonNull public String korisnicko_ime;
 
     @ForeignKey(entity = Znamenitost.class, parentColumns = "id_znamenitost", childColumns = "id_znamenitost")
     @ColumnInfo(index = true)
-    @NonNull int id_znamenitost;
+    @NonNull public int id_znamenitost;
 
     public String getKorisnicko_ime() {
         return korisnicko_ime;

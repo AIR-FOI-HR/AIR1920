@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "kategorijaZnamenitosti")
 public class KategorijaZnamenitosti {
     @PrimaryKey(autoGenerate = true)
-    int id_kategorija_znamenitosti;
+    public int id_kategorija_znamenitosti;
 
     public int getId_kategorija_namenitosti() {
         return id_kategorija_znamenitosti;

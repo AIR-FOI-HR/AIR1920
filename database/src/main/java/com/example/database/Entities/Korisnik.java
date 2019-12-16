@@ -8,13 +8,13 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "korisnik")
 public class Korisnik {
-    @PrimaryKey(autoGenerate = true)
-    int korisnicko_ime;
+    @PrimaryKey
+    @NonNull String korisnicko_ime;
 
     @ForeignKey(entity = Slika.class, parentColumns = "id_slika", childColumns = "id_slika")
     @ColumnInfo(index = true)
     @NonNull
-    int id_slika;
+    public int id_slika;
 
     String ime;
     String prezime;
@@ -22,11 +22,11 @@ public class Korisnik {
     String lozinka;
 
 
-    public int getKorisnicko_ime() {
+    public String getKorisnicko_ime() {
         return korisnicko_ime;
     }
 
-    public void setKorisnicko_ime(int korisnicko_ime) {
+    public void setKorisnicko_ime(String korisnicko_ime) {
         this.korisnicko_ime = korisnicko_ime;
     }
 

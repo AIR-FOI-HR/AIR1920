@@ -10,11 +10,11 @@ public class KorisnikLokacija {
 
     @ForeignKey(entity = Korisnik.class, parentColumns = "korisnicko_ime", childColumns = "korisnicko_ime")
     @ColumnInfo(index = true)
-    @NonNull String korisnicko_ime;
+    @NonNull public String korisnicko_ime;
 
     @ForeignKey(entity = Lokacija.class, parentColumns = "id_lokacija", childColumns = "id_lokacija")
     @ColumnInfo(index = true)
-    int id_lokacija;
+    public int id_lokacija;
 
     public String getKorisnicko_ime() {
         return korisnicko_ime;

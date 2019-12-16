@@ -13,7 +13,7 @@ public class Lokacija {
 
     @ForeignKey(entity = Slika.class, parentColumns = "id_slika", childColumns = "id_slika")
     @ColumnInfo(index = true)
-    @NonNull int id_slika;
+    @NonNull public int id_slika;
 
     String naziv;
     String opis;

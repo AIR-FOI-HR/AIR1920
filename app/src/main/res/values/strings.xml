@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CultureAround</string>
+    <string name="test_button">Test</string>
 </resources>
