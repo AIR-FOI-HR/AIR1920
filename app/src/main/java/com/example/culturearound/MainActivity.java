@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
         database = MyDatabase.getInstance(this);
 
         ButterKnife.bind(this);
-        //mockData();
+        mockData();
     }
 
     @OnClick(R.id.test_button)
@@ -58,6 +58,16 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
 
     private void mockData(){
         List<Korisnik> korisnik = database.getDAO().loadAllKorisnik();
+        List<Znamenitost> znamenitosti = database.getDAO().loadAllZnamenitosti();
+
+        if(!znamenitosti.isEmpty()){
+            for(Znamenitost z : znamenitosti){
+                Log.d("Znamenitosti", "Znamenitost: " + z.getNaziv());
+            }
+        }else {
+            MockData.writeData(this);
+        }
+
         if (!korisnik.isEmpty()) {
             for (Korisnik k : korisnik) {
                 Log.d("AIRAIR","Korisnik: " + k.getIme());
@@ -74,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
 
         for (Korisnik k: korisnici) {
             listItems.add(k.getKorisnicko_ime());
+        }
+        for(Znamenitost z : znamenitosti){
+            listItems.add((z.getNaziv()));
         }
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems.toArray());

@@ -3,7 +3,9 @@ package Data;
 import android.content.Context;
 
 import com.example.database.DAO;
+import com.example.database.Entities.KategorijaZnamenitosti;
 import com.example.database.Entities.Korisnik;
+import com.example.database.Entities.Znamenitost;
 import com.example.database.MyDatabase;
 
 public class MockData {
@@ -21,5 +23,19 @@ public class MockData {
 
         //korisnik.setKorisnicko_ime(dao.insertKorisnici(korisnik));
         dao.insertKorisnici(korisnik);
+
+        //kategorija znamenitosti
+        KategorijaZnamenitosti kategorijaZnamenitosti = new KategorijaZnamenitosti();
+        kategorijaZnamenitosti.setNaziv("Muzej");
+        kategorijaZnamenitosti.setId_kategorija_znamenitosti((int)dao.insertKategorijaZnamenitosti(kategorijaZnamenitosti)[0]);
+
+        //znamenitost
+        Znamenitost znamenitost = new Znamenitost();
+        znamenitost.setNaziv("Mona Lisa");
+        znamenitost.setOpis("Stara cool slika");
+        znamenitost.setAdresa("Ulica muzeja 22");
+        znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
+
+
     }
 }
