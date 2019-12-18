@@ -39,6 +39,7 @@ dependencies {
 
     //module dependancies
     implementation project (path: ':database')
+    implementation project(path: ':core')
 
     //room database framework
     def room_version = "2.2.1"

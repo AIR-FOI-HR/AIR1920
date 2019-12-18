@@ -1,2 +1,2 @@
-include ':app', ':database'
+include ':app', ':database', ':core'
 rootProject.name='CultureAround'
