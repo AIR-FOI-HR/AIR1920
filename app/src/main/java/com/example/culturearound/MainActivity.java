@@ -51,8 +51,6 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
         DataLoader dataLoader = new DbDataLoader();
         dataLoader.loadData(this);
     }
-
-
     private void mockData(){
         List<Korisnik> korisnik = database.getDAO().loadAllKorisnik();
         List<Znamenitost> znamenitosti = database.getDAO().loadAllZnamenitosti();
@@ -77,16 +75,6 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
 
     @Override
     public void onDataLoaded(List<Korisnik> korisnici, List<Znamenitost> znamenitosti, List<Lokacija> lokacije) {
-
-        Znamenitost novaZnamenitost = new Znamenitost();
-        novaZnamenitost.setId_slika(3);
-        novaZnamenitost.setId_znamenitost(456);
-        novaZnamenitost.setId_lokacija(2);
-        novaZnamenitost.setNaziv("Wow");
-        novaZnamenitost.setAdresa("Ni tu ni tamo");
-        znamenitosti.add(novaZnamenitost);
-
-        //ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems.toArray());
         recyclerView.setAdapter(new ZnamenitostRecyclerAdapter(this, znamenitosti));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

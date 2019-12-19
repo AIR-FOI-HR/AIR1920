@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.database.DAO;
 import com.example.database.Entities.KategorijaZnamenitosti;
 import com.example.database.Entities.Korisnik;
+import com.example.database.Entities.Lokacija;
 import com.example.database.Entities.Znamenitost;
 import com.example.database.MyDatabase;
 
@@ -29,13 +30,54 @@ public class MockData {
         kategorijaZnamenitosti.setNaziv("Muzej");
         kategorijaZnamenitosti.setId_kategorija_znamenitosti((int)dao.insertKategorijaZnamenitosti(kategorijaZnamenitosti)[0]);
 
+        //lokacija
+        Lokacija novaLokacija = new Lokacija();
+        novaLokacija.setNaziv("Varaždin");
+        novaLokacija.setId_slika(2);
+        novaLokacija.setId_lokacija((int)dao.insertLokacije(novaLokacija)[0]);
+
         //znamenitost
         Znamenitost znamenitost = new Znamenitost();
-        znamenitost.setNaziv("Mona Lisa");
+        znamenitost.setNaziv("Mona Lisa1");
         znamenitost.setOpis("Stara cool slika");
         znamenitost.setAdresa("Ulica muzeja 22");
+        znamenitost.setId_slika(3);
         znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
 
+        znamenitost = new Znamenitost();
+        znamenitost.setNaziv("Kip Grgura Ninskog1");
+        znamenitost.setOpis("Kip Grgura Ninskog opis");
+        znamenitost.setAdresa("Franjevački trg, Varaždin");
+        znamenitost.setId_slika(3);
+        znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
 
+        znamenitost = new Znamenitost();
+        znamenitost.setNaziv("Gradski muzej Varaždin1");
+        znamenitost.setOpis("Gradski muzej Varaždin opis");
+        znamenitost.setAdresa("Šetalište Josipa Jurja Strossmayera 1, Varaždin");
+        znamenitost.setId_slika(3);
+        znamenitost.setId_kategorija_znamenitosti(1);
+        znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
+
+        znamenitost = new Znamenitost();
+        znamenitost.setNaziv("JosjedanMutej1");
+        znamenitost.setOpis("Gradski muzej Varaždin opis");
+        znamenitost.setAdresa("Šetalište Josipa Jurja Strossmayera 1, Varaždin");
+        znamenitost.setId_slika(3);
+        znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
+
+        znamenitost = new Znamenitost();
+        znamenitost.setNaziv("JosjedanMutej2");
+        znamenitost.setOpis("Gradski muzej Varaždin opis");
+        znamenitost.setAdresa("Šetalište Josipa Jurja Strossmayera 1, Varaždin");
+        znamenitost.setId_slika(3);
+        znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
+
+        znamenitost = new Znamenitost();
+        znamenitost.setNaziv("JosjedanMutej3");
+        znamenitost.setOpis("Gradski muzej Varaždin opis");
+        znamenitost.setAdresa("Šetalište Josipa Jurja Strossmayera 1, Varaždin");
+        znamenitost.setId_slika(3);
+        znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
     }
 }
