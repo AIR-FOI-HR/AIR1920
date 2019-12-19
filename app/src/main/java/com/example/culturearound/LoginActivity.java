@@ -50,13 +50,14 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
 
         dataLoader.loadData(this);
 
+
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validateInformation(Username.getText().toString(), Password.getText().toString());
             }
         });
-
+/*
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,12 +79,15 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
             }
         });
 
+         */
+
     }
 
     private List<Korisnik> users = new ArrayList<Korisnik>();
 
     private void validateInformation (String username, String password) {
         Boolean userExist = false;
+
         if(username.isEmpty() || password.isEmpty() ){
             Toast.makeText(this, "Niste unijeli korisničke podatke.", Toast.LENGTH_LONG).show();
         }
