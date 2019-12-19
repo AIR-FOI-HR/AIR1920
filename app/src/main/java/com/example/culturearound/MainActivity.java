@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
         mListView.setAdapter(adapter);
         */
-        DataLoader dataLoader = new DbDataLoader();
+        DataLoader dataLoader = new DbDataLoader(this);
         //DataLoader dataLoader = new WsDataLoader();
         dataLoader.loadData(this);
     }

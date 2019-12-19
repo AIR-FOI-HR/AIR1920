@@ -3,6 +3,7 @@ package com.example.culturearound;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Dao;
 
+import com.example.core.CurrentActivity;
 import com.example.core.DataLoadedListener;
 import com.example.core.DataLoader;
 import com.example.database.Entities.Korisnik;
@@ -31,15 +33,15 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
     private Button Login;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         Username = findViewById(R.id.login_username);
         Password = findViewById(R.id.login_password);
         Login = findViewById(R.id.login_button);
 
-        DataLoader dataLoader = new DbDataLoader();
+        DataLoader dataLoader = new DbDataLoader(this);
         //DataLoader dataLoader = new WsDataLoader();
 
         dataLoader.loadData(this);

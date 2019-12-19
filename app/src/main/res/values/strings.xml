@@ -4,6 +4,7 @@
     <string name="input_password">Lozinka</string>
     <string name="input_username">Korisničko ime</string>
     <string name="login_button_text">Prijavi se</string>
+    <string name="login">Prijava</string>
     <string name="test_button">Test</string>
     <string name="register_button_text">Registriraj se</string>
 </resources>
