@@ -1,6 +1,7 @@
 package com.example.culturearound;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,9 @@ import loaders.DbDataLoader;
 
 public class MainActivity extends AppCompatActivity implements DataLoadedListener {
 
+    @BindView(R.id.main_recycler)
+    RecyclerView recyclerView;
+
     public static MyDatabase database;
 
     @Override
@@ -37,6 +41,13 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
 
         ButterKnife.bind(this);
         mockData();
+        loadData();
+    }
+
+    public void loadData()
+    {
+        DataLoader dataLoader = new DbDataLoader();
+        dataLoader.loadData(this);
     }
 
 
