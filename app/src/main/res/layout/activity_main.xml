@@ -15,44 +15,56 @@
         android:layout_marginStart="0dp" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@mipmap/ic_launcher"
+        android:tag="1"
+        android:clickable="true"
+        android:onClick="kategorijaButton"/>
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="194dp"
         android:layout_marginTop="6dp"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@mipmap/ic_launcher"
+        android:tag="3"
+        android:clickable="true"
+        android:onClick="kategorijaButton"/>
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/imageView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="284dp"
         android:layout_marginTop="6dp"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@mipmap/ic_launcher"
+        android:tag="4"
+        android:clickable="true"
+        android:onClick="kategorijaButton"/>
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="108dp"
         android:layout_marginTop="8dp"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@mipmap/ic_launcher"
+        android:tag="2"
+        android:onClick="kategorijaButton"
+        />
 
     <TextView
         android:id="@+id/textMuzej"

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,9 +15,18 @@ import com.example.database.Entities.Znamenitost;
 
 import java.util.List;
 
-public class ZnamenitostRecyclerAdapter extends RecyclerView.Adapter<ZnamenitostViewHolder>{
+public class ZnamenitostRecyclerAdapter extends RecyclerView.Adapter<ZnamenitostViewHolder> {
     private Context context;
-    List<Znamenitost> znamenitosti;
+
+    public List<Znamenitost> getZnamenitosti() {
+        return znamenitosti;
+    }
+
+    public void setZnamenitosti(List<Znamenitost> znamenitosti) {
+        this.znamenitosti = znamenitosti;
+    }
+
+    private List<Znamenitost> znamenitosti;
 
 
     public ZnamenitostRecyclerAdapter(Context context, @NonNull List<Znamenitost> znamenitosti) {
