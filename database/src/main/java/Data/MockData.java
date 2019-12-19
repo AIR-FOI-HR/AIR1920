@@ -15,6 +15,7 @@ public class MockData {
     public static void writeData(Context context){
         dao = MyDatabase.getInstance(context).getDAO();
 
+
         Korisnik korisnik = new Korisnik();
         korisnik.setIme("Korisnik Ime");
         korisnik.setPrezime("Korisnik Prezime");
@@ -30,18 +31,54 @@ public class MockData {
         kategorijaZnamenitosti.setNaziv("Muzej");
         kategorijaZnamenitosti.setId_kategorija_znamenitosti((int)dao.insertKategorijaZnamenitosti(kategorijaZnamenitosti)[0]);
 
+        kategorijaZnamenitosti = new KategorijaZnamenitosti();
+        kategorijaZnamenitosti.setNaziv("Galerija");
+        kategorijaZnamenitosti.setId_kategorija_znamenitosti((int)dao.insertKategorijaZnamenitosti(kategorijaZnamenitosti)[0]);
+
+        kategorijaZnamenitosti = new KategorijaZnamenitosti();
+        kategorijaZnamenitosti.setNaziv("Spomenici");
+        kategorijaZnamenitosti.setId_kategorija_znamenitosti((int)dao.insertKategorijaZnamenitosti(kategorijaZnamenitosti)[0]);
+
+        kategorijaZnamenitosti = new KategorijaZnamenitosti();
+        kategorijaZnamenitosti.setNaziv("Šetalište");
+        kategorijaZnamenitosti.setId_kategorija_znamenitosti((int)dao.insertKategorijaZnamenitosti(kategorijaZnamenitosti)[0]);
+
         //lokacija
         Lokacija novaLokacija = new Lokacija();
         novaLokacija.setNaziv("Varaždin");
         novaLokacija.setId_slika(2);
         novaLokacija.setId_lokacija((int)dao.insertLokacije(novaLokacija)[0]);
 
+        novaLokacija = new Lokacija();
+        novaLokacija.setNaziv("Zagreb");
+        novaLokacija.setId_slika(2);
+        novaLokacija.setId_lokacija((int)dao.insertLokacije(novaLokacija)[0]);
+
+        novaLokacija = new Lokacija();
+        novaLokacija.setNaziv("Rijeka");
+        novaLokacija.setId_slika(2);
+        novaLokacija.setId_lokacija((int)dao.insertLokacije(novaLokacija)[0]);
+
+        novaLokacija = new Lokacija();
+        novaLokacija.setNaziv("Osijek");
+        novaLokacija.setId_slika(2);
+        novaLokacija.setId_lokacija((int)dao.insertLokacije(novaLokacija)[0]);
+
+        novaLokacija = new Lokacija();
+        novaLokacija.setNaziv("Dubrovnik");
+        novaLokacija.setId_slika(2);
+        novaLokacija.setId_lokacija((int)dao.insertLokacije(novaLokacija)[0]);
+
+
+
         //znamenitost
         Znamenitost znamenitost = new Znamenitost();
-        znamenitost.setNaziv("Mona Lisa1");
-        znamenitost.setOpis("Stara cool slika");
-        znamenitost.setAdresa("Ulica muzeja 22");
+        znamenitost.setNaziv("Spomenik");
+        znamenitost.setOpis("Spomenik");
+        znamenitost.setAdresa("Ulica spomenika");
         znamenitost.setId_slika(3);
+        znamenitost.setId_kategorija_znamenitosti(3);
+        znamenitost.setId_lokacija(1);
         znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
 
         znamenitost = new Znamenitost();
@@ -49,6 +86,8 @@ public class MockData {
         znamenitost.setOpis("Kip Grgura Ninskog opis");
         znamenitost.setAdresa("Franjevački trg, Varaždin");
         znamenitost.setId_slika(3);
+        znamenitost.setId_kategorija_znamenitosti(3);
+        znamenitost.setId_lokacija(1);
         znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
 
         znamenitost = new Znamenitost();
@@ -57,13 +96,16 @@ public class MockData {
         znamenitost.setAdresa("Šetalište Josipa Jurja Strossmayera 1, Varaždin");
         znamenitost.setId_slika(3);
         znamenitost.setId_kategorija_znamenitosti(1);
+        znamenitost.setId_lokacija(1);
         znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
 
         znamenitost = new Znamenitost();
-        znamenitost.setNaziv("JosjedanMutej1");
-        znamenitost.setOpis("Gradski muzej Varaždin opis");
-        znamenitost.setAdresa("Šetalište Josipa Jurja Strossmayera 1, Varaždin");
+        znamenitost.setNaziv("Šetalište Josipa Jurja Strossmayera");
+        znamenitost.setOpis("Šetalište Josipa Jurja Strossmayera");
+        znamenitost.setAdresa("Šetalište Josipa Jurja Strossmayera");
         znamenitost.setId_slika(3);
+        znamenitost.setId_kategorija_znamenitosti(4);
+        znamenitost.setId_lokacija(1);
         znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
 
         znamenitost = new Znamenitost();
@@ -71,13 +113,17 @@ public class MockData {
         znamenitost.setOpis("Gradski muzej Varaždin opis");
         znamenitost.setAdresa("Šetalište Josipa Jurja Strossmayera 1, Varaždin");
         znamenitost.setId_slika(3);
+        znamenitost.setId_kategorija_znamenitosti(1);
+        znamenitost.setId_lokacija(1);
         znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
 
         znamenitost = new Znamenitost();
         znamenitost.setNaziv("JosjedanMutej3");
         znamenitost.setOpis("Gradski muzej Varaždin opis");
-        znamenitost.setAdresa("Šetalište Josipa Jurja Strossmayera 1, Varaždin");
+        znamenitost.setAdresa("JosjedanMutej3");
         znamenitost.setId_slika(3);
+        znamenitost.setId_kategorija_znamenitosti(1);
+        znamenitost.setId_lokacija(1);
         znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
     }
 }
