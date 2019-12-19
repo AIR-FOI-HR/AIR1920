@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/logo"
         style="@style/logo"
-        android:src="@drawable/ic_lo" />
+        android:src="@drawable/ic_loo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -97,7 +97,6 @@
         <Button
             android:id="@+id/register_button"
             android:text= "@string/register_button_text"
-            android:background="#ffff00"
             style="@style/YellowButton"/>
 
 
