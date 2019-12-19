@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import android.content.Context;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,7 +32,7 @@ public class RegistryActivity extends AppCompatActivity implements DataLoadedLis
     private EditText Lozinka;
     private EditText PonoviLozinku;
     private Button Registriraj;
-    private static DAO dao;
+    //private static DAO dao;
 
 
     @Override
@@ -61,6 +61,25 @@ public class RegistryActivity extends AppCompatActivity implements DataLoadedLis
         });
 
     }
+
+
+    private static DAO dao;
+
+    public static void writeData(Context context,String ime, String prezime, String korime, String email, String lozinka){
+        dao = MyDatabase.getInstance(context).getDAO();
+
+        Korisnik korisnik = new Korisnik();
+        korisnik.setIme(ime);
+        korisnik.setPrezime(prezime);
+        korisnik.setEmail(email);
+        korisnik.setKorisnicko_ime(korime);
+        korisnik.setLozinka(lozinka);
+        dao.insertKorisnici(korisnik);
+
+
+    }
+
+
 
     private List<Korisnik> users = new ArrayList<Korisnik>();
 
@@ -91,17 +110,7 @@ public class RegistryActivity extends AppCompatActivity implements DataLoadedLis
                     Intent intent = new Intent(RegistryActivity.this, MainActivity.class);
                     startActivity(intent);
                     this.finish();
-
-                    Korisnik korisnik=new Korisnik();
-                    korisnik.setIme(ime);
-                    korisnik.setPrezime(prezime);
-                    korisnik.setEmail(email);
-                    korisnik.setKorisnicko_ime(korime);
-                    korisnik.setLozinka(lozinka);
-                    //dao = MyDatabase.getInstance().getDAO().insertKorisnici(korisnik);
-
-
-
+                    writeData(this, ime, prezime,korime,email,lozinka);
                 }
             }
             else{
