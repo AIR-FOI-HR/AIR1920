@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:tools="http://schemas.android.com/tools"
-        android:background="@drawable/template">
+        android:background="@drawable/template"
+        tools:context=".LoginActivity"
+    >
 
         <ImageView
             android:id="@+id/logo"
@@ -55,10 +56,12 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/login_button"
             android:text= "@string/login_button_text"
             style="@style/YellowButton"/>
 
         <Button
+            android:id="@+id/register_button"
             android:text= "@string/register_button_text"
             style="@style/BlueButton"/>
 
