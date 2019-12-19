@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">CultureAround</string>
     <string name="test_button">Test</string>
+    <string name="znamenitost_image"/>
+    <string name="znamenitost_name">Naziv</string>
+    <string name="znamenitost_desc">Opis</string>
 </resources>
