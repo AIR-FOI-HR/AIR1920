@@ -13,4 +13,5 @@
     <string name="re_input_email">E-mail</string>
     <string name="re_input_password">Lozinka</string>
     <string name="re_input_password2">Ponovi lozinku</string>
+    <string name="re_ponovi_lozinku">Ponovi lozinku</string>
 </resources>

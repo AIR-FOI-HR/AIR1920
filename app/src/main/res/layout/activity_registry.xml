@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/logo"
         style="@style/logo"
-        android:src="@drawable/trenutni_logo" />
+        android:src="@drawable/ic_lo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,6 +35,8 @@
             android:hint="@string/re_input_name"
             android:inputType="text"
             android:background="@drawable/inputs_line"
+            android:drawableLeft="@drawable/ic_info_outline_black_24dp"
+            android:drawablePadding="10dp"
             style="@style/input"
             />
 
@@ -43,6 +45,8 @@
             android:hint="@string/re_input_prezime"
             android:inputType="text"
             android:background="@drawable/inputs_line"
+            android:drawableLeft="@drawable/ic_info_outline_black_24dp"
+            android:drawablePadding="10dp"
             style="@style/input" />
 
         <EditText
@@ -50,6 +54,8 @@
             android:hint="@string/re_input_username"
             android:inputType="text"
             android:background="@drawable/inputs_line"
+            android:drawableLeft="@drawable/ic_person_black_24dp"
+            android:drawablePadding="10dp"
             style="@style/input" />
 
         <EditText
@@ -57,6 +63,8 @@
             android:hint="@string/re_input_email"
             android:inputType="text"
             android:background="@drawable/inputs_line"
+            android:drawableLeft="@drawable/ic_email_black_24dp"
+            android:drawablePadding="10dp"
             style="@style/input"/>
 
         <EditText
@@ -64,13 +72,17 @@
             android:hint="@string/re_input_password"
             android:inputType="textPassword"
             android:background="@drawable/inputs_line"
+            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+            android:drawablePadding="10dp"
             style="@style/input"/>
 
         <EditText
             android:id="@+id/re_password2"
-            android:hint="@string/re_input_password2"
+            android:hint="@string/re_ponovi_lozinku"
             android:inputType="textPassword"
             android:background="@drawable/inputs_line"
+            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+            android:drawablePadding="10dp"
             style="@style/input"/>
 
     </LinearLayout>
@@ -78,13 +90,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="635dp"
+        android:layout_marginTop="610dp"
         android:gravity="center"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/register_button"
             android:text= "@string/register_button_text"
+            android:background="#ffff00"
             style="@style/YellowButton"/>
 
 
