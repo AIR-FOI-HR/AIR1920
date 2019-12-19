@@ -1,6 +1,7 @@
 package com.example.culturearound;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 
 import com.example.core.DataLoadedListener;
 import com.example.core.DataLoader;
+import com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview.ZnamenitostRecyclerAdapter;
 import com.example.database.Entities.Korisnik;
 import com.example.database.Entities.Lokacija;
 import com.example.database.Entities.Znamenitost;
@@ -76,6 +78,16 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
     @Override
     public void onDataLoaded(List<Korisnik> korisnici, List<Znamenitost> znamenitosti, List<Lokacija> lokacije) {
 
+        Znamenitost novaZnamenitost = new Znamenitost();
+        novaZnamenitost.setId_slika(3);
+        novaZnamenitost.setId_znamenitost(456);
+        novaZnamenitost.setId_lokacija(2);
+        novaZnamenitost.setNaziv("Wow");
+        novaZnamenitost.setAdresa("Ni tu ni tamo");
+        znamenitosti.add(novaZnamenitost);
+
         //ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems.toArray());
+        recyclerView.setAdapter(new ZnamenitostRecyclerAdapter(this, znamenitosti));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
