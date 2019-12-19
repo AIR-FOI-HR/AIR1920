@@ -22,6 +22,7 @@ import Data.MockData;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import loaders.DataLoaderFactory;
 import loaders.DbDataLoader;
 
 public class MainActivity extends AppCompatActivity implements DataLoadedListener {
@@ -39,7 +40,13 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
         database = MyDatabase.getInstance(this);
 
         ButterKnife.bind(this);
-        mockData();
+        //mockData();
+        loadData();
+    }
+
+    private void loadData() {
+        DataLoader dataLoader = DataLoaderFactory.getDataLoader();
+        dataLoader.loadData(this);
     }
 
     @OnClick(R.id.test_button)
