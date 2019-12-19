@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,9 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
     private EditText Username;
     private EditText Password;
     private Button Login;
+    private Button Register;
+    private Button ForgottenPassword;
+    private Button UnregisteredUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,20 +56,49 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
                 validateInformation(Username.getText().toString(), Password.getText().toString());
             }
         });
+
+        Register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        ForgottenPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        UnregisteredUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     private List<Korisnik> users = new ArrayList<Korisnik>();
 
     private void validateInformation (String username, String password) {
+        Boolean userExist = false;
         if(username.isEmpty() || password.isEmpty() ){
-
+            Toast.makeText(this, "Niste unijeli korisničke podatke.", Toast.LENGTH_LONG).show();
         }
         else {
             for (Korisnik user : users ){
                 if(username.equals(user.getKorisnicko_ime()) && password.equals(user.getLozinka())){
+                    userExist=true;
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    this.finish();
                 }
+            }
+
+            if(userExist == false) {
+                Toast.makeText(this, "Unijeli ste pogrešne korisničke podatke.", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -74,4 +107,5 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
     public void onDataLoaded(List<Korisnik> korisnici, List<Znamenitost> znamenitosti, List<Lokacija> lokacije) {
         users = korisnici;
     }
+
 }
