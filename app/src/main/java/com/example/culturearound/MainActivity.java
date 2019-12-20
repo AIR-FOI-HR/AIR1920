@@ -20,6 +20,7 @@ import com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview.Znamenit
 import com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview.ZnamenitostViewHolder;
 import com.example.database.Entities.Korisnik;
 import com.example.database.Entities.Lokacija;
+import com.example.database.Entities.Slika;
 import com.example.database.Entities.Znamenitost;
 import com.example.database.MyDatabase;
 
@@ -72,11 +73,15 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
         dataLoader.loadData(this);
     }
     private void mockData(){
-        List<Korisnik> korisnik = database.getDAO().loadAllKorisnik();
+        List<Korisnik> korinici = database.getDAO().loadAllKorisnik();
         List<Znamenitost> znamenitosti = database.getDAO().loadAllZnamenitosti();
+        List<Slika> slike = database.getDAO().loadAllSlike();
 
-        //for (Znamenitost z: znamenitosti) { database.getDAO().deleteZnamenitosti(z); }
-
+        /*
+        for (Znamenitost z: znamenitosti) { database.getDAO().deleteZnamenitosti(z); }
+        for (Slika s: slike) { database.getDAO().deleteSlika(s); }
+        for (Korisnik k: korinici) { database.getDAO().deleteKorisnici(k); }
+        */
 
         if(!znamenitosti.isEmpty()){
             for(Znamenitost z : znamenitosti){
@@ -86,8 +91,8 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
             MockData.writeData(this);
         }
 
-        if (!korisnik.isEmpty()) {
-            for (Korisnik k : korisnik) {
+        if (!korinici.isEmpty()) {
+            for (Korisnik k : korinici) {
                 Log.d("AIRAIR","Korisnik: " + k.getIme());
                 Log.d("AIRAIR","Korisnik: " + k.getPrezime());
             }
