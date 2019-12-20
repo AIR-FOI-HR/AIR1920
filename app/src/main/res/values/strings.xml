@@ -29,5 +29,11 @@
     <string name="NavHome">Početna</string>
     <string name="NavProfile">Profil</string>
     <string name="NavLocation">Lokacija</string>
+    <string name="profileUserPicture">Slika </string>
+    <string name="ProfileSurname">Prezime </string>
+    <string name="ProfileName">Ime</string>
+    <string name="profileUsername">Korisničko ime</string>
+    <string name="profileEmail">Email korisnika</string>
+    <string name="profileButtonChangeData">Promijeni podatke</string>
 
 </resources>
