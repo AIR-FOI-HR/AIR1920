@@ -77,11 +77,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
         List<Znamenitost> znamenitosti = database.getDAO().loadAllZnamenitosti();
         List<Slika> slike = database.getDAO().loadAllSlike();
 
-        /*
-        for (Znamenitost z: znamenitosti) { database.getDAO().deleteZnamenitosti(z); }
-        for (Slika s: slike) { database.getDAO().deleteSlika(s); }
-        for (Korisnik k: korinici) { database.getDAO().deleteKorisnici(k); }
-        */
+
 
         if(!znamenitosti.isEmpty()){
             for(Znamenitost z : znamenitosti){

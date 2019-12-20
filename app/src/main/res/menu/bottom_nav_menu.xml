@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_location"
+        android:icon="@drawable/ikona_location"
+        android:title="@string/NavLocation" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ikona_profil"
+        android:title="@string/NavProfile" />
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ikona_pocetna"
+        android:title="@string/NavHome" />
+
+    <item
+        android:id="@+id/navigation_favorites"
+        android:icon="@drawable/ikona_favorites"
+        android:title="@string/NavFavorites" />
+
+    <item
+        android:id="@+id/navigation_recommended"
+        android:icon="@drawable/ikona_recommended"
+        android:title="@string/NavRecommended" />
+
+</menu>

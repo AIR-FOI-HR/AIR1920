@@ -8,7 +8,7 @@
     <string name="test_button">Test</string>
 
 
-    <string name="znamenitost_image"/>
+    <string name="znamenitost_image" />
     <string name="znamenitost_name">Naziv</string>
     <string name="znamenitost_desc">Opis</string>
 
@@ -20,4 +20,14 @@
     <string name="re_input_password">Lozinka</string>
     <string name="re_input_password2">Ponovi lozinku</string>
     <string name="re_ponovi_lozinku">Ponovi lozinku</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="NavRecommended">Preporuke</string>
+    <string name="NavFavorites">Favoriti</string>
+    <string name="NavHome">Početna</string>
+    <string name="NavProfile">Profil</string>
+    <string name="NavLocation">Lokacija</string>
+
 </resources>
