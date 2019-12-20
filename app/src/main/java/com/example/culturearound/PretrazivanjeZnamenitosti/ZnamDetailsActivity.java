@@ -40,6 +40,9 @@ public class ZnamDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_znam_details);
 
+        //Bundle b = getIntent().getExtras();
+        //int id = b.getInt("id");
+
         ButterKnife.bind(this);
     }
 
@@ -54,6 +57,20 @@ public class ZnamDetailsActivity extends AppCompatActivity {
             Znamenitost znamenitost =
                     MainActivity.database.getDAO().loadZnamenitostiById(znamId);
             Toast.makeText(this, znamenitost.getNaziv(), Toast.LENGTH_LONG);
+
+            textNaziv.setText(znamenitost.getNaziv());
+
+            Picasso.with(this)
+                    .load(getUrlSlikeZnamenitosti(znamenitost.getId_slika()))
+                    .into(imageZnamenitost);
+
+            textAdresa.setText(znamenitost.getAdresa());
+
+            textOpisZnamenitosti.setText(znamenitost.getOpis());
         }
+    }
+
+    private String getUrlSlikeZnamenitosti(int id_slika) {
+        return MainActivity.database.getDAO().loadSlikaById(id_slika).getImg_url();
     }
 }
