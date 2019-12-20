@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
         recyclerView.setAdapter(znamenitostRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
     public void kategorijaButton(View view) {
         if(!znamenitosti.isEmpty()){
 
@@ -120,5 +121,10 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
             else
                 Toast.makeText(this, "Ne postoje znamenitosti u ovoj kategoriji", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

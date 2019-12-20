@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
+import com.example.culturearound.PretrazivanjeZnamenitosti.ZnamDetailsActivity;
 import com.example.culturearound.R;
 import com.example.database.Entities.Znamenitost;
 import com.squareup.picasso.Picasso;
@@ -59,14 +60,18 @@ public class ZnamenitostViewHolder extends ParentViewHolder {
         Toast.makeText(
                 itemView.getContext(),
                 selectedZnamenitost.getNaziv(),
-                Toast.LENGTH_SHORT)
-                .show();
-        /*
-        Intent intent =
-                new Intent(itemView.getContext(),
-                        DiscountDetailsActivity.class);
-        intent.putExtra("id", selectedDiscount.getId());
+                Toast.LENGTH_SHORT
+        ).show();
+
+        Intent intent = new Intent(
+                itemView.getContext(),
+                ZnamDetailsActivity.class
+        );
+        intent.putExtra(
+                "id_znamenitost",
+                selectedZnamenitost.getId_znamenitost()
+        );
+
         itemView.getContext().startActivity(intent);
-         */
     }
 }

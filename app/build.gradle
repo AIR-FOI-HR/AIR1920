@@ -38,7 +38,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
     //module dependancies
-    implementation project (path: ':database')
+    implementation project(path: ':database')
     implementation project(path: ':core')
 
     //room database framework

@@ -103,6 +103,8 @@ public interface DAO {
     //CRUD nad znamenitostima
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long[] insertZnamenitosti(Znamenitost... znamenitosti);
+    @Query("SELECT * FROM znamenitost WHERE id_znamenitost = :id_znam")
+    public Znamenitost loadZnamenitostiById(int id_znam);
     @Query("SELECT * FROM znamenitost")
     public List<Znamenitost> loadAllZnamenitosti();
     @Update public void updateZnamenitosti(Znamenitost... znamenitosti);

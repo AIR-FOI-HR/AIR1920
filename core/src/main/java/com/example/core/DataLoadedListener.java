@@ -14,5 +14,4 @@ public interface DataLoadedListener {
             List<Korisnik> korisnici,
             List<Znamenitost> znamenitosti,
             List<Lokacija> lokacije);
-
 }
