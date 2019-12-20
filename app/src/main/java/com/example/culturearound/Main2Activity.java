@@ -1,8 +1,20 @@
 package com.example.culturearound;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.core.DataLoadedListener;
+import com.example.core.DataLoader;
+import com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview.ZnamenitostRecyclerAdapter;
+import com.example.database.Entities.Korisnik;
+import com.example.database.Entities.Lokacija;
+import com.example.database.Entities.Slika;
+import com.example.database.Entities.Znamenitost;
+import com.example.database.MyDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -12,8 +24,21 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class Main2Activity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+import Data.MockData;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import loaders.DbDataLoader;
+
+
+public class Main2Activity extends AppCompatActivity  {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +47,7 @@ public class Main2Activity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.navigation_home, R.id.navigation_location, R.id.navigation_profile, R.id.navigation_favorites, R.id.navigation_recommended)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
@@ -30,6 +55,8 @@ public class Main2Activity extends AppCompatActivity {
         //postavljanje listenera i postavljanje pocetnog fragmenta kod prvog otvaranja (fragment pocetne stranice)
         navView.setOnNavigationItemSelectedListener(navigationListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+
+
 
     }
 
@@ -50,6 +77,18 @@ public class Main2Activity extends AppCompatActivity {
                 case R.id.navigation_profile:
                     selectedFragment = new ProfileFragment();
                     break;
+
+                case R.id.navigation_location:
+                    selectedFragment = new LocationFragment();
+                    break;
+
+                    case R.id.navigation_favorites:
+                    selectedFragment = new FavoritesFragment();
+                    break;
+
+                    case R.id.navigation_recommended:
+                    selectedFragment = new RecommendedFragment();
+                    break;
             }
 
             //mijenjanje prethodno otvorenog fragmenta s novoodabranim
@@ -58,5 +97,7 @@ public class Main2Activity extends AppCompatActivity {
 
         }
     };
+
+
 
 }
