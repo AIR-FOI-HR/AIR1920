@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
         Username = findViewById(R.id.login_username);
         Password = findViewById(R.id.login_password);
         Login = findViewById(R.id.login_button);
+        Register = findViewById(R.id.register_button);
 
         DataLoader dataLoader = new DbDataLoader(this);
         //DataLoader dataLoader = new WsDataLoader();
@@ -57,14 +58,15 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
                 validateInformation(Username.getText().toString(), Password.getText().toString());
             }
         });
-/*
+
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(LoginActivity.this, RegistryActivity.class);
+                startActivity(intent);
             }
         });
-
+/*
         ForgottenPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
             for (Korisnik user : users ){
                 if(username.equals(user.getKorisnicko_ime()) && password.equals(user.getLozinka())){
                     userExist=true;
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
                     startActivity(intent);
                     this.finish();
                 }

@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white">
 
     <TextView
-        android:id="@+id/text_home"
+        android:id="@+id/text_home_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -19,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_recycler"
+        android:id="@+id/home_recycler"
         android:layout_width="match_parent"
         android:layout_height="536dp"
         android:layout_alignParentStart="true"
@@ -27,7 +28,7 @@
         android:layout_marginStart="0dp" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/homeImageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -40,7 +41,7 @@
         android:onClick="kategorijaButton"/>
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/homeImageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -53,7 +54,7 @@
         android:onClick="kategorijaButton"/>
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/homeImageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -66,7 +67,7 @@
         android:onClick="kategorijaButton"/>
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/homeImageView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -79,7 +80,7 @@
         />
 
     <TextView
-        android:id="@+id/textMuzej"
+        android:id="@+id/textMuzejHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -89,7 +90,7 @@
         android:text="Muzej" />
 
     <TextView
-        android:id="@+id/textGalerija"
+        android:id="@+id/textGalerijaHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -99,7 +100,7 @@
         android:text="Galerija" />
 
     <TextView
-        android:id="@+id/textSpomenici"
+        android:id="@+id/textSpomeniciHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -109,7 +110,7 @@
         android:text="Spomenici" />
 
     <TextView
-        android:id="@+id/textSetalište"
+        android:id="@+id/textSetališteHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"

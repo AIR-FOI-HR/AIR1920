@@ -109,27 +109,4 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
         recyclerView.setAdapter(znamenitostRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
-
-    public void kategorijaButton(View view) {
-        if(!znamenitosti.isEmpty()){
-
-            List<Znamenitost> prikazaneZnamenitosti = new ArrayList<>();
-            for (Znamenitost znamenitost: znamenitosti) {
-                if(znamenitost.getId_kategorija_znamenitosti() == Integer.valueOf((String) view.getTag()))
-                    prikazaneZnamenitosti.add(znamenitost);
-            }
-
-            if (!prikazaneZnamenitosti.isEmpty()){
-                znamenitostRecyclerAdapter.setZnamenitosti(prikazaneZnamenitosti);
-                znamenitostRecyclerAdapter.notifyDataSetChanged();
-            }
-            else
-                Toast.makeText(this, "Ne postoje znamenitosti u ovoj kategoriji", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
 }

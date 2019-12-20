@@ -55,7 +55,7 @@ public class ZnamDetailsActivity extends AppCompatActivity {
 
         if(znamId != -1){
             Znamenitost znamenitost =
-                    MainActivity.database.getDAO().loadZnamenitostiById(znamId);
+                    MyDatabase.getInstance(this).getDAO().loadZnamenitostiById(znamId);
             Toast.makeText(this, znamenitost.getNaziv(), Toast.LENGTH_LONG);
 
             textNaziv.setText(znamenitost.getNaziv());
@@ -71,6 +71,6 @@ public class ZnamDetailsActivity extends AppCompatActivity {
     }
 
     private String getUrlSlikeZnamenitosti(int id_slika) {
-        return MainActivity.database.getDAO().loadSlikaById(id_slika).getImg_url();
+        return  MyDatabase.getInstance(this).getDAO().loadSlikaById(id_slika).getImg_url();
     }
 }

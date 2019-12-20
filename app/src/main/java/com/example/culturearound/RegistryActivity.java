@@ -79,8 +79,6 @@ public class RegistryActivity extends AppCompatActivity implements DataLoadedLis
 
     }
 
-
-
     private List<Korisnik> users = new ArrayList<Korisnik>();
 
     private void validateInformation (String ime, String prezime, String korime, String email, String lozinka, String ponLozinku) {
@@ -107,7 +105,7 @@ public class RegistryActivity extends AppCompatActivity implements DataLoadedLis
                 else{
 
                     Toast.makeText(this, "Moze", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(RegistryActivity.this, MainActivity.class);
+                    Intent intent = new Intent(RegistryActivity.this, Main2Activity.class);
                     startActivity(intent);
                     this.finish();
                     writeData(this, ime, prezime,korime,email,lozinka);

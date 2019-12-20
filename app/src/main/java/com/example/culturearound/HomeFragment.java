@@ -32,17 +32,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import loaders.DbDataLoader;
 
-public class HomeFragment extends Fragment implements DataLoadedListener {
+public class HomeFragment extends Fragment implements DataLoadedListener, View.OnClickListener {
 
-    @BindView(R.id.imageView1)
+    @BindView(R.id.homeImageView1)
     ImageView image1;
-    @BindView(R.id.imageView2)
+    @BindView(R.id.homeImageView2)
     ImageView image2;
-    @BindView(R.id.imageView3)
+    @BindView(R.id.homeImageView3)
     ImageView image3;
-    @BindView(R.id.imageView4)
+    @BindView(R.id.homeImageView4)
     ImageView image4;
-    @BindView(R.id.main_recycler)
+    @BindView(R.id.home_recycler)
     RecyclerView recyclerView;
 
     public static MyDatabase database;
@@ -59,10 +59,16 @@ public class HomeFragment extends Fragment implements DataLoadedListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         database = MyDatabase.getInstance(getActivity());
+
         //dohvat podataka
         ButterKnife.bind(this, view);
         mockData();
         loadData();
+
+        image1.setOnClickListener(this);
+        image2.setOnClickListener(this);
+        image3.setOnClickListener(this);
+        image4.setOnClickListener(this);
     }
 
     public void loadData()
@@ -128,7 +134,12 @@ public class HomeFragment extends Fragment implements DataLoadedListener {
         }
     }
 
-
-
-
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.homeImageView1: case R.id.homeImageView2: case R.id.homeImageView3: case R.id.homeImageView4:
+                kategorijaButton(v);
+                break;
+        }
+    }
 }
