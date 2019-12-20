@@ -6,6 +6,7 @@ import com.example.database.DAO;
 import com.example.database.Entities.KategorijaZnamenitosti;
 import com.example.database.Entities.Korisnik;
 import com.example.database.Entities.Lokacija;
+import com.example.database.Entities.Slika;
 import com.example.database.Entities.Znamenitost;
 import com.example.database.MyDatabase;
 
@@ -69,6 +70,31 @@ public class MockData {
         novaLokacija.setId_slika(2);
         novaLokacija.setId_lokacija((int)dao.insertLokacije(novaLokacija)[0]);
 
+        //slika
+        Slika novaSlika = new Slika();
+        novaSlika.setImg_url("https://image.shutterstock.com/image-vector/social-member-vector-icon-person-260nw-1139787308.jpg");
+        novaSlika.setTekst_slike("Default korisnik");
+        novaSlika.setId_slika(1);
+        dao.insertSlika(novaSlika);
+
+        novaSlika = new Slika();
+        novaSlika.setImg_url("https://image.shutterstock.com/image-vector/location-icon-maps-pin-vector-260nw-1106415464.jpg");
+        novaSlika.setTekst_slike("Default Lokacija");
+        novaSlika.setId_slika(2);
+        dao.insertSlika(novaSlika);
+
+        novaSlika = new Slika();
+        novaSlika.setImg_url("https://www.graphicsfactory.com/clip-art/image_files/image/3/1595273-black-museum-vector-icon.jpg");
+        novaSlika.setTekst_slike("Default Znamenitosti");
+        novaSlika.setId_slika(3);
+        dao.insertSlika(novaSlika);
+
+        novaSlika = new Slika();
+        novaSlika.setImg_url("https://upload.wikimedia.org/wikipedia/commons/9/99/Black_square.jpg");
+        novaSlika.setTekst_slike("Statue of David");
+        novaSlika.setId_slika(4);
+        dao.insertSlika(novaSlika);
+
 
 
         //znamenitost
@@ -76,7 +102,7 @@ public class MockData {
         znamenitost.setNaziv("Spomenik");
         znamenitost.setOpis("Spomenik");
         znamenitost.setAdresa("Ulica spomenika");
-        znamenitost.setId_slika(3);
+        znamenitost.setId_slika(4);
         znamenitost.setId_kategorija_znamenitosti(3);
         znamenitost.setId_lokacija(1);
         znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
@@ -85,7 +111,7 @@ public class MockData {
         znamenitost.setNaziv("Kip Grgura Ninskog1");
         znamenitost.setOpis("Kip Grgura Ninskog opis");
         znamenitost.setAdresa("Franjevački trg, Varaždin");
-        znamenitost.setId_slika(3);
+        znamenitost.setId_slika(4);
         znamenitost.setId_kategorija_znamenitosti(3);
         znamenitost.setId_lokacija(1);
         znamenitost.setId_znamenitost((int)dao.insertZnamenitosti(znamenitost)[0]);
