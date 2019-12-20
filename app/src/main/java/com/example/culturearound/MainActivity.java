@@ -62,7 +62,13 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
 
     public void loadData()
     {
-        DataLoader dataLoader = new DbDataLoader();
+        /*
+        final List<String> listItems = database.getDAO().getKorisnickoIme();
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
+        mListView.setAdapter(adapter);
+        */
+        DataLoader dataLoader = new DbDataLoader(this);
+        //DataLoader dataLoader = new WsDataLoader();
         dataLoader.loadData(this);
     }
     private void mockData(){

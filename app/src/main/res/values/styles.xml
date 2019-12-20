@@ -1,11 +1,42 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorSecondPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="Button" >
+        <item name="android:layout_width">350dp</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_marginTop">35dp</item>
+    </style>
+
+    <style name="YellowButton" parent="Button">
+        <item name="android:background"><![CDATA[@drawable/button_yellow]]></item>
+    </style>
+
+    <style name="BlueButton" parent="Button">
+        <item name="android:background"><![CDATA[@drawable/button_blue]]></item>
+    </style>
+
+    <style name="logo">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_marginTop">40dp</item>
+        <item name="android:contentDescription">@string/logo_desc</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="input">
+        <item name="android:layout_width">350dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textColor">#CEFFFFFF</item>
+        <item name="android:textColorHint">#D3FFFFFF</item>
+        </style>
 
 </resources>
