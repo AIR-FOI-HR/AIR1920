@@ -43,7 +43,7 @@ public class ZnamenitostRecyclerAdapter extends RecyclerView.Adapter<Znamenitost
 
     @Override
     public void onBindViewHolder(@NonNull ZnamenitostViewHolder holder, int position) {
-        holder.bindToData(znamenitosti.get(position));
+        holder.bindToData(znamenitosti.get(position), context);
     }
 
 

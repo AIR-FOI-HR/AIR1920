@@ -90,6 +90,8 @@ public interface DAO {
     public long[] insertSlika(Slika... slike);
     @Query("SELECT * FROM slika")
     public List<Slika> loadAllSlike();
+    @Query("SELECT * FROM slika WHERE id_slika = :idSlika")
+    public Slika loadSlikaById(int idSlika);
     @Update public void updateSlika(Slika... slike);
     @Delete public void deleteSlika(Slika... slike);
 

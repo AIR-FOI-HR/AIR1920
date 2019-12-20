@@ -1,5 +1,6 @@
 package com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 import com.example.culturearound.PretrazivanjeZnamenitosti.ZnamDetailsActivity;
 import com.example.culturearound.R;
 import com.example.database.Entities.Znamenitost;
+import com.example.database.MyDatabase;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -41,17 +43,18 @@ public class ZnamenitostViewHolder extends ParentViewHolder {
 
 
 
-    public void bindToData(Znamenitost znamenitost){
+    public void bindToData(Znamenitost znamenitost, Context context){
         this.selectedZnamenitost = znamenitost;
         znamenitostName.setText(znamenitost.getNaziv());
         znamenitostDesc.setText(znamenitost.getOpis());
-        //dobavljanje slike je zasad hardkodirano
+
+        String urlSlike = MyDatabase.getInstance(context).getDAO()
+                .loadSlikaById(znamenitost.getId_slika()).getImg_url();;
+
         Picasso.with(itemView
                 .getContext())
-                .load("https://www.middleweb.com/wp-content/uploads/2018/04/yoda-300x222.jpg")
+                .load(urlSlike)
                 .into(znamenitostImage);
-
-
     }
 
     //Klik znamenitosti na recycleview-u
