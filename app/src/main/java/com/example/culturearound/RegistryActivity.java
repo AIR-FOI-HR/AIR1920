@@ -20,7 +20,6 @@ import com.example.database.MyDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 import loaders.DbDataLoader;
 
@@ -105,7 +104,7 @@ public class RegistryActivity extends AppCompatActivity implements DataLoadedLis
                 else{
 
                     Toast.makeText(this, "Moze", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(RegistryActivity.this, Main2Activity.class);
+                    Intent intent = new Intent(RegistryActivity.this, MainActivity.class);
                     startActivity(intent);
                     this.finish();
                     writeData(this, ime, prezime,korime,email,lozinka);

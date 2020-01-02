@@ -8,20 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.core.DataLoader;
-import com.example.culturearound.MainActivity;
 import com.example.culturearound.R;
-import com.example.database.Entities.Korisnik;
-import com.example.database.Entities.Lokacija;
 import com.example.database.Entities.Znamenitost;
 import com.example.database.MyDatabase;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import loaders.DbDataLoader;
 
 public class ZnamDetailsActivity extends AppCompatActivity {
     @BindView(R.id.textNaziv)

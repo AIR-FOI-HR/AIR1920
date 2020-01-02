@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.example.core.DataLoadedListener;
 import com.example.core.DataLoader;
-import com.example.culturearound.MainActivity;
 import com.example.database.DAO;
 import com.example.database.Entities.Korisnik;
 import com.example.database.Entities.Lokacija;
