@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "24511530827",
+    "firebase_url": "https://culturearound-1920.firebaseio.com",
+    "project_id": "culturearound-1920",
+    "storage_bucket": "culturearound-1920.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24511530827:android:b2fb7681f777607420cace",
+        "android_client_info": {
+          "package_name": "com.example.culturearound"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24511530827-gjn7alcs5vecdqd0nfoam9i1dgs95n1m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA99r0TQWtGG9b5zBT8TOID5YEkXdcE7_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24511530827-gjn7alcs5vecdqd0nfoam9i1dgs95n1m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24511530827:android:b2766278f0b81f6620cace",
+        "android_client_info": {
+          "package_name": "hr.foi.air.culturearound"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24511530827-gjn7alcs5vecdqd0nfoam9i1dgs95n1m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA99r0TQWtGG9b5zBT8TOID5YEkXdcE7_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24511530827-gjn7alcs5vecdqd0nfoam9i1dgs95n1m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
