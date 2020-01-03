@@ -12,12 +12,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginHelper extends FirebaseHelper{
 
     public LoginHelper(Context context) {
         mAuth = FirebaseAuth.getInstance();
         mContext = context;
+        database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference();
     }
 
     /**
@@ -100,6 +103,8 @@ public class LoginHelper extends FirebaseHelper{
                         if (task.isSuccessful()) {
                             Toast.makeText(mContext, "Poslana je poruka za obnovu na email.",
                                     Toast.LENGTH_LONG).show();
+                            Log.d("FirebaseTag", "Zaboravljena lozinka - email poslan.");
+                            //Postavi listener za promjene na bazi podataka za promijenjenu lozinku
                         }
                     }
                 });
