@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.core.DataLoadedListener;
 import com.example.core.DataLoader;
+import com.example.culturearound.Firebase.LoginHelper;
 import com.example.database.DAO;
 import com.example.database.Entities.Korisnik;
 import com.example.database.Entities.Lokacija;
@@ -33,6 +34,8 @@ public class RegistryActivity extends AppCompatActivity implements DataLoadedLis
     private Button Registriraj;
     //private static DAO dao;
 
+    LoginHelper loginHelper;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +53,8 @@ public class RegistryActivity extends AppCompatActivity implements DataLoadedLis
         DataLoader dataLoader = new DbDataLoader(this);
 
         dataLoader.loadData(this);
+
+        loginHelper = new LoginHelper(this);
 
 
         Registriraj.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +86,7 @@ public class RegistryActivity extends AppCompatActivity implements DataLoadedLis
     private List<Korisnik> users = new ArrayList<Korisnik>();
 
     private void validateInformation (String ime, String prezime, String korime, String email, String lozinka, String ponLozinku) {
+        /*
         Boolean userNotExist=true;
 
         if(ime.isEmpty() || prezime.isEmpty() || korime.isEmpty() || email.isEmpty() || lozinka.isEmpty() || ponLozinku.isEmpty()  ){
@@ -88,7 +94,6 @@ public class RegistryActivity extends AppCompatActivity implements DataLoadedLis
         }
         else {
             if(lozinka.equals(ponLozinku)){
-
                 for(Korisnik user:users){
                     if(korime.equals(user.getKorisnicko_ime())|| email.equals(user.getEmail())){
                         userNotExist=false;
@@ -113,8 +118,28 @@ public class RegistryActivity extends AppCompatActivity implements DataLoadedLis
             else{
                 Toast.makeText(this, "Lozinka i ponovljena lozinka nisu jednake.", Toast.LENGTH_LONG).show();
             }
-
         }
+         */
+
+        if(ime.isEmpty() || prezime.isEmpty() || email.isEmpty() || lozinka.isEmpty() || ponLozinku.isEmpty()  ){
+            Toast.makeText(this, "Niste unijeli korisničke podatke.", Toast.LENGTH_LONG).show();
+        }
+        else {
+            if(lozinka.equals(ponLozinku)){
+                loginHelper.signOut();
+                loginHelper.createAccount(ime, prezime, email, lozinka);
+
+            }
+            else{
+                Toast.makeText(this, "Lozinka i ponovljena lozinka nisu jednake.", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void pokreniPocetnuStranicu() {
+        Intent intent = new Intent(RegistryActivity.this, MainActivity.class);
+        startActivity(intent);
+        this.finish();
     }
 
     @Override
