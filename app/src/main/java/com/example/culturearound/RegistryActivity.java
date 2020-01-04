@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.core.DataLoadedListener;
 import com.example.core.DataLoader;
+import com.example.culturearound.Firebase.Listeners.LoginListener;
 import com.example.culturearound.Firebase.LoginHelper;
 import com.example.database.DAO;
 import com.example.database.Entities.Korisnik;
@@ -24,7 +25,7 @@ import java.util.List;
 
 import loaders.DbDataLoader;
 
-public class RegistryActivity extends AppCompatActivity implements DataLoadedListener {
+public class RegistryActivity extends AppCompatActivity implements DataLoadedListener, LoginListener {
     private EditText Ime;
     private EditText Prezime;
     private EditText Korime;
@@ -60,7 +61,13 @@ public class RegistryActivity extends AppCompatActivity implements DataLoadedLis
         Registriraj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateInformation(Ime.getText().toString(), Prezime.getText().toString(), Korime.getText().toString(),Email.getText().toString(),Lozinka.getText().toString(),PonoviLozinku.getText().toString());
+                validateInformation(
+                        Ime.getText().toString(),
+                        Prezime.getText().toString(),
+                        Korime.getText().toString(),
+                        Email.getText().toString(),
+                        Lozinka.getText().toString(),
+                        PonoviLozinku.getText().toString());
             }
         });
 
@@ -128,7 +135,6 @@ public class RegistryActivity extends AppCompatActivity implements DataLoadedLis
             if(lozinka.equals(ponLozinku)){
                 loginHelper.signOut();
                 loginHelper.createAccount(ime, prezime, email, lozinka);
-
             }
             else{
                 Toast.makeText(this, "Lozinka i ponovljena lozinka nisu jednake.", Toast.LENGTH_LONG).show();
@@ -145,6 +151,17 @@ public class RegistryActivity extends AppCompatActivity implements DataLoadedLis
     @Override
     public void onDataLoaded(List<Korisnik> korisnici, List<Znamenitost> znamenitosti, List<Lokacija> lokacije) {
         users = korisnici;
+    }
+
+    @Override
+    public void onLoginSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        pokreniPocetnuStranicu();
+    }
+
+    @Override
+    public void onLoginFail(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
 

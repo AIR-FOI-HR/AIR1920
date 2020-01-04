@@ -8,7 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.culturearound.Firebase.EntitiesFirebase.Korisnik;
-import com.example.culturearound.RegistryActivity;
+import com.example.culturearound.Firebase.Listeners.LoginListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -18,12 +18,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginHelper extends FirebaseHelper{
+    private LoginListener mLoginListener;
 
-    public LoginHelper(Context context) {
+
+    public LoginHelper(LoginListener context) {
         mAuth = FirebaseAuth.getInstance();
-        mContext = context;
+        mContext = (Context) context;
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference();
+
+        mLoginListener = context;
     }
 
     /**
@@ -56,12 +60,14 @@ public class LoginHelper extends FirebaseHelper{
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                Toast.makeText(mContext,"Prijava uspješna.", Toast.LENGTH_SHORT).show();
                                 Log.d("FirebaseTag", "signInWithEmail:success");
+
+                                mLoginListener.onLoginSuccess("Prijava uspješna.");
                             }
                             else {
-                                Toast.makeText(mContext, "Prijava neuspješna.", Toast.LENGTH_SHORT).show();
                                 Log.w("FirebaseTag", "signInWithEmail:failure", task.getException());
+
+                                mLoginListener.onLoginFail("Prijava neuspješna.");
                             }
                         }
                     });
@@ -85,11 +91,13 @@ public class LoginHelper extends FirebaseHelper{
                                 Log.d("FirebaseTag", "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
 
-                                Toast.makeText(mContext, "Registracija uspješna", Toast.LENGTH_SHORT).show();
                                 zapisiKorisnikaNaFirebase(user.getUid(), ime, prezime, email, password);
+
+                                mLoginListener.onLoginSuccess("Registracija uspješna");
                             } else {
                                 Log.w("FirebaseTag", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(mContext, "Registracija neuspješna.", Toast.LENGTH_SHORT).show();
+
+                                mLoginListener.onLoginFail("Registracija neuspješna.");
                             }
                         }
                     });

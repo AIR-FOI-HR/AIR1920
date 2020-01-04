@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.core.DataLoadedListener;
 import com.example.core.DataLoader;
+import com.example.culturearound.Firebase.Listeners.LoginListener;
 import com.example.culturearound.Firebase.LoginHelper;
 import com.example.database.Entities.Korisnik;
 import com.example.database.Entities.Lokacija;
@@ -22,7 +23,7 @@ import java.util.List;
 
 import loaders.DbDataLoader;
 
-public class LoginActivity extends AppCompatActivity implements DataLoadedListener {
+public class LoginActivity extends AppCompatActivity implements DataLoadedListener, LoginListener {
     private EditText txtEmail;
     private EditText txtPassword;
     private Button btnLogin;
@@ -112,8 +113,6 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
             //Firebase od ovdje:
             loginHelper.signOut();
             loginHelper.signIn(email, password);
-
-            pokreniPocetnuStranicu();
         }
     }
 
@@ -128,4 +127,14 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
         users = korisnici;
     }
 
+    @Override
+    public void onLoginSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        pokreniPocetnuStranicu();
+    }
+
+    @Override
+    public void onLoginFail(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 }
