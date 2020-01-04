@@ -23,12 +23,12 @@ import java.util.List;
 import loaders.DbDataLoader;
 
 public class LoginActivity extends AppCompatActivity implements DataLoadedListener {
-    private EditText Username;
-    private EditText Password;
-    private Button Login;
-    private Button Register;
-    private Button ForgottenPassword;
-    private Button UnregisteredUser;
+    private EditText txtEmail;
+    private EditText txtPassword;
+    private Button btnLogin;
+    private Button btnRegister;
+    private Button btnForgottenPassword;
+    private Button btnUnregisteredUser;
 
     LoginHelper loginHelper;
 
@@ -37,25 +37,30 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Username = findViewById(R.id.login_username);
-        Password = findViewById(R.id.login_password);
-        Login = findViewById(R.id.login_button);
-        Register = findViewById(R.id.register_button);
+        txtEmail = findViewById(R.id.login_email);
+        txtPassword = findViewById(R.id.login_password);
+        btnLogin = findViewById(R.id.login_button);
+        btnRegister = findViewById(R.id.register_button);
+        btnForgottenPassword = findViewById(R.id.lozinka_button);
+        btnUnregisteredUser = findViewById(R.id.bez_prijave_button);
+
 
         DataLoader dataLoader = new DbDataLoader(this);
         //DataLoader dataLoader = new WsDataLoader();
 
         dataLoader.loadData(this);
 
+        loginHelper = new LoginHelper(this);
 
-        Login.setOnClickListener(new View.OnClickListener() {
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateInformation(Username.getText().toString(), Password.getText().toString());
+                validateInformation(txtEmail.getText().toString(), txtPassword.getText().toString());
             }
         });
 
-        Register.setOnClickListener(new View.OnClickListener() {
+        btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegistryActivity.class);
@@ -63,33 +68,30 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
             }
         });
 
-        /*
-        ForgottenPassword.setOnClickListener(new View.OnClickListener() {
+        btnForgottenPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String email = txtEmail.getText().toString();
+                if(!email.isEmpty()){
+                    loginHelper.resetPassword(email);
+                }
             }
         });
 
-        UnregisteredUser.setOnClickListener(new View.OnClickListener() {
+        btnUnregisteredUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                pokreniPocetnuStranicu();
             }
         });
-
-         */
-
-        //Firebase od ovdje:
-        loginHelper = new LoginHelper(this);
     }
 
     private List<Korisnik> users = new ArrayList<Korisnik>();
 
-    private void validateInformation (String username, String password) {
+    private void validateInformation (String email, String password) {
         //Boolean userExist = false;
 
-        if(username.isEmpty() || password.isEmpty()){
+        if(email.isEmpty() || password.isEmpty()){
             Toast.makeText(this, "Niste unijeli korisničke podatke.", Toast.LENGTH_LONG).show();
         }
         else {
@@ -109,12 +111,16 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
 
             //Firebase od ovdje:
             loginHelper.signOut();
-            loginHelper.signIn(username, password);
+            loginHelper.signIn(email, password);
 
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            this.finish();
+            pokreniPocetnuStranicu();
         }
+    }
+
+    private void pokreniPocetnuStranicu() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        this.finish();
     }
 
     @Override

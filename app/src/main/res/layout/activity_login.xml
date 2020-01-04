@@ -29,7 +29,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/login_username"
+                android:id="@+id/login_email"
                 android:hint="@string/input_username"
                 android:inputType="text"
                 android:background="@drawable/inputs_line"
