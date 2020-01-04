@@ -3,6 +3,7 @@ package com.example.culturearound.Firebase;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,10 +27,12 @@ public abstract class FirebaseHelper {
                 = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            Log.d("FirebaseTag", "Internet dostupan.");
             return true;
         }
         else{
             Toast.makeText(mContext, "Internet nije dostupan!", Toast.LENGTH_LONG).show();
+            Log.d("FirebaseTag", "Internet nedostupan.");
             return false;
         }
     }

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.core.DataLoadedListener;
 import com.example.core.DataLoader;
+import com.example.culturearound.Firebase.LoginHelper;
 import com.example.database.Entities.Korisnik;
 import com.example.database.Entities.Lokacija;
 import com.example.database.Entities.Znamenitost;
@@ -28,6 +29,8 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
     private Button Register;
     private Button ForgottenPassword;
     private Button UnregisteredUser;
+
+    LoginHelper loginHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +62,8 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
                 startActivity(intent);
             }
         });
-/*
+
+        /*
         ForgottenPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,17 +80,20 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
 
          */
 
+        //Firebase od ovdje:
+        loginHelper = new LoginHelper(this);
     }
 
     private List<Korisnik> users = new ArrayList<Korisnik>();
 
     private void validateInformation (String username, String password) {
-        Boolean userExist = false;
+        //Boolean userExist = false;
 
-        if(username.isEmpty() || password.isEmpty() ){
+        if(username.isEmpty() || password.isEmpty()){
             Toast.makeText(this, "Niste unijeli korisničke podatke.", Toast.LENGTH_LONG).show();
         }
         else {
+            /*
             for (Korisnik user : users ){
                 if(username.equals(user.getKorisnicko_ime()) && password.equals(user.getLozinka())){
                     userExist=true;
@@ -95,10 +102,18 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
                     this.finish();
                 }
             }
-
             if(userExist == false) {
                 Toast.makeText(this, "Unijeli ste pogrešne korisničke podatke.", Toast.LENGTH_LONG).show();
             }
+            */
+
+            //Firebase od ovdje:
+            loginHelper.signOut();
+            loginHelper.signIn(username, password);
+
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            this.finish();
         }
     }
 

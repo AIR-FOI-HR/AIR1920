@@ -32,10 +32,12 @@ public class LoginHelper extends FirebaseHelper{
     public boolean checkIfSignedIn(){
         if(mAuth.getUid() == null) {
             Toast.makeText(mContext,"Nije ulogiran korisnik", Toast.LENGTH_SHORT).show();
+            Log.d("FirebaseTag", "Nije ulogiran korisnik");
             return false;
         }
         else {
             Toast.makeText(mContext,"Dobrodošao " + mAuth.getUid(), Toast.LENGTH_SHORT).show();
+            Log.d("FirebaseTag", "Ulogiran korisnik");
             return true;
         }
     }
@@ -46,21 +48,23 @@ public class LoginHelper extends FirebaseHelper{
      * @param password
      */
     public void signIn(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener((Activity) mContext, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(mContext,"Prijava uspješna.", Toast.LENGTH_SHORT).show();
-                            Log.d("FirebaseTag", "signInWithEmail:success");
+        if(provjeriDostupnostMreze()){
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener((Activity) mContext, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                Toast.makeText(mContext,"Prijava uspješna.", Toast.LENGTH_SHORT).show();
+                                Log.d("FirebaseTag", "signInWithEmail:success");
+                            }
+                            else {
+                                Toast.makeText(mContext, "Prijava neuspješna.", Toast.LENGTH_SHORT).show();
+                                Log.w("FirebaseTag", "signInWithEmail:failure", task.getException());
+                            }
                         }
-                        else {
-                            Toast.makeText(mContext, "Prijava neuspješna.", Toast.LENGTH_SHORT).show();
-                            Log.w("FirebaseTag", "signInWithEmail:failure", task.getException());
-                        }
-                    }
-                });
+                    });
+        }
     }
 
     /**
@@ -71,22 +75,24 @@ public class LoginHelper extends FirebaseHelper{
      * @param password
      */
     public void createAccount(String ime, String prezime, String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener((Activity) mContext, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("FirebaseTag", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+        if(provjeriDostupnostMreze()){
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener((Activity) mContext, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("FirebaseTag", "createUserWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
 
-                            Toast.makeText(mContext, "Registracija uspješna", Toast.LENGTH_SHORT).show();
-                            zapisiKorisnikaNaFirebase(user.getUid(), ime, prezime, email, password);
-                        } else {
-                            Log.w("FirebaseTag", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(mContext, "Registracija neuspješna.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "Registracija uspješna", Toast.LENGTH_SHORT).show();
+                                zapisiKorisnikaNaFirebase(user.getUid(), ime, prezime, email, password);
+                            } else {
+                                Log.w("FirebaseTag", "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(mContext, "Registracija neuspješna.", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void zapisiKorisnikaNaFirebase(String uid, String ime, String prezime, String email, String lozinka) {
@@ -100,20 +106,25 @@ public class LoginHelper extends FirebaseHelper{
      * @param email
      */
     public void resetPassword(String email){
-        mAuth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(mContext, "Poslana je poruka za obnovu na email.",
-                                    Toast.LENGTH_LONG).show();
-                            Log.d("FirebaseTag", "Zaboravljena lozinka - email poslan.");
+        if(provjeriDostupnostMreze()){
+            mAuth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(mContext, "Poslana je poruka za obnovu na email.",
+                                        Toast.LENGTH_LONG).show();
+                                Log.d("FirebaseTag", "Zaboravljena lozinka - email poslan.");
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void signOut() {
         FirebaseAuth.getInstance().signOut();
+        Toast.makeText(mContext, "Korisnik uspješno odjavljen.",
+                Toast.LENGTH_LONG).show();
+        Log.d("FirebaseTag", "Korisnik odjavljan.");
     }
 }
