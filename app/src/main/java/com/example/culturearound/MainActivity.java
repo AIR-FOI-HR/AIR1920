@@ -27,15 +27,15 @@ public class MainActivity extends AppCompatActivity  {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_location, R.id.navigation_profile, R.id.navigation_favorites, R.id.navigation_recommended)
                 .build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
 
         //postavljanje listenera i postavljanje pocetnog fragmenta kod prvog otvaranja (fragment pocetne stranice)
         navView.setOnNavigationItemSelectedListener(navigationListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new HomeFragment()).commit();
 
-
-
+        navView.setSelectedItemId(R.id.navigation_home);
     }
 
     //kreiranje listenera za klik na određenu ikonu u navigaciji
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity  {
             }
 
             //mijenjanje prethodno otvorenog fragmenta s novoodabranim
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, selectedFragment).commit();
             return true;
 
         }
