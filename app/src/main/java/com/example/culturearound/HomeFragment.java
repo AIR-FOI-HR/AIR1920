@@ -1,11 +1,12 @@
 package com.example.culturearound;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.core.CurrentActivity;
 import com.example.core.DataLoadedListener;
 import com.example.core.DataLoader;
 import com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview.ZnamenitostRecyclerAdapter;
@@ -25,29 +25,41 @@ import com.example.database.Entities.Znamenitost;
 import com.example.database.MyDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import Data.MockData;
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import loaders.DbDataLoader;
 
 public class HomeFragment extends Fragment implements DataLoadedListener, View.OnClickListener {
 
-    @BindView(R.id.homeImageView1)
-    ImageView image1;
-    @BindView(R.id.homeImageView2)
-    ImageView image2;
-    @BindView(R.id.homeImageView3)
-    ImageView image3;
-    @BindView(R.id.homeImageView4)
-    ImageView image4;
+    @BindView(R.id.btnMuzej)
+    Button btnMuzej;
+    @BindView(R.id.btnGalerija)
+    Button btnGalerija;
+    @BindView(R.id.btnSpomenik)
+    Button btnSpomenik;
+    @BindView(R.id.btnSetaliste)
+    Button btnSetaliste;
+    @BindView(R.id.btnKazaliste)
+    Button btnKazaliste;
+    @BindView(R.id.btnKino)
+    Button btnKino;
     @BindView(R.id.home_recycler)
     RecyclerView recyclerView;
+
+    @BindDrawable(R.drawable.button_yellow)
+    Drawable button_yellow;
+    @BindDrawable(R.drawable.button_blue)
+    Drawable button_blue;
 
     public static MyDatabase database;
     private List<Znamenitost> znamenitosti;
     private ZnamenitostRecyclerAdapter znamenitostRecyclerAdapter;
+    private List<View> listaGumba;
 
     @Nullable
     @Override
@@ -65,10 +77,12 @@ public class HomeFragment extends Fragment implements DataLoadedListener, View.O
         mockData();
         loadData();
 
-        image1.setOnClickListener(this);
-        image2.setOnClickListener(this);
-        image3.setOnClickListener(this);
-        image4.setOnClickListener(this);
+        listaGumba = Arrays.asList(
+                btnMuzej, btnGalerija, btnSpomenik, btnSetaliste, btnKazaliste, btnKino);
+        for (View gumb: listaGumba){
+            gumb.setOnClickListener(this);
+            gumb.setBackground(button_yellow);
+        }
     }
 
     public void loadData()
@@ -116,30 +130,37 @@ public class HomeFragment extends Fragment implements DataLoadedListener, View.O
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    public void kategorijaButton(View view) {
+    public void promijeniPrikazPodataka(List<View> listaOdabranihKategorija){
         if(!znamenitosti.isEmpty()){
-
             List<Znamenitost> prikazaneZnamenitosti = new ArrayList<>();
-            for (Znamenitost znamenitost: znamenitosti) {
-                if(znamenitost.getId_kategorija_znamenitosti() == Integer.valueOf((String) view.getTag()))
-                    prikazaneZnamenitosti.add(znamenitost);
-            }
 
-            if (!prikazaneZnamenitosti.isEmpty()){
-                znamenitostRecyclerAdapter.setZnamenitosti(prikazaneZnamenitosti);
-                znamenitostRecyclerAdapter.notifyDataSetChanged();
+            for (View kategorija: listaOdabranihKategorija){
+                for (Znamenitost znamenitost: znamenitosti) {
+                    if(znamenitost.getId_kategorija_znamenitosti() == Integer.valueOf((String) kategorija.getTag()))
+                        prikazaneZnamenitosti.add(znamenitost);
+                }
             }
-            else
-                Toast.makeText(getActivity(), "Ne postoje znamenitosti u ovoj kategoriji", Toast.LENGTH_SHORT).show();
+            if (prikazaneZnamenitosti.isEmpty()){
+                Toast.makeText(getActivity(), "Ne postoje znamenitosti u ovim kategorijama", Toast.LENGTH_SHORT).show();
+            }
+            znamenitostRecyclerAdapter.setZnamenitosti(prikazaneZnamenitosti);
+            znamenitostRecyclerAdapter.notifyDataSetChanged();
         }
+        else Toast.makeText(getActivity(), "Ni jedna znamenitost nije učitana.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.homeImageView1: case R.id.homeImageView2: case R.id.homeImageView3: case R.id.homeImageView4:
-                kategorijaButton(v);
-                break;
+        //promijeniPrikazPodataka(v);
+        if (v.getBackground() == button_yellow) v.setBackground(button_blue);
+        else v.setBackground(button_yellow);
+
+        List<View> listaOdabranihKategorija = new ArrayList<>();
+        for (View gumb: listaGumba){
+            if (gumb.getBackground() == button_yellow){
+                listaOdabranihKategorija.add(gumb);
+            }
         }
+        promijeniPrikazPodataka(listaOdabranihKategorija);
     }
 }
