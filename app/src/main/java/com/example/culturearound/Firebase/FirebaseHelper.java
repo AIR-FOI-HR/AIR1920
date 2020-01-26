@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public abstract class FirebaseHelper {
 
@@ -20,6 +21,7 @@ public abstract class FirebaseHelper {
     FirebaseDatabase database;
     //referenca na podatak unutar baze podataka
     DatabaseReference mDatabase;
+    protected Query mQuery;
 
 
     protected Boolean provjeriDostupnostMreze() {

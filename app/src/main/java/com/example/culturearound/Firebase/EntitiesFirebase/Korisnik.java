@@ -3,7 +3,7 @@ package com.example.culturearound.Firebase.EntitiesFirebase;
 import java.util.List;
 
 public class Korisnik {
-    //String uid;
+    String uid;
     String ime;
     String prezime;
     String email;
@@ -26,6 +26,21 @@ public class Korisnik {
         this.idSlika = idSlika;
     }
 
+    public Korisnik(String uid, String ime, String prezime, String email, String lozinka, int idSlika) {
+        this.uid = uid;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.email = email;
+        this.lozinka = lozinka;
+        this.idSlika = idSlika;
+    }
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
     /*
     public Korisnik(String uid, String ime, String prezime, String email, String lozinka, int idSlika) {
         this.uid = uid;

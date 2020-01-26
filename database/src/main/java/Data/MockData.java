@@ -27,6 +27,15 @@ public class MockData {
         //korisnik.setKorisnicko_ime(dao.insertKorisnici(korisnik));
         dao.insertKorisnici(korisnik);
 
+        Korisnik korisnik2 = new Korisnik();
+        korisnik.setIme("Ena");
+        korisnik.setPrezime("Fusic");
+        korisnik.setEmail("efusic@foi.hr");
+        korisnik.setKorisnicko_ime("efusic");
+        korisnik.setLozinka("ena1111");
+
+        dao.insertKorisnici(korisnik2);
+
         //kategorija znamenitosti
         KategorijaZnamenitosti kategorijaZnamenitosti = new KategorijaZnamenitosti();
         kategorijaZnamenitosti.setNaziv("Muzej");

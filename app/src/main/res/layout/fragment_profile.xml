@@ -29,22 +29,17 @@
         android:text="@string/ProfileSurname"
         android:background="@drawable/texts_line"
         style="@style/profileUserDetails" />
+
     <TextView
-        android:id="@+id/profile_username"
-        android:text="@string/profileUsername"
+        android:id="@+id/profile_email"
+        android:text="@string/profileEmail"
         android:background="@drawable/texts_line"
         android:layout_marginTop="110dp"
         style="@style/profileUserDetails" />
 
-    <TextView
-        android:id="@+id/profile_email"
-        style="@style/profileUserDetails"
-        android:background="@drawable/texts_line"
-        android:layout_marginTop="140dp"
-        android:text="@string/profileEmail" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/update_profile"
         style="@style/ButtonProfile"
         android:layout_width="199dp"
         android:layout_height="29dp"
