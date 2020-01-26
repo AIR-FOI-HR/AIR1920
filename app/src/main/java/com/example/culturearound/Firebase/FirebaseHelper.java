@@ -19,13 +19,10 @@ public abstract class FirebaseHelper {
     protected Context mContext;
     //instanca FirebaseDatabase - usluga Database
     protected FirebaseDatabase database;
-    //referenca na podatak unutar baze podataka
-<<<<<<< HEAD
-    DatabaseReference mDatabase;
-=======
+    //referenca na podatke unutar baze podataka
     protected DatabaseReference mDatabase;
     //referenca za upite
->>>>>>> 502e99b9940efd7964c2621d6f6a638f063d5058
+
     protected Query mQuery;
 
 
