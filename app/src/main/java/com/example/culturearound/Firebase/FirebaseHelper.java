@@ -18,9 +18,14 @@ public abstract class FirebaseHelper {
     //kontekst koristimo za toast i provjeru spajanja na internet
     protected Context mContext;
     //instanca FirebaseDatabase - usluga Database
-    FirebaseDatabase database;
+    protected FirebaseDatabase database;
     //referenca na podatak unutar baze podataka
+<<<<<<< HEAD
     DatabaseReference mDatabase;
+=======
+    protected DatabaseReference mDatabase;
+    //referenca za upite
+>>>>>>> 502e99b9940efd7964c2621d6f6a638f063d5058
     protected Query mQuery;
 
 

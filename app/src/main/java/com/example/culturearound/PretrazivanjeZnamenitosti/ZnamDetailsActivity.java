@@ -2,21 +2,27 @@ package com.example.culturearound.PretrazivanjeZnamenitosti;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.culturearound.Firebase.Listeners.ZnamenitostListener;
+import com.example.culturearound.Firebase.ZnamenitostiHelper;
 import com.example.culturearound.R;
-import com.example.database.Entities.Znamenitost;
+import com.example.culturearound.Firebase.EntitiesFirebase.Znamenitost;
 import com.example.database.MyDatabase;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ZnamDetailsActivity extends AppCompatActivity {
+public class ZnamDetailsActivity extends AppCompatActivity implements ZnamenitostListener {
     @BindView(R.id.textNaziv)
     TextView textNaziv;
     @BindView(R.id.imageZnamenitost)
@@ -26,17 +32,14 @@ public class ZnamDetailsActivity extends AppCompatActivity {
     @BindView(R.id.textOpisZnamenitosti)
     TextView textOpisZnamenitosti;
 
-    public static MyDatabase database;
+    private ZnamenitostiHelper znamenitostiHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_znam_details);
-
-        //Bundle b = getIntent().getExtras();
-        //int id = b.getInt("id");
-
         ButterKnife.bind(this);
+        znamenitostiHelper = new ZnamenitostiHelper((Context) this, this);
     }
 
     @Override
@@ -46,24 +49,28 @@ public class ZnamDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int znamId = intent.getIntExtra("id_znamenitost", -1);
 
+
         if(znamId != -1){
-            Znamenitost znamenitost =
-                    MyDatabase.getInstance(this).getDAO().loadZnamenitostiById(znamId);
-            Toast.makeText(this, znamenitost.getNaziv(), Toast.LENGTH_LONG);
-
-            textNaziv.setText(znamenitost.getNaziv());
-
-            Picasso.with(this)
-                    .load(getUrlSlikeZnamenitosti(znamenitost.getId_slika()))
-                    .into(imageZnamenitost);
-
-            textAdresa.setText(znamenitost.getAdresa());
-
-            textOpisZnamenitosti.setText(znamenitost.getOpis());
+            znamenitostiHelper.dohvatiZnamenitostPremaId(znamId);
         }
     }
 
-    private String getUrlSlikeZnamenitosti(int id_slika) {
-        return  MyDatabase.getInstance(this).getDAO().loadSlikaById(id_slika).getImg_url();
+    private void prikaziPodatkeZnamenitosti(Znamenitost znamenitost){
+        textNaziv.setText(znamenitost.getNaziv());
+        Picasso.with(this)
+                .load(znamenitost.getLokacijaSlike())
+                .into(imageZnamenitost);
+        textAdresa.setText(znamenitost.getAdresa());
+        textOpisZnamenitosti.setText(znamenitost.getOpis());
+    }
+
+    @Override
+    public void onLoadZnamenitostSucess(String message, List<Znamenitost> listaZnamenitosti) {
+        prikaziPodatkeZnamenitosti(listaZnamenitosti.get(0));
+    }
+
+    @Override
+    public void onLoadZnamenitostFail(String message) {
+        Log.d("ZnamenitostTag", "Load Fail");
     }
 }
