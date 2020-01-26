@@ -21,7 +21,7 @@
         <ImageView
             android:id="@+id/znamenitost_image"
             android:layout_width="match_parent"
-            android:layout_height="95dp"
+            android:layout_height="150dp"
             android:contentDescription="@string/znamenitost_image"
             android:src="@mipmap/ic_launcher"/>
 

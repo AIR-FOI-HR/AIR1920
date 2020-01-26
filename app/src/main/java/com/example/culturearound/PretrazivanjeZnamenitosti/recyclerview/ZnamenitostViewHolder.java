@@ -2,6 +2,7 @@ package com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,8 +48,9 @@ public class ZnamenitostViewHolder extends ParentViewHolder {
         znamenitostName.setText(znamenitost.getNaziv());
         znamenitostDesc.setText(znamenitost.getOpis());
 
-        String urlSlike = znamenitost.getLokacijaSlike();;
+        String urlSlike = znamenitost.getLokacijaSlike();
 
+        Log.d("Picasso", "Učitavanje slike...");
         Picasso.with(itemView
                 .getContext())
                 .load(urlSlike)

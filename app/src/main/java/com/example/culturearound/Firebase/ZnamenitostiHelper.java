@@ -15,11 +15,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ZnamenitostiHelper extends FirebaseHelper {
     private ZnamenitostListener znamenitostListener;
-    List<Znamenitost> listaZnamenitosti;
 
     public ZnamenitostiHelper(Context context, ZnamenitostListener znamenitostListener) {
         Log.d("FirebaseTag", "Konstruktor ZnamenitostiHelper");
@@ -30,8 +30,6 @@ public class ZnamenitostiHelper extends FirebaseHelper {
         mDatabase = database.getReference();
         Log.d("FirebaseTag", "Postavljanje listenera...");
         this.znamenitostListener = znamenitostListener;
-
-        listaZnamenitosti = new ArrayList<>();
     }
 
     public void dohvatiSveZnamenitosti(){
@@ -43,13 +41,13 @@ public class ZnamenitostiHelper extends FirebaseHelper {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Log.d("FirebaseTag", "Dohvaćanje djece...");
-                    listaZnamenitosti = new ArrayList<>();
+                    List<Znamenitost> listaZnamenitosti = new ArrayList<>();
                     for (DataSnapshot temp : dataSnapshot.getChildren()){
                         Znamenitost znamenitost = new Znamenitost();
-                        Log.d("FirebaseTag", "Dohvaćeno dijete...spremam id...");
-                        znamenitost.setIdZnamenitosti(Integer.parseInt(temp.getKey()));
                         Log.d("FirebaseTag", "... spremam ostatak...");
                         znamenitost = temp.getValue(Znamenitost.class);
+                        Log.d("FirebaseTag", "Dohvaćeno dijete...spremam id...");
+                        znamenitost.setIdZnamenitosti(Integer.parseInt(temp.getKey()));
                         listaZnamenitosti.add(znamenitost);
                     }
                     Log.d("FirebaseTag", "Dohvaćene znamenitosti");
@@ -67,5 +65,23 @@ public class ZnamenitostiHelper extends FirebaseHelper {
         Log.d("FirebaseTag", "Sjeo query listener.");
     }
 
+    public void dohvatiZnamenitostPremaId(int idZnamenitosti){
+        mQuery = mDatabase.child("znamenitost").child(Integer.toString(idZnamenitosti));
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Znamenitost znamenitost = new Znamenitost();
+                znamenitost = dataSnapshot.getValue(Znamenitost.class);
+                znamenitost.setIdZnamenitosti(Integer.parseInt(dataSnapshot.getKey()));
+                znamenitostListener.onLoadSucess("Uspješno dohvaćanje - listener", Arrays.asList(znamenitost));
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("FirebaseTag", "Nije dohvaćena znamenitost");
+                Toast.makeText(mContext, "Nisi uspio skinut podatke o znamenitosti.", Toast.LENGTH_LONG).show();
+                znamenitostListener.onLoadFail("Neuspješno dohvaćanje bajo moj - listener");
+            }
+        });
+    }
 }
