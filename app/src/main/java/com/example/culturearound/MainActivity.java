@@ -3,6 +3,7 @@ package com.example.culturearound;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.core.CurrentActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -33,9 +34,10 @@ public class MainActivity extends AppCompatActivity  {
 
         //postavljanje listenera i postavljanje pocetnog fragmenta kod prvog otvaranja (fragment pocetne stranice)
         navView.setOnNavigationItemSelectedListener(navigationListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new HomeFragment()).commit();
 
         navView.setSelectedItemId(R.id.navigation_home);
+
+        CurrentActivity.setActivity(this);
     }
 
     //kreiranje listenera za klik na određenu ikonu u navigaciji

@@ -23,7 +23,7 @@ import java.util.List;
 
 import loaders.DbDataLoader;
 
-public class LoginActivity extends AppCompatActivity implements DataLoadedListener, LoginListener {
+public class LoginActivity extends AppCompatActivity implements LoginListener {
     private EditText txtEmail;
     private EditText txtPassword;
     private Button btnLogin;
@@ -44,12 +44,6 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
         btnRegister = findViewById(R.id.register_button);
         btnForgottenPassword = findViewById(R.id.lozinka_button);
         btnUnregisteredUser = findViewById(R.id.bez_prijave_button);
-
-
-        DataLoader dataLoader = new DbDataLoader(this);
-        //DataLoader dataLoader = new WsDataLoader();
-
-        dataLoader.loadData(this);
 
         loginHelper = new LoginHelper(this);
 
@@ -96,19 +90,6 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
             Toast.makeText(this, "Niste unijeli korisničke podatke.", Toast.LENGTH_LONG).show();
         }
         else {
-            /*
-            for (Korisnik user : users ){
-                if(username.equals(user.getKorisnicko_ime()) && password.equals(user.getLozinka())){
-                    userExist=true;
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    this.finish();
-                }
-            }
-            if(userExist == false) {
-                Toast.makeText(this, "Unijeli ste pogrešne korisničke podatke.", Toast.LENGTH_LONG).show();
-            }
-            */
 
             //Firebase od ovdje:
             loginHelper.signOut();
@@ -120,11 +101,6 @@ public class LoginActivity extends AppCompatActivity implements DataLoadedListen
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         this.finish();
-    }
-
-    @Override
-    public void onDataLoaded(List<Korisnik> korisnici, List<Znamenitost> znamenitosti, List<Lokacija> lokacije) {
-        users = korisnici;
     }
 
     @Override

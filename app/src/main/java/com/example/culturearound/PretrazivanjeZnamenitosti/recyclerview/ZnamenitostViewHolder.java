@@ -12,8 +12,7 @@ import androidx.annotation.NonNull;
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 import com.example.culturearound.PretrazivanjeZnamenitosti.ZnamDetailsActivity;
 import com.example.culturearound.R;
-import com.example.database.Entities.Znamenitost;
-import com.example.database.MyDatabase;
+import com.example.culturearound.Firebase.EntitiesFirebase.Znamenitost;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -48,8 +47,7 @@ public class ZnamenitostViewHolder extends ParentViewHolder {
         znamenitostName.setText(znamenitost.getNaziv());
         znamenitostDesc.setText(znamenitost.getOpis());
 
-        String urlSlike = MyDatabase.getInstance(context).getDAO()
-                .loadSlikaById(znamenitost.getId_slika()).getImg_url();;
+        String urlSlike = znamenitost.getLokacijaSlike();;
 
         Picasso.with(itemView
                 .getContext())
@@ -72,7 +70,7 @@ public class ZnamenitostViewHolder extends ParentViewHolder {
         );
         intent.putExtra(
                 "id_znamenitost",
-                selectedZnamenitost.getId_znamenitost()
+                selectedZnamenitost.getIdZnamenitosti()
         );
 
         itemView.getContext().startActivity(intent);

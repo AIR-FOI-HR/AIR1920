@@ -1,6 +1,7 @@
 package com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,24 +9,24 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.culturearound.Firebase.EntitiesFirebase.Znamenitost;
 import com.example.culturearound.R;
-import com.example.database.Entities.Znamenitost;
 
 import java.util.List;
 
 public class ZnamenitostRecyclerAdapter extends RecyclerView.Adapter<ZnamenitostViewHolder> {
     private Context context;
+    private List<Znamenitost> znamenitosti;
 
     public List<Znamenitost> getZnamenitosti() {
         return znamenitosti;
     }
 
     public void setZnamenitosti(List<Znamenitost> znamenitosti) {
+        Log.d("RecyAdapter", "Setting znamenitosti...");
         this.znamenitosti = znamenitosti;
+        Log.d("RecyAdapter", "Setting znamenitosti DONE.");
     }
-
-    private List<Znamenitost> znamenitosti;
-
 
     public ZnamenitostRecyclerAdapter(Context context, @NonNull List<Znamenitost> znamenitosti) {
         this.context = context;
@@ -41,7 +42,9 @@ public class ZnamenitostRecyclerAdapter extends RecyclerView.Adapter<Znamenitost
 
     @Override
     public void onBindViewHolder(@NonNull ZnamenitostViewHolder holder, int position) {
+        Log.d("RecyAdapter", "Bindat na viewHolder...");
         holder.bindToData(znamenitosti.get(position), context);
+        Log.d("RecyAdapter", "Bindat na viewHolder DONE.");
     }
 
 

@@ -27,13 +27,13 @@ public class Korisnik {
     }
 
     /*
-    public Korisnik(String uid, String ime, String prezime, String email, String lozinka, int idSlika) {
+    public Korisnik(String uid, String ime, String prezime, String email, String lozinka, int lokacijaSlike) {
         this.uid = uid;
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
         this.lozinka = lozinka;
-        this.idSlika = idSlika;
+        this.lokacijaSlike = lokacijaSlike;
     }
     public String getUid() {
         return uid;
