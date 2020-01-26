@@ -76,10 +76,12 @@
         android:orientation="horizontal"
         android:gravity="center_horizontal">
 
-        <TextView
+        <Button
+            android:id="@+id/btnLokacija"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Ovdje gradovi:"/>
+            android:layout_height="wrap_content"
+            android:text="Odaberi gradove"
+            android:background="@drawable/button_blue"/>
     </LinearLayout>
 
     <LinearLayout

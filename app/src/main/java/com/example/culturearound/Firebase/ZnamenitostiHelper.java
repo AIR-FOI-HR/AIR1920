@@ -51,14 +51,14 @@ public class ZnamenitostiHelper extends FirebaseHelper {
                         listaZnamenitosti.add(znamenitost);
                     }
                     Log.d("FirebaseTag", "Dohvaćene znamenitosti");
-                    znamenitostListener.onLoadSucess("Uspješno dohvaćanje - listener", listaZnamenitosti);
+                    znamenitostListener.onLoadZnamenitostSucess("Uspješno dohvaćanje - listener", listaZnamenitosti);
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Log.d("FirebaseTag", "Nisu dohvaćene znamenitosti");
                     Toast.makeText(mContext, "Nisi uspio skinut podatke.", Toast.LENGTH_LONG).show();
-                    znamenitostListener.onLoadFail("Neuspješno dohvaćanje bajo moj - listener");
+                    znamenitostListener.onLoadZnamenitostFail("Neuspješno dohvaćanje bajo moj - listener");
                 }
             });
         }
@@ -73,14 +73,14 @@ public class ZnamenitostiHelper extends FirebaseHelper {
                 Znamenitost znamenitost = new Znamenitost();
                 znamenitost = dataSnapshot.getValue(Znamenitost.class);
                 znamenitost.setIdZnamenitosti(Integer.parseInt(dataSnapshot.getKey()));
-                znamenitostListener.onLoadSucess("Uspješno dohvaćanje - listener", Arrays.asList(znamenitost));
+                znamenitostListener.onLoadZnamenitostSucess("Uspješno dohvaćanje - listener", Arrays.asList(znamenitost));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("FirebaseTag", "Nije dohvaćena znamenitost");
                 Toast.makeText(mContext, "Nisi uspio skinut podatke o znamenitosti.", Toast.LENGTH_LONG).show();
-                znamenitostListener.onLoadFail("Neuspješno dohvaćanje bajo moj - listener");
+                znamenitostListener.onLoadZnamenitostFail("Neuspješno dohvaćanje bajo moj - listener");
             }
         });
     }

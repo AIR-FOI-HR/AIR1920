@@ -1,5 +1,7 @@
 package com.example.culturearound;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,12 +18,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.core.CurrentActivity;
+import com.example.culturearound.Firebase.EntitiesFirebase.Lokacija;
+import com.example.culturearound.Firebase.Listeners.LokacijaListener;
 import com.example.culturearound.Firebase.Listeners.ZnamenitostListener;
+import com.example.culturearound.Firebase.LokacijaHelper;
 import com.example.culturearound.Firebase.ZnamenitostiHelper;
 import com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview.ZnamenitostRecyclerAdapter;
 import com.example.culturearound.Firebase.EntitiesFirebase.Znamenitost;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +34,7 @@ import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends Fragment implements View.OnClickListener, ZnamenitostListener {
+public class HomeFragment extends Fragment implements View.OnClickListener, ZnamenitostListener, LokacijaListener {
 
     @BindView(R.id.btnMuzej)
     Button btnMuzej;
@@ -44,6 +48,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
     Button btnKazaliste;
     @BindView(R.id.btnKino)
     Button btnKino;
+    @BindView(R.id.btnLokacija)
+    Button btnLokacija;
     @BindView(R.id.home_recycler)
     RecyclerView recyclerView;
 
@@ -54,10 +60,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
 
     private List<Znamenitost> znamenitosti;
     private ZnamenitostRecyclerAdapter znamenitostRecyclerAdapter;
-    private List<View> listaGumba;
+    private List<View> listaGumbaKategorije;
     private List<View> listaOdabranihKategorija;
+    private List<Lokacija> listaLokacija;
+    private List<Lokacija> listaOdabranihLokacija;
 
     private ZnamenitostiHelper znamenitostiHelper;
+    private LokacijaHelper lokacijaHelper;
 
     @Nullable
     @Override
@@ -77,14 +86,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         //rad s kategorijama
-        listaGumba = Arrays.asList(
+        listaGumbaKategorije = Arrays.asList(
                 btnMuzej, btnGalerija, btnSpomenik, btnSetaliste, btnKazaliste, btnKino);
-        for (View gumb: listaGumba){
+        for (View gumb: listaGumbaKategorije){
             gumb.setOnClickListener(this);
             gumb.setBackground(button_yellow);
         }
-        listaOdabranihKategorija = listaGumba;
+        listaOdabranihKategorija = listaGumbaKategorije;
 
+        //rad s lokacijama
+        listaLokacija = new ArrayList<>();
+        listaOdabranihLokacija = new ArrayList<>();
+        btnLokacija.setOnClickListener(this::onClick);
+        btnLokacija.setBackground(button_blue);
+        lokacijaHelper = new LokacijaHelper(CurrentActivity.getActivity(), this);
+
+        //rad s znamenitostima
         Log.d("RecyAdapter", "Inicijalizirat helper...");
         znamenitostiHelper = new ZnamenitostiHelper(CurrentActivity.getActivity(), this);
         Log.d("RecyAdapter", "Inicijalizirat dohvaćanje...");
@@ -96,18 +113,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
         if (!znamenitosti.isEmpty()){
             List<Znamenitost> prikazaneZnamenitosti = new ArrayList<Znamenitost>();
 
-            for (View kategorija: listaOdabranihKategorija){
-                for (Znamenitost znamenitost: znamenitosti) {
-                    Log.d("FirebaseTag", "IF (kategorije)" + znamenitost.getIdKategorijaZnamenitosti() + " jednako " + Integer.valueOf((String) kategorija.getTag()));
-                    if (znamenitost.getIdKategorijaZnamenitosti() == Integer.valueOf((String) kategorija.getTag())){
-                        Log.d("FirebaseTag", "TRUE - dodajem na listu.");
-                        prikazaneZnamenitosti.add(znamenitost);
-                    }
-                }
-            }
+            if (!listaOdabranihKategorija.isEmpty())
+                prikazaneZnamenitosti = filtrirajZnamenitostiPremaKategoriji(prikazaneZnamenitosti);
+
+            if (!listaOdabranihLokacija.isEmpty() && !prikazaneZnamenitosti.isEmpty())
+                prikazaneZnamenitosti = filtrirajZnamenitostiPremaLokaciji(prikazaneZnamenitosti);
+
             if (prikazaneZnamenitosti.isEmpty()){
-                Log.d("FirebaseTag", "Ne postoje znamenitosti u ovim kategorijama");
-                Toast.makeText(getActivity(), "Ne postoje znamenitosti u ovim kategorijama", Toast.LENGTH_SHORT).show();
+                Log.d("FirebaseTag", "Ne postoje tražene znamenitosti");
+                Toast.makeText(getActivity(), "Ne postoje tražene znamenitosti", Toast.LENGTH_SHORT).show();
             }
             Log.d("RecyAdapter", "RecyAdapter - Postavi novu listu znamenitosti na adapter...");
             znamenitostRecyclerAdapter.setZnamenitosti(prikazaneZnamenitosti);
@@ -120,24 +134,116 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        //promijeniPrikazPodataka(v);
-        if (v.getBackground() == button_yellow) v.setBackground(button_blue);
-        else v.setBackground(button_yellow);
-
-        listaOdabranihKategorija = new ArrayList<>();
-        for (View gumb: listaGumba){
-            if (gumb.getBackground() == button_yellow){
-                listaOdabranihKategorija.add(gumb);
+    private List<Znamenitost> filtrirajZnamenitostiPremaKategoriji(List<Znamenitost> prikazaneZnamenitosti){
+        for (View kategorija: listaOdabranihKategorija){
+            for (Znamenitost znamenitost: znamenitosti) {
+                Log.d("FirebaseTag", "IF (kategorije)" + znamenitost.getIdKategorijaZnamenitosti() + " jednako " + Integer.valueOf((String) kategorija.getTag()));
+                if (znamenitost.getIdKategorijaZnamenitosti() == Integer.valueOf((String) kategorija.getTag())){
+                    Log.d("FirebaseTag", "TRUE - dodajem na listu.");
+                    prikazaneZnamenitosti.add(znamenitost);
+                }
             }
         }
-        promijeniPrikazPodataka();
+        return prikazaneZnamenitosti;
+    }
+
+    private List<Znamenitost> filtrirajZnamenitostiPremaLokaciji(List<Znamenitost> prikazaneZnamenitosti){
+        Log.d("LokacijaTag", "Kreće filtriranje prema Lokaciji");
+        List<Znamenitost> filtriraneZnamenitosti = new ArrayList<>();
+        for (Znamenitost znamenitost: prikazaneZnamenitosti){
+            for (Lokacija lokacija: listaOdabranihLokacija){
+                Log.d("LokacijaTag", "Usporedba: " + znamenitost.getIdLokacija() + " i " + lokacija.getIdLokacija());
+                if (znamenitost.getIdLokacija() == lokacija.getIdLokacija()) filtriraneZnamenitosti.add(znamenitost);
+            }
+        }
+        return filtriraneZnamenitosti;
+    }
+
+
+
+    @Override
+    public void onClick(View v) {
+        if (v != btnLokacija){
+            if (v.getBackground() == button_yellow) v.setBackground(button_blue);
+            else v.setBackground(button_yellow);
+
+            listaOdabranihKategorija = new ArrayList<>();
+            for (View gumb: listaGumbaKategorije){
+                if (gumb.getBackground() == button_yellow){
+                    listaOdabranihKategorija.add(gumb);
+                }
+            }
+            promijeniPrikazPodataka();
+        }
+        else if (listaLokacija.isEmpty()){
+            Log.d("LokacijaTag", "Krećem dohvaćati sve lokacije...");
+            lokacijaHelper.dohvatiSveLokacije();
+        }
+        else {
+            if (listaOdabranihLokacija.isEmpty()){
+                Log.d("LokacijaTag", "Odabrane lokacije prazne pa idem na odabirLokacija...");
+                odabirLokacija();
+            }
+            else {
+                btnLokacija.setBackground(button_blue);
+                btnLokacija.setText("Odaberi gradove");
+                listaOdabranihLokacija.clear();
+            }
+            promijeniPrikazPodataka();
+        }
+    }
+
+    private void odabirLokacija(){
+        Log.d("LokacijaTag", "Počinje odabir lokacija...");
+        int brojLokacija = listaLokacija.size();
+        String[] poljeLokacija = new String[brojLokacija];
+        final boolean[] oznaceneLokacije = new boolean[brojLokacija];
+        int brojac = 0;
+        Log.d("LokacijaTag", "Listanje lokacija...");
+        for (Lokacija pojedinaLokacija: listaLokacija){
+            Log.d("LokacijaTag", pojedinaLokacija.getNaziv() + " je dohvaćena.");
+            poljeLokacija[brojac] = pojedinaLokacija.getNaziv();
+            Log.d("LokacijaTag", "Označavamo false...");
+            oznaceneLokacije[brojac] = false;
+            Log.d("LokacijaTag", "Povećavamo brojač...");
+            brojac++;
+        }
+        Log.d("LokacijaTag","Stvaranje višestrukog odabira lokacija...");
+        //Stvaranje forme odabira Lokacija
+        AlertDialog.Builder visestrukiOdabirLokacija = new AlertDialog.Builder(getActivity());
+        visestrukiOdabirLokacija.setTitle("Odaberite lokacije");
+        visestrukiOdabirLokacija.setMultiChoiceItems(poljeLokacija, oznaceneLokacije, new DialogInterface.OnMultiChoiceClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                oznaceneLokacije[which] = isChecked;
+            }
+        });
+        visestrukiOdabirLokacija.setPositiveButton("Odaberi", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String tekstGumba = "";
+                for (int i = 0; i<brojLokacija; i++){
+                    if (oznaceneLokacije[i]){
+                        for (Lokacija lokacija: listaLokacija){
+                            if (poljeLokacija[i] == lokacija.getNaziv())
+                                listaOdabranihLokacija.add(lokacija);
+                        }
+                        btnLokacija.setBackground(button_yellow);
+                        tekstGumba += poljeLokacija[i] + " ";
+                    }
+                }
+                if (tekstGumba != "") btnLokacija.setText(tekstGumba);
+                promijeniPrikazPodataka();
+            }
+        });
+        visestrukiOdabirLokacija.setNeutralButton("Otkaži", null);
+        AlertDialog dialog = visestrukiOdabirLokacija.create();
+        dialog.show();
     }
 
     @Override
-    public void onLoadSucess(String message, List<Znamenitost> listaZnamenitosti) {
-        Log.d("FirebaseTag", "Load Sucess");
+    public void onLoadZnamenitostSucess(String message, List<Znamenitost> listaZnamenitosti) {
+        Log.d("FirebaseTag", message);
         if (!listaZnamenitosti.isEmpty()){
             this.znamenitosti = listaZnamenitosti;
             Log.d("FirebaseTag", "... i sad pokreće s popunjenom listom prikaz - Load Sucess");
@@ -147,7 +253,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
     }
 
     @Override
-    public void onLoadFail(String message) {
-        Log.d("FirebaseTag", "Load Fail");
+    public void onLoadZnamenitostFail(String message) {
+        Log.d("FirebaseTag", message);
+    }
+
+    @Override
+    public void onLoadLokacijaSucess(String message, List<Lokacija> listaLokacija) {
+        this.listaLokacija = listaLokacija;
+        Log.d("LokacijaTag", message);
+        Log.d("LokacijaTag", "Dohvaćeno " + listaLokacija.size() + " lokacija.");
+        odabirLokacija();
+    }
+
+    @Override
+    public void onLoadLokacijaFail(String message) {
+        Log.d("LokacijaTag", message);
     }
 }

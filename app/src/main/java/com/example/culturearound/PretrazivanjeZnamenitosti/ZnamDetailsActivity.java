@@ -65,12 +65,12 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
     }
 
     @Override
-    public void onLoadSucess(String message, List<Znamenitost> listaZnamenitosti) {
+    public void onLoadZnamenitostSucess(String message, List<Znamenitost> listaZnamenitosti) {
         prikaziPodatkeZnamenitosti(listaZnamenitosti.get(0));
     }
 
     @Override
-    public void onLoadFail(String message) {
+    public void onLoadZnamenitostFail(String message) {
         Log.d("FirebaseTag", "Load Fail");
     }
 }

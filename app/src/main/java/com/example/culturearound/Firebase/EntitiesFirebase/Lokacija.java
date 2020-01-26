@@ -3,16 +3,14 @@ package com.example.culturearound.Firebase.EntitiesFirebase;
 public class Lokacija {
     int idLokacija;
     String naziv;
-    String opis;
     int idSlika;
 
     public Lokacija() {
     }
 
-    public Lokacija(int idLokacija, String naziv, String opis, int idSlika) {
+    public Lokacija(int idLokacija, String naziv, int idSlika) {
         this.idLokacija = idLokacija;
         this.naziv = naziv;
-        this.opis = opis;
         this.idSlika = idSlika;
     }
 
@@ -30,14 +28,6 @@ public class Lokacija {
 
     public void setNaziv(String naziv) {
         this.naziv = naziv;
-    }
-
-    public String getOpis() {
-        return opis;
-    }
-
-    public void setOpis(String opis) {
-        this.opis = opis;
     }
 
     public int getIdSlika() {
