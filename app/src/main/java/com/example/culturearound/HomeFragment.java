@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -55,10 +56,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
     @BindView(R.id.trazilica)
     SearchView trazilica;
 
-    @BindDrawable(R.drawable.button_yellow)
-    Drawable button_yellow;
-    @BindDrawable(R.drawable.button_blue)
-    Drawable button_blue;
+    @BindDrawable(R.drawable.button_kategorija_on)
+    Drawable button_kategorija_on;
+    @BindDrawable(R.drawable.button_kategorija_off)
+    Drawable button_kategorija_off;
 
     private List<Znamenitost> znamenitosti;
     private ZnamenitostRecyclerAdapter znamenitostRecyclerAdapter;
@@ -119,7 +120,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
                 btnMuzej, btnGalerija, btnSpomenik, btnSetaliste, btnKazaliste, btnKino);
         for (View gumb: listaGumbaKategorije){
             gumb.setOnClickListener(this);
-            gumb.setBackground(button_yellow);
+            gumb.setBackground(button_kategorija_on);
         }
         listaOdabranihKategorija = listaGumbaKategorije;
 
@@ -127,7 +128,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
         listaLokacija = new ArrayList<>();
         listaOdabranihLokacija = new ArrayList<>();
         btnLokacija.setOnClickListener(this::onClick);
-        btnLokacija.setBackground(button_blue);
+        btnLokacija.setBackground(button_kategorija_off);
         lokacijaHelper = new LokacijaHelper(CurrentActivity.getActivity(), this);
 
         //rad s znamenitostima
@@ -220,7 +221,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
                             if (poljeLokacija[i] == lokacija.getNaziv())
                                 listaOdabranihLokacija.add(lokacija);
                         }
-                        btnLokacija.setBackground(button_yellow);
+                        if (!btnLokacija.getBackground().equals(button_kategorija_on))
+                            btnLokacija.setBackground(button_kategorija_on);
                         tekstGumba += poljeLokacija[i] + " ";
                     }
                 }
@@ -236,12 +238,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
     @Override
     public void onClick(View v) {
         if (v != btnLokacija){
-            if (v.getBackground() == button_yellow) v.setBackground(button_blue);
-            else v.setBackground(button_yellow);
+            if (v.getBackground() == button_kategorija_on) v.setBackground(button_kategorija_off);
+            else v.setBackground(button_kategorija_on);
 
             listaOdabranihKategorija = new ArrayList<>();
             for (View gumb: listaGumbaKategorije){
-                if (gumb.getBackground() == button_yellow){
+                if (gumb.getBackground() == button_kategorija_on){
                     listaOdabranihKategorija.add(gumb);
                 }
             }
@@ -255,7 +257,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
                 odabirLokacija();
             }
             else {
-                btnLokacija.setBackground(button_blue);
+                btnLokacija.setBackground(button_kategorija_off);
                 btnLokacija.setText("Odaberi gradove");
                 listaOdabranihLokacija.clear();
             }
