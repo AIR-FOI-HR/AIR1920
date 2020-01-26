@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -51,6 +52,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
     Button btnLokacija;
     @BindView(R.id.home_recycler)
     RecyclerView recyclerView;
+    @BindView(R.id.trazilica)
+    SearchView trazilica;
 
     @BindDrawable(R.drawable.button_yellow)
     Drawable button_yellow;
@@ -84,6 +87,33 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
         recyclerView.setAdapter(znamenitostRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        //rad s tražilicom
+        trazilica.setOnQueryTextListener(
+            new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    trazilica.clearFocus();
+                    return false;
+                }
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    pretraziTrazilicom();
+                    return false;
+                }
+            }
+        );
+        trazilica.setOnCloseListener(
+            new SearchView.OnCloseListener() {
+                @Override
+                public boolean onClose() {
+                    Log.d("trazilicaTag", "Close");
+                    trazilica.clearFocus();
+                    promijeniPrikazPodataka();
+                    return false;
+                }
+            }
+        );
+
         //rad s kategorijama
         listaGumbaKategorije = Arrays.asList(
                 btnMuzej, btnGalerija, btnSpomenik, btnSetaliste, btnKazaliste, btnKino);
@@ -103,6 +133,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
         //rad s znamenitostima
         znamenitostiHelper = new ZnamenitostiHelper(CurrentActivity.getActivity(), this);
         znamenitostiHelper.dohvatiSveZnamenitosti();
+    }
+
+    private void pretraziTrazilicom(){
+        Log.d("trazilicaTag", "On Click");
+        List<Znamenitost> prikazaneZnamenitosti = new ArrayList<Znamenitost>();
+        for (Znamenitost znamenitost: znamenitosti){
+            if (znamenitost.getNaziv().toLowerCase().contains(trazilica.getQuery().toString().toLowerCase()))
+                prikazaneZnamenitosti.add(znamenitost);
+        }
+        znamenitostRecyclerAdapter.setZnamenitosti(prikazaneZnamenitosti);
+        znamenitostRecyclerAdapter.notifyDataSetChanged();
     }
 
     //promjenom odabira lokacije ili kategorija mijenjamo prikaz podataka unutar recyclerView-a
