@@ -71,6 +71,6 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
 
     @Override
     public void onLoadZnamenitostFail(String message) {
-        Log.d("FirebaseTag", "Load Fail");
+        Log.d("ZnamenitostTag", "Load Fail");
     }
 }

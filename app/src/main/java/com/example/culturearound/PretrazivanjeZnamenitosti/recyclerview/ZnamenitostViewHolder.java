@@ -50,7 +50,6 @@ public class ZnamenitostViewHolder extends ParentViewHolder {
 
         String urlSlike = znamenitost.getLokacijaSlike();
 
-        Log.d("Picasso", "Učitavanje slike...");
         Picasso.with(itemView
                 .getContext())
                 .load(urlSlike)

@@ -35,7 +35,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, ZnamenitostListener, LokacijaListener {
-
     @BindView(R.id.btnMuzej)
     Button btnMuzej;
     @BindView(R.id.btnGalerija)
@@ -77,10 +76,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d("FirebaseTag", "Znamenitosti će da se rade jer smo na home fragmentu.");
         ButterKnife.bind(this, view);
         znamenitosti = new ArrayList<>();
 
+        //početno postavljanje recyclerView-a
         znamenitostRecyclerAdapter = new ZnamenitostRecyclerAdapter(getActivity(), znamenitosti);
         recyclerView.setAdapter(znamenitostRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -102,13 +101,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
         lokacijaHelper = new LokacijaHelper(CurrentActivity.getActivity(), this);
 
         //rad s znamenitostima
-        Log.d("RecyAdapter", "Inicijalizirat helper...");
         znamenitostiHelper = new ZnamenitostiHelper(CurrentActivity.getActivity(), this);
-        Log.d("RecyAdapter", "Inicijalizirat dohvaćanje...");
         znamenitostiHelper.dohvatiSveZnamenitosti();
     }
 
-
+    //promjenom odabira lokacije ili kategorija mijenjamo prikaz podataka unutar recyclerView-a
     public void promijeniPrikazPodataka(){
         if (!znamenitosti.isEmpty()){
             List<Znamenitost> prikazaneZnamenitosti = new ArrayList<Znamenitost>();
@@ -123,9 +120,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
                 Log.d("FirebaseTag", "Ne postoje tražene znamenitosti");
                 Toast.makeText(getActivity(), "Ne postoje tražene znamenitosti", Toast.LENGTH_SHORT).show();
             }
-            Log.d("RecyAdapter", "RecyAdapter - Postavi novu listu znamenitosti na adapter...");
             znamenitostRecyclerAdapter.setZnamenitosti(prikazaneZnamenitosti);
-            Log.d("RecyAdapter", "RecyAdapter - Notify data change...");
             znamenitostRecyclerAdapter.notifyDataSetChanged();
         }
         else {
@@ -137,9 +132,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
     private List<Znamenitost> filtrirajZnamenitostiPremaKategoriji(List<Znamenitost> prikazaneZnamenitosti){
         for (View kategorija: listaOdabranihKategorija){
             for (Znamenitost znamenitost: znamenitosti) {
-                Log.d("FirebaseTag", "IF (kategorije)" + znamenitost.getIdKategorijaZnamenitosti() + " jednako " + Integer.valueOf((String) kategorija.getTag()));
                 if (znamenitost.getIdKategorijaZnamenitosti() == Integer.valueOf((String) kategorija.getTag())){
-                    Log.d("FirebaseTag", "TRUE - dodajem na listu.");
                     prikazaneZnamenitosti.add(znamenitost);
                 }
             }
@@ -148,67 +141,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
     }
 
     private List<Znamenitost> filtrirajZnamenitostiPremaLokaciji(List<Znamenitost> prikazaneZnamenitosti){
-        Log.d("LokacijaTag", "Kreće filtriranje prema Lokaciji");
         List<Znamenitost> filtriraneZnamenitosti = new ArrayList<>();
         for (Znamenitost znamenitost: prikazaneZnamenitosti){
             for (Lokacija lokacija: listaOdabranihLokacija){
-                Log.d("LokacijaTag", "Usporedba: " + znamenitost.getIdLokacija() + " i " + lokacija.getIdLokacija());
                 if (znamenitost.getIdLokacija() == lokacija.getIdLokacija()) filtriraneZnamenitosti.add(znamenitost);
             }
         }
         return filtriraneZnamenitosti;
     }
 
-
-
-    @Override
-    public void onClick(View v) {
-        if (v != btnLokacija){
-            if (v.getBackground() == button_yellow) v.setBackground(button_blue);
-            else v.setBackground(button_yellow);
-
-            listaOdabranihKategorija = new ArrayList<>();
-            for (View gumb: listaGumbaKategorije){
-                if (gumb.getBackground() == button_yellow){
-                    listaOdabranihKategorija.add(gumb);
-                }
-            }
-            promijeniPrikazPodataka();
-        }
-        else if (listaLokacija.isEmpty()){
-            Log.d("LokacijaTag", "Krećem dohvaćati sve lokacije...");
-            lokacijaHelper.dohvatiSveLokacije();
-        }
-        else {
-            if (listaOdabranihLokacija.isEmpty()){
-                Log.d("LokacijaTag", "Odabrane lokacije prazne pa idem na odabirLokacija...");
-                odabirLokacija();
-            }
-            else {
-                btnLokacija.setBackground(button_blue);
-                btnLokacija.setText("Odaberi gradove");
-                listaOdabranihLokacija.clear();
-            }
-            promijeniPrikazPodataka();
-        }
-    }
-
     private void odabirLokacija(){
-        Log.d("LokacijaTag", "Počinje odabir lokacija...");
         int brojLokacija = listaLokacija.size();
         String[] poljeLokacija = new String[brojLokacija];
         final boolean[] oznaceneLokacije = new boolean[brojLokacija];
         int brojac = 0;
-        Log.d("LokacijaTag", "Listanje lokacija...");
         for (Lokacija pojedinaLokacija: listaLokacija){
-            Log.d("LokacijaTag", pojedinaLokacija.getNaziv() + " je dohvaćena.");
             poljeLokacija[brojac] = pojedinaLokacija.getNaziv();
-            Log.d("LokacijaTag", "Označavamo false...");
             oznaceneLokacije[brojac] = false;
-            Log.d("LokacijaTag", "Povećavamo brojač...");
             brojac++;
         }
-        Log.d("LokacijaTag","Stvaranje višestrukog odabira lokacija...");
         //Stvaranje forme odabira Lokacija
         AlertDialog.Builder visestrukiOdabirLokacija = new AlertDialog.Builder(getActivity());
         visestrukiOdabirLokacija.setTitle("Odaberite lokacije");
@@ -242,26 +193,53 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
     }
 
     @Override
-    public void onLoadZnamenitostSucess(String message, List<Znamenitost> listaZnamenitosti) {
-        Log.d("FirebaseTag", message);
-        if (!listaZnamenitosti.isEmpty()){
-            this.znamenitosti = listaZnamenitosti;
-            Log.d("FirebaseTag", "... i sad pokreće s popunjenom listom prikaz - Load Sucess");
+    public void onClick(View v) {
+        if (v != btnLokacija){
+            if (v.getBackground() == button_yellow) v.setBackground(button_blue);
+            else v.setBackground(button_yellow);
+
+            listaOdabranihKategorija = new ArrayList<>();
+            for (View gumb: listaGumbaKategorije){
+                if (gumb.getBackground() == button_yellow){
+                    listaOdabranihKategorija.add(gumb);
+                }
+            }
             promijeniPrikazPodataka();
         }
-        else Log.d("FirebaseTag", "... ali vraća praznu listu - Load Sucess");
+        else if (listaLokacija.isEmpty()){
+            lokacijaHelper.dohvatiSveLokacije();
+        }
+        else {
+            if (listaOdabranihLokacija.isEmpty()){
+                odabirLokacija();
+            }
+            else {
+                btnLokacija.setBackground(button_blue);
+                btnLokacija.setText("Odaberi gradove");
+                listaOdabranihLokacija.clear();
+            }
+            promijeniPrikazPodataka();
+        }
+    }
+
+    @Override
+    public void onLoadZnamenitostSucess(String message, List<Znamenitost> listaZnamenitosti) {
+        Log.d("ZnamenitostTag", message);
+        if (!listaZnamenitosti.isEmpty()){
+            this.znamenitosti = listaZnamenitosti;
+            promijeniPrikazPodataka();
+        }
     }
 
     @Override
     public void onLoadZnamenitostFail(String message) {
-        Log.d("FirebaseTag", message);
+        Log.d("ZnamenitostTag", message);
     }
 
     @Override
     public void onLoadLokacijaSucess(String message, List<Lokacija> listaLokacija) {
         this.listaLokacija = listaLokacija;
         Log.d("LokacijaTag", message);
-        Log.d("LokacijaTag", "Dohvaćeno " + listaLokacija.size() + " lokacija.");
         odabirLokacija();
     }
 

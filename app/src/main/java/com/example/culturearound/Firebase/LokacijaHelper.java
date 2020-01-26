@@ -46,12 +46,9 @@ public class LokacijaHelper extends FirebaseHelper {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.d("FirebaseTag", "Nisu dohvaćene lokacije");
-                    Toast.makeText(mContext, "Nisi uspio skinut podatke.", Toast.LENGTH_LONG).show();
                     lokacijaListener.onLoadLokacijaFail("Neuspješno dohvaćanje - listener");
                 }
             });
         }
-        Log.d("FirebaseTag", "Sjeo query listener.");
     }
 }

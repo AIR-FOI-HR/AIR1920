@@ -22,47 +22,35 @@ public class ZnamenitostiHelper extends FirebaseHelper {
     private ZnamenitostListener znamenitostListener;
 
     public ZnamenitostiHelper(Context context, ZnamenitostListener znamenitostListener) {
-        Log.d("FirebaseTag", "Konstruktor ZnamenitostiHelper");
         mAuth = FirebaseAuth.getInstance();
-        Log.d("FirebaseTag", "Postavljanje konteksta...");
         mContext = context;
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference();
-        Log.d("FirebaseTag", "Postavljanje listenera...");
         this.znamenitostListener = znamenitostListener;
     }
 
     public void dohvatiSveZnamenitosti(){
         mQuery = mDatabase.child("znamenitost");
-        Log.d("FirebaseTag", "Krećem dohvaćati Znamenitosti.");
         if (provjeriDostupnostMreze()){
-            Log.d("FirebaseTag", "Query listener će sjesti...");
             mQuery.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Log.d("FirebaseTag", "Dohvaćanje djece...");
                     List<Znamenitost> listaZnamenitosti = new ArrayList<>();
                     for (DataSnapshot temp : dataSnapshot.getChildren()){
                         Znamenitost znamenitost = new Znamenitost();
-                        Log.d("FirebaseTag", "... spremam ostatak...");
                         znamenitost = temp.getValue(Znamenitost.class);
-                        Log.d("FirebaseTag", "Dohvaćeno dijete...spremam id...");
                         znamenitost.setIdZnamenitosti(Integer.parseInt(temp.getKey()));
                         listaZnamenitosti.add(znamenitost);
                     }
-                    Log.d("FirebaseTag", "Dohvaćene znamenitosti");
                     znamenitostListener.onLoadZnamenitostSucess("Uspješno dohvaćanje - listener", listaZnamenitosti);
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.d("FirebaseTag", "Nisu dohvaćene znamenitosti");
-                    Toast.makeText(mContext, "Nisi uspio skinut podatke.", Toast.LENGTH_LONG).show();
                     znamenitostListener.onLoadZnamenitostFail("Neuspješno dohvaćanje bajo moj - listener");
                 }
             });
         }
-        Log.d("FirebaseTag", "Sjeo query listener.");
     }
 
     public void dohvatiZnamenitostPremaId(int idZnamenitosti){
@@ -78,8 +66,6 @@ public class ZnamenitostiHelper extends FirebaseHelper {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("FirebaseTag", "Nije dohvaćena znamenitost");
-                Toast.makeText(mContext, "Nisi uspio skinut podatke o znamenitosti.", Toast.LENGTH_LONG).show();
                 znamenitostListener.onLoadZnamenitostFail("Neuspješno dohvaćanje bajo moj - listener");
             }
         });

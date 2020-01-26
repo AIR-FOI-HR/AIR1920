@@ -23,9 +23,7 @@ public class ZnamenitostRecyclerAdapter extends RecyclerView.Adapter<Znamenitost
     }
 
     public void setZnamenitosti(List<Znamenitost> znamenitosti) {
-        Log.d("RecyAdapter", "Setting znamenitosti...");
         this.znamenitosti = znamenitosti;
-        Log.d("RecyAdapter", "Setting znamenitosti DONE.");
     }
 
     public ZnamenitostRecyclerAdapter(Context context, @NonNull List<Znamenitost> znamenitosti) {
@@ -42,9 +40,7 @@ public class ZnamenitostRecyclerAdapter extends RecyclerView.Adapter<Znamenitost
 
     @Override
     public void onBindViewHolder(@NonNull ZnamenitostViewHolder holder, int position) {
-        Log.d("RecyAdapter", "Bindat na viewHolder...");
         holder.bindToData(znamenitosti.get(position), context);
-        Log.d("RecyAdapter", "Bindat na viewHolder DONE.");
     }
 
 
