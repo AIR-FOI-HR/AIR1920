@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 
 import com.example.culturearound.Firebase.EntitiesFirebase.Korisnik;
 import com.example.culturearound.Firebase.Listeners.UserListener;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -62,6 +65,21 @@ public class UserHelper extends FirebaseHelper {
         }
     }
 
+    public void updateData(String firstName, String lastName, String email) {
+
+        if (firstName != "") {
+            mDatabase.child("Korisnik").child(userId).child("ime").setValue(firstName);
+        }
+
+        if (lastName != "") {
+            mDatabase.child("Korisnik").child(userId).child("prezime").setValue(lastName);
+        }
+
+        if (email != "") {
+            mDatabase.child("Korisnik").child(userId).child("email").setValue(email);
+            user.updateEmail(email);
+        }
+    }
 
 }
 
