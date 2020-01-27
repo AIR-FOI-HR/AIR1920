@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/update_ime"
+            android:hint="@string/re_input_name"
+            android:inputType="text"
+            android:background="@drawable/input_line_black"
+            android:drawablePadding="10dp"
+            style="@style/inputBlack"
+            />
+
+        <EditText
+            android:id="@+id/update_prezime"
+            android:hint="@string/re_input_prezime"
+            android:inputType="text"
+            android:background="@drawable/input_line_black"
+            android:drawablePadding="10dp"
+            style="@style/inputBlack" />
+
+
+        <EditText
+            android:id="@+id/update_email"
+            android:hint="@string/re_input_email"
+            android:inputType="text"
+            android:background="@drawable/input_line_black"
+            android:drawablePadding="10dp"
+            style="@style/inputBlack"/>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -8,14 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.culturearound.Firebase.EntitiesFirebase.Korisnik;
 import com.example.culturearound.Firebase.Listeners.UserListener;
 import com.example.culturearound.Firebase.UserHelper;
+import com.example.culturearound.ProfilKorisnika.UpdateDataDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class ProfileFragment extends Fragment implements UserListener {
+public class ProfileFragment extends Fragment implements UserListener, View.OnClickListener {
     @BindView(R.id.update_profile)
     Button btnUpdateData;
 
@@ -44,6 +47,8 @@ public class ProfileFragment extends Fragment implements UserListener {
     TextView userMail;
 
     private UserHelper userHelper;
+
+    private String firstName, lastName, email;
 
     private static final String TAG = "profil";
 
@@ -59,17 +64,44 @@ public class ProfileFragment extends Fragment implements UserListener {
         Log.d(TAG, "Pocetak...");
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+
+        btnUpdateData.setOnClickListener(this);
+
         userHelper = new UserHelper(getContext(),this);
         Log.d(TAG, "onViewCreated: "+ userHelper.userId);
         userHelper.findUserById();
+
+
     }
 
     private void loadData(Korisnik korisnik){
         Log.d(TAG, "Ucitano " + korisnik.getIme() + korisnik.getPrezime() + korisnik.getEmail());
-        userFirstName.setText(korisnik.getIme());
-        userLastName.setText(korisnik.getPrezime());
-        userMail.setText(korisnik.getEmail());
+
+        firstName = korisnik.getIme();
+        lastName = korisnik.getPrezime();
+        email = korisnik.getEmail();
+
+        userFirstName.setText(firstName);
+        userLastName.setText(lastName);
+        userMail.setText(email);
+
     }
+
+    private void openDialogUpdateData() {
+        Log.d(TAG, "OTVORENO " + "DIJALOOOOG");
+
+        Bundle args = new Bundle();
+        args.putString("firstName", firstName);
+        args.putString("lastName", lastName);
+        args.putString("email", email);
+
+        UpdateDataDialog updateDataDialog = new UpdateDataDialog();
+        updateDataDialog.setArguments(args);
+
+        FragmentManager fragManager = getActivity().getSupportFragmentManager();
+        updateDataDialog.show(fragManager,"update user data dialog");
+    }
+
 
 
     @Override
@@ -81,5 +113,10 @@ public class ProfileFragment extends Fragment implements UserListener {
     @Override
     public void onLoadUserFail(String message) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        openDialogUpdateData();
     }
 }

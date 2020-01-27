@@ -43,7 +43,7 @@ public class UserHelper extends FirebaseHelper {
         if(provjeriDostupnostMreze()) {
             mQuery = mDatabase.child("Korisnik").child(userId);
 
-            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            mQuery.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 

@@ -35,5 +35,6 @@
     <string name="profileUsername">Korisničko ime</string>
     <string name="profileEmail">Email korisnika</string>
     <string name="profileButtonChangeData">Promijeni podatke</string>
+    <string name="save_changes">Spremi promjene</string>
 
 </resources>
