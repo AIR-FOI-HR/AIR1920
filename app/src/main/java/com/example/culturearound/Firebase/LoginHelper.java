@@ -106,7 +106,7 @@ public class LoginHelper extends FirebaseHelper{
 
     private void zapisiKorisnikaNaFirebase(String uid, String ime, String prezime, String email, String lozinka) {
         DatabaseReference rKorisnik = mDatabase.child("Korisnik");
-        Korisnik noviKorisnik = new Korisnik(uid, ime, prezime, email, lozinka, 1);
+        Korisnik noviKorisnik = new Korisnik(uid, ime, prezime, email, lozinka, "https://www.speakingtigerbooks.com/wp-content/uploads/2017/07/no-avatar.png");
         rKorisnik.child(uid).setValue(noviKorisnik);
     }
 
@@ -114,6 +114,8 @@ public class LoginHelper extends FirebaseHelper{
      * Obnavljanje zaporke tako što se šalje poruka na email.
      * @param email
      */
+
+
     public void resetPassword(String email){
         if(provjeriDostupnostMreze()){
             mAuth.sendPasswordResetEmail(email)

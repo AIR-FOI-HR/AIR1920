@@ -36,5 +36,36 @@
             android:drawablePadding="10dp"
             style="@style/inputBlack"/>
 
+        <EditText
+            android:id="@+id/update_picture_url"
+            android:hint="@string/picture_url"
+            android:inputType="text"
+            android:background="@drawable/input_line_black"
+            android:drawablePadding="10dp"
+            style="@style/inputBlack"
+        />
+
+        <Button
+            android:id="@+id/update_preview_picture"
+            android:text= "@string/update_preview_picture"
+            style="@style/YellowButton"/>
+
+        <ImageView
+            android:id="@+id/update_userPicture"
+            android:layout_width="150dp"
+            android:layout_height="130dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="45dp"
+            android:contentDescription="@string/profileUserPicture"/>
+
+        <Button
+            android:id="@+id/update_delete_picture"
+            style="@style/YellowButton"
+            android:text="@string/update_delete_picture"
+            />
+
+
     </LinearLayout>
 </RelativeLayout>

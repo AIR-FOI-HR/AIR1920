@@ -65,7 +65,7 @@ public class UserHelper extends FirebaseHelper {
         }
     }
 
-    public void updateData(String firstName, String lastName, String email) {
+    public void updateData(String firstName, String lastName, String email, String pictureUrl) {
 
         if (firstName != "") {
             mDatabase.child("Korisnik").child(userId).child("ime").setValue(firstName);
@@ -78,6 +78,10 @@ public class UserHelper extends FirebaseHelper {
         if (email != "") {
             mDatabase.child("Korisnik").child(userId).child("email").setValue(email);
             user.updateEmail(email);
+        }
+
+        if (pictureUrl != "") {
+            mDatabase.child("Korisnik").child(userId).child("lokacijaSlike").setValue(pictureUrl);
         }
     }
 

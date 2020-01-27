@@ -9,8 +9,10 @@ public class Korisnik {
     String email;
     String lozinka;
 
+
+
     //slika profila
-    int idSlika;
+    String lokacijaSlike;
 
     //favoriti korisnika
     List<Integer> idFavouriteZnamenitostiList;
@@ -18,21 +20,21 @@ public class Korisnik {
     public Korisnik() {
     }
 
-    public Korisnik(String ime, String prezime, String email, String lozinka, int idSlika) {
+    public Korisnik(String ime, String prezime, String email, String lozinka, String lokacijaSlike) {
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
         this.lozinka = lozinka;
-        this.idSlika = idSlika;
+        this.lokacijaSlike = lokacijaSlike;
     }
 
-    public Korisnik(String uid, String ime, String prezime, String email, String lozinka, int idSlika) {
+    public Korisnik(String uid, String ime, String prezime, String email, String lozinka, String lokacijaSlike) {
         this.uid = uid;
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
         this.lozinka = lozinka;
-        this.idSlika = idSlika;
+        this.lokacijaSlike = lokacijaSlike;
     }
     public String getUid() {
         return uid;
@@ -91,12 +93,12 @@ public class Korisnik {
         this.lozinka = lozinka;
     }
 
-    public int getIdSlika() {
-        return idSlika;
+    public String getLokacijaSlike() {
+        return lokacijaSlike;
     }
 
-    public void setIdSlika(int idSlika) {
-        this.idSlika = idSlika;
+    public void setLokacijaSlike(String lokacijaSlike) {
+        this.lokacijaSlike = lokacijaSlike;
     }
 
     public List<Integer> getIdFavouriteZnamenitostiList() {

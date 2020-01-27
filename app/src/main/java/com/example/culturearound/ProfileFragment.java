@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -36,6 +38,8 @@ import butterknife.ButterKnife;
 public class ProfileFragment extends Fragment implements UserListener, View.OnClickListener {
     @BindView(R.id.update_profile)
     Button btnUpdateData;
+    @BindView(R.id.profile_userPicture)
+    ImageView userPicture;
 
     @BindView(R.id.profile_name)
     TextView userFirstName;
@@ -48,7 +52,7 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
 
     private UserHelper userHelper;
 
-    private String firstName, lastName, email;
+    private String firstName, lastName, email, pictureUrl;
 
     private static final String TAG = "profil";
 
@@ -80,10 +84,14 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
         firstName = korisnik.getIme();
         lastName = korisnik.getPrezime();
         email = korisnik.getEmail();
+        pictureUrl = korisnik.getLokacijaSlike();
 
         userFirstName.setText(firstName);
         userLastName.setText(lastName);
         userMail.setText(email);
+        Picasso.with(getActivity())
+                .load(pictureUrl)
+                .into(userPicture);
 
     }
 
@@ -94,6 +102,7 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
         args.putString("firstName", firstName);
         args.putString("lastName", lastName);
         args.putString("email", email);
+        args.putString("url", pictureUrl);
 
         UpdateDataDialog updateDataDialog = new UpdateDataDialog();
         updateDataDialog.setArguments(args);
