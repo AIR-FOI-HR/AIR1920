@@ -10,18 +10,12 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.core.DataLoadedListener;
-import com.example.core.DataLoader;
 import com.example.culturearound.Firebase.Listeners.LoginListener;
 import com.example.culturearound.Firebase.LoginHelper;
-import com.example.database.Entities.Korisnik;
-import com.example.database.Entities.Lokacija;
-import com.example.database.Entities.Znamenitost;
+import com.example.culturearound.Firebase.EntitiesFirebase.Korisnik;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import loaders.DbDataLoader;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
     private EditText txtEmail;

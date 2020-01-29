@@ -14,7 +14,6 @@ import com.example.culturearound.Firebase.Listeners.ZnamenitostListener;
 import com.example.culturearound.Firebase.ZnamenitostiHelper;
 import com.example.culturearound.R;
 import com.example.culturearound.Firebase.EntitiesFirebase.Znamenitost;
-import com.example.database.MyDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
