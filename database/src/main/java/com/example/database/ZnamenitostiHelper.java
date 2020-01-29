@@ -1,4 +1,4 @@
-package com.example.culturearound.Firebase;
+package com.example.database;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,8 +6,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.culturearound.Firebase.EntitiesFirebase.Znamenitost;
-import com.example.culturearound.Firebase.Listeners.ZnamenitostListener;
+import com.example.database.EntitiesFirebase.Znamenitost;
+import com.example.database.Listeners.ZnamenitostListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

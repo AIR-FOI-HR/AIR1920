@@ -1,4 +1,4 @@
-package com.example.culturearound.Firebase;
+package com.example.database;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

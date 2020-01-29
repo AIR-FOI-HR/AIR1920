@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 import com.example.culturearound.PretrazivanjeZnamenitosti.ZnamDetailsActivity;
 import com.example.culturearound.R;
-import com.example.culturearound.Firebase.EntitiesFirebase.Znamenitost;
+import com.example.database.EntitiesFirebase.Znamenitost;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;

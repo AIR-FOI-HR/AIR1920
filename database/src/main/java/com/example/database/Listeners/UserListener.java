@@ -1,6 +1,6 @@
-package com.example.culturearound.Firebase.Listeners;
+package com.example.database.Listeners;
 
-import com.example.culturearound.Firebase.EntitiesFirebase.Korisnik;
+import com.example.database.EntitiesFirebase.Korisnik;
 
 import java.util.List;
 

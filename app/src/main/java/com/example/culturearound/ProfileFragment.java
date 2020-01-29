@@ -16,20 +16,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.culturearound.Firebase.EntitiesFirebase.Korisnik;
-import com.example.culturearound.Firebase.Listeners.UserListener;
-import com.example.culturearound.Firebase.UserHelper;
+import com.example.database.EntitiesFirebase.Korisnik;
+import com.example.database.Listeners.UserListener;
+import com.example.database.UserHelper;
 import com.example.culturearound.ProfilKorisnika.UpdateDataDialog;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -19,9 +19,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.culturearound.Firebase.EntitiesFirebase.Korisnik;
-import com.example.culturearound.Firebase.Listeners.UserListener;
-import com.example.culturearound.Firebase.UserHelper;
+import com.example.database.EntitiesFirebase.Korisnik;
+import com.example.database.Listeners.UserListener;
+import com.example.database.UserHelper;
 import com.example.culturearound.R;
 import com.squareup.picasso.Picasso;
 
