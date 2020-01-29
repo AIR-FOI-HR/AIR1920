@@ -2,7 +2,6 @@ package com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;

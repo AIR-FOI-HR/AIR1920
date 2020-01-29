@@ -35,5 +35,11 @@
     <string name="profileUsername">Korisničko ime</string>
     <string name="profileEmail">Email korisnika</string>
     <string name="profileButtonChangeData">Promijeni podatke</string>
+    <string name="recenzija_korime">korime</string>
+    <string name="recenzija_opis">opis</string>
+    <string name="recenzija_ocjena">ocjena</string>
+    <string name="korime">Korime</string>
+    <string name="korisnik_im">im</string>
+    <string name="sveOcjena">sveOcjena</string>
 
 </resources>
