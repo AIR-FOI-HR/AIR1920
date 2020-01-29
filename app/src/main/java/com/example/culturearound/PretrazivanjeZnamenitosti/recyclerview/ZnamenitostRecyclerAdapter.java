@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.culturearound.Firebase.EntitiesFirebase.Znamenitost;
+import com.example.database.EntitiesFirebase.Znamenitost;
 import com.example.culturearound.R;
 
 import java.util.List;

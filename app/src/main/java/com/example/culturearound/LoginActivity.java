@@ -10,9 +10,9 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.culturearound.Firebase.Listeners.LoginListener;
-import com.example.culturearound.Firebase.LoginHelper;
-import com.example.culturearound.Firebase.EntitiesFirebase.Korisnik;
+import com.example.database.Listeners.LoginListener;
+import com.example.database.LoginHelper;
+import com.example.database.EntitiesFirebase.Korisnik;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,8 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.example.culturearound.Firebase.Listeners.LoginListener;
-import com.example.culturearound.Firebase.LoginHelper;
+import com.example.database.Listeners.LoginListener;
+import com.example.database.LoginHelper;
 
 
 public class RegistryActivity extends AppCompatActivity implements LoginListener {
