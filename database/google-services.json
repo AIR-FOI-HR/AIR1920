@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:24511530827:android:b2fb7681f777607420cace",
         "android_client_info": {
-          "package_name": "com.example.culturearound"
+          "package_name": "com.example.database"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "24511530827-74j8ok8ased8p53319cs51lpl7is3jth.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.culturearound",
+            "package_name": "com.example.database",
             "certificate_hash": "81510cd50bc932f7691a6ba7f7ba387e950a61ff"
           }
         },
