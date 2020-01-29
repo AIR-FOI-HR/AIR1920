@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="48sp"
+    android:width="48sp"
+    android:viewportHeight="100"
+    android:viewportWidth="100" >
+    <path
+        android:fillColor="#FFF"
+        android:pathData="@string/heart"/>
+</vector>

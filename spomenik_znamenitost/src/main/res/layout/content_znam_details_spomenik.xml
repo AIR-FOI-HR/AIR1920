@@ -8,10 +8,12 @@
     tools:context=".ZnamDetailsSpomenikActivity"
     tools:showIn="@layout/activity_znam_details_spomenik">
 
+
     <TextView
+        android:id="@+id/txtOpisZnamenitosti"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        android:text="@string/opis_text" />
 
 </androidx.core.widget.NestedScrollView>

@@ -1,5 +1,6 @@
 package com.example.spomenik_znamenitost;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -12,6 +13,7 @@ import android.view.View;
 
 public class ZnamDetailsSpomenikActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +21,7 @@ public class ZnamDetailsSpomenikActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btnFavourite);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -27,5 +29,20 @@ public class ZnamDetailsSpomenikActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+
+        Intent intent = getIntent();
+        int znamId = intent.getIntExtra("id_znamenitost", -1);
+
+
+        if(znamId != -1){
+            //znamenitostiHelper.dohvatiZnamenitostPremaId(znamId);
+            setTitle("Naziv");
+        }
+
     }
 }
