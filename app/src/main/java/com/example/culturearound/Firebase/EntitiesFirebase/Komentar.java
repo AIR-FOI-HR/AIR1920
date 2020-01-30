@@ -9,6 +9,8 @@ public class Komentar {
     int brojUp;
     int brojDown;
 
+
+
     public Komentar() {
     }
 
@@ -77,6 +79,8 @@ public class Komentar {
     public void setBrojDown(int brojDown) {
         this.brojDown = brojDown;
     }
+
+
 
 
 }

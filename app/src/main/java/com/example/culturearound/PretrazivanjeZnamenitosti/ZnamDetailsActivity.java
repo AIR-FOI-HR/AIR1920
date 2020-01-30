@@ -44,6 +44,9 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
     @BindView(R.id.listaRecenzije)
     RecyclerView recyclerView;
 
+    @BindView(R.id.sveOcjena)
+    RatingBar rateSve;
+
 
 
     private List<Komentar> komentari;
@@ -65,8 +68,6 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
         recenzijeRecycelerAdapter = new RecenzijeRecycelerAdapter(getActivity(), komentari);
         recyclerView.setAdapter(recenzijeRecycelerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
         recenzijeHelper = new RecenzijeHelper(CurrentActivity.getActivity(), this);
 
 
@@ -95,6 +96,8 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
         textOpisZnamenitosti.setText(znamenitost.getOpis());
 
         recenzijeHelper.dohvatiRecenzijePremaId(znamenitost.getIdZnamenitosti());
+
+
     }
 
     private void prikaziRecenzije(List<Komentar> listaKomentara){
@@ -102,6 +105,8 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
         Log.d("Anja","Ovdje staje jelda?");
         recenzijeRecycelerAdapter.notifyDataSetChanged();
         Log.d("Anja", "Maybe not...");
+
+
     }
 
 
@@ -120,8 +125,14 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
     public void onLoadRecenzijaSucess(String message, List<Komentar> listaKomentara) {
         Log.d("RecenzijaTag", message);
         if (!listaKomentara.isEmpty()){
-            //this.komentari = listaKomentara;
             prikaziRecenzije(listaKomentara);
+
+            if(recenzijeHelper.ukupno!=0){
+            rateSve.setRating((float)recenzijeHelper.ukupno);}
+            else{
+                rateSve.setRating(0);
+            }
+            Log.d("Anja1","Cudo bozje: "+ recenzijeHelper.ukupno);
         }
     }
 

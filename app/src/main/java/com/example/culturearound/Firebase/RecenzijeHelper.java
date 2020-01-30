@@ -11,6 +11,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +28,11 @@ public class RecenzijeHelper extends FirebaseHelper {
         this.recenzijaListener = recenzijaListener;
 
     }
+
+
+
+    public double ukupno;
+
 
 
     public void dohvatiSveRecenzije(){
@@ -53,6 +61,12 @@ public class RecenzijeHelper extends FirebaseHelper {
         }
     }
 
+    double zbrOcjena=0;
+    double brRec=0;
+    double vrijednost;
+
+
+
     public void dohvatiRecenzijePremaId(int idZnamenitost){
         mQuery = mDatabase.child("komentar").child(Integer.toString(idZnamenitost));
         mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -68,8 +82,27 @@ public class RecenzijeHelper extends FirebaseHelper {
                     Log.d("Anja", "Uid anja: " + komentar.getUid());
                     Log.d("Anja", "Idznam anja: " + komentar.getIdZnamenitost());
                     Log.d("Anja", "opis anja: " + komentar.getOpis());
+                    zbrOcjena+=komentar.getOcjena();
+                    brRec+=1;
                     listaRecenzija.add(komentar);
                 }
+                Log.d("Anja1", "Zbroj: " + zbrOcjena);
+                Log.d("Anja1", "Broj:"+brRec);
+
+
+                if (zbrOcjena!=0){
+                    vrijednost=zbrOcjena/brRec;
+                    Double toBeTruncated = new Double(vrijednost);
+                    Double truncatedDouble = BigDecimal.valueOf(toBeTruncated)
+                        .setScale(2, RoundingMode.HALF_UP)
+                        .doubleValue();
+                    ukupno=truncatedDouble;}
+
+                else{
+                    ukupno=0;
+                }
+
+                Log.d("Anja2", "BrojSve:"+ukupno);
                 recenzijaListener.onLoadRecenzijaSucess("Uspješno dohvaćanje - listener", listaRecenzija);
             }
 

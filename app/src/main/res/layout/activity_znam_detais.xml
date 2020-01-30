@@ -86,11 +86,11 @@
         android:id="@+id/textRecenzija"
         android:layout_width="385dp"
         android:layout_height="35dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="12dp"
         android:textSize="20dp"
-        android:text="Recenzija"
+        android:text="Recenzije korisnika"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textOpisZnamenitosti"/>
@@ -101,7 +101,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Ocjena korisnika:"
+        android:layout_marginLeft="15dp"
+        android:text="Ocjene korisnika:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textRecenzija" />
 
@@ -110,9 +111,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:numStars="5"
+        android:isIndicator="true"
         android:id="@+id/sveOcjena"
         android:layout_marginStart="5dp"
-
         android:layout_marginEnd="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.189"
@@ -138,7 +139,7 @@
         android:id="@+id/textNapisi"
         android:layout_width="385dp"
         android:layout_height="35dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="12dp"
         android:textSize="20dp"
