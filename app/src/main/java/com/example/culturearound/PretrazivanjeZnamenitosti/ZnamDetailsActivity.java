@@ -51,6 +51,7 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
     private ZnamenitostiHelper znamenitostiHelper;
     private RecenzijeHelper recenzijeHelper;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +66,6 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
 
 
         recenzijeHelper = new RecenzijeHelper(CurrentActivity.getActivity(), this);
-        recenzijeHelper.dohvatiSveRecenzije();
 
 
     }
@@ -91,12 +91,15 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
                 .into(imageZnamenitost);
         textAdresa.setText(znamenitost.getAdresa());
         textOpisZnamenitosti.setText(znamenitost.getOpis());
+
+        recenzijeHelper.dohvatiRecenzijePremaId(znamenitost.getIdZnamenitosti());
     }
 
     private void prikaziRecenzije(List<Komentar> listaKomentara){
         recenzijeRecycelerAdapter.setKomentari(listaKomentara);
+        Log.d("Anja","Ovdje staje jelda?");
         recenzijeRecycelerAdapter.notifyDataSetChanged();
-
+        Log.d("Anja", "Maybe not...");
     }
 
 
@@ -115,8 +118,7 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
     public void onLoadRecenzijaSucess(String message, List<Komentar> listaKomentara) {
         Log.d("RecenzijaTag", message);
         if (!listaKomentara.isEmpty()){
-            for (Komentar komentar: listaKomentara) Log.d("Anja", "Komentar: " + komentar.getIdKomentar());
-            this.komentari = listaKomentara;
+            //this.komentari = listaKomentara;
             prikaziRecenzije(listaKomentara);
         }
     }

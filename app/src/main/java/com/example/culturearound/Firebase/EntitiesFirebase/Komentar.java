@@ -6,16 +6,20 @@ public class Komentar {
     int ocjena;
     String uid;
     int idZnamenitost;
+    int brojUp;
+    int brojDown;
 
     public Komentar() {
     }
 
-    public Komentar(int idKomentar, String opis, int ocjena, String uid, int idZnamenitost) {
+    public Komentar(int idKomentar, String opis, int ocjena, String uid, int idZnamenitost, int brojUp, int brojDown) {
         this.idKomentar = idKomentar;
         this.opis = opis;
         this.ocjena = ocjena;
         this.uid = uid;
         this.idZnamenitost = idZnamenitost;
+        this.brojUp=brojUp;
+        this.brojDown=brojDown;
     }
 
     public int getIdKomentar() {
@@ -57,4 +61,22 @@ public class Komentar {
     public void setIdZnamenitost(int idZnamenitost) {
         this.idZnamenitost = idZnamenitost;
     }
+
+    public int getBrojUp() {
+        return brojUp;
+    }
+
+    public void setBrojUp(int brojUp) {
+        this.brojUp = brojUp;
+    }
+
+    public int getBrojDown() {
+        return brojDown;
+    }
+
+    public void setBrojDown(int brojDown) {
+        this.brojDown = brojDown;
+    }
+
+
 }

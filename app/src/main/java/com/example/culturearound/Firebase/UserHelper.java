@@ -31,10 +31,13 @@ public class UserHelper extends FirebaseHelper {
 
     public UserHelper(Context context, UserListener userListener) {
         mAuth = FirebaseAuth.getInstance();
+        Log.d("Anja", "Ucitavanje vrazji kontekst");
         mContext = context;
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference();
+        Log.d("Anja", "Ucitavanje vrazji kontekst...kretenski.");
         this.userListener = userListener;
+        Log.d("Anja", "Kontekti uspjesni.");
         userId= mAuth.getCurrentUser().getUid();
         user = mAuth.getCurrentUser();
     }
@@ -56,7 +59,28 @@ public class UserHelper extends FirebaseHelper {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    userListener.onLoadUserFail("Neuspješno dohvaćanje- listener");
+                    userListener.onLoadUserFail("Neuspješno dohvaćanje usera- listener");
+                }
+            });
+        }
+    }
+    public void findUserById (String id) {
+        if(provjeriDostupnostMreze()) {
+            mQuery = mDatabase.child("Korisnik").child(id);
+
+            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    Korisnik currentUser = new Korisnik();
+                    currentUser = dataSnapshot.getValue(Korisnik.class);
+                    currentUser.setUid(id);
+                    userListener.onLoadUserSuccess("Uspjesno dohvaćanje usera- listener", currentUser);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    userListener.onLoadUserFail("Neuspješno dohvaćanje usera- listener");
                 }
             });
         }

@@ -24,6 +24,7 @@ public class RecenzijeRecycelerAdapter extends RecyclerView.Adapter<RecenzijeVie
 
     public void setKomentari(List<Komentar> komentari) {
         this.komentari = komentari;
+        Log.d("Anja", "Učitani komentari");
     }
 
 

@@ -53,15 +53,23 @@ public class RecenzijeHelper extends FirebaseHelper {
         }
     }
 
-    public void dohvatiRecenzijePremaId(int idKomentar){
-        mQuery = mDatabase.child("komentar").child(Integer.toString(idKomentar));
+    public void dohvatiRecenzijePremaId(int idZnamenitost){
+        mQuery = mDatabase.child("komentar").child(Integer.toString(idZnamenitost));
         mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Komentar komentar = new Komentar();
-                komentar = dataSnapshot.getValue(Komentar.class);
-                komentar.setIdKomentar(Integer.parseInt(dataSnapshot.getKey()));
-                recenzijaListener.onLoadRecenzijaSucess("Uspješno dohvaćanje - listener", Arrays.asList(komentar));
+                List<Komentar> listaRecenzija = new ArrayList<>();
+                for (DataSnapshot temp : dataSnapshot.getChildren()){
+                    Komentar komentar = new Komentar();
+                    komentar = temp.getValue(Komentar.class);
+                    komentar.setUid(temp.getKey());
+                    komentar.setIdZnamenitost(idZnamenitost);
+                    Log.d("Anja", "Uid anja: " + komentar.getUid());
+                    Log.d("Anja", "Idznam anja: " + komentar.getIdZnamenitost());
+                    Log.d("Anja", "opis anja: " + komentar.getOpis());
+                    listaRecenzija.add(komentar);
+                }
+                recenzijaListener.onLoadRecenzijaSucess("Uspješno dohvaćanje - listener", listaRecenzija);
             }
 
             @Override
