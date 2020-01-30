@@ -7,6 +7,11 @@ public class Slika {
     public Slika() {
     }
 
+    public Slika(String idSlika, String lokacijaSlike) {
+        this.idSlika = idSlika;
+        this.lokacijaSlike = lokacijaSlike;
+    }
+
     public String getIdSlika() {
         return idSlika;
     }

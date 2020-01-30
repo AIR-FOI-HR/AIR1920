@@ -42,6 +42,7 @@ public class ZnamenitostiHelper extends FirebaseHelper {
                         znamenitost = temp.getValue(Znamenitost.class);
                         znamenitost.setIdZnamenitosti(Integer.parseInt(temp.getKey()));
                         List<Slika> listaPoveznica = new ArrayList<>();
+                        listaPoveznica.add(new Slika("NaslovnaSlika", znamenitost.getLokacijaSlike()));
                         for (DataSnapshot temp2: dataSnapshot.child("listaSlikaGalerije").getChildren()){
                             Slika slika = temp2.getValue(Slika.class);
                             slika.setIdSlika(temp2.getKey());
@@ -70,6 +71,7 @@ public class ZnamenitostiHelper extends FirebaseHelper {
                 znamenitost = dataSnapshot.getValue(Znamenitost.class);
                 znamenitost.setIdZnamenitosti(Integer.parseInt(dataSnapshot.getKey()));
                 List<Slika> listaPoveznica = new ArrayList<>();
+                listaPoveznica.add(new Slika("NaslovnaSlika", znamenitost.getLokacijaSlike()));
                 for (DataSnapshot temp: dataSnapshot.child("listaSlikaGalerije").getChildren()){
                     Slika slika = temp.getValue(Slika.class);
                     slika.setIdSlika(temp.getKey());
