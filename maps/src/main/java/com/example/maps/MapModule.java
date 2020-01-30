@@ -11,8 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-//import com.example.database.Entities.Znamenitost;
-import com.example.culturearound.Firebase.EntitiesFirebase.Znamenitost
+import com.example.database.EntitiesFirebase.Znamenitost;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
