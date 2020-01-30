@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity  {
 
                 case R.id.navigation_location:
                     selectedFragment = new LocationFragment();
+                    System.out.println(("HOLA"));
                     break;
 
                     case R.id.navigation_favorites:
