@@ -50,7 +50,7 @@
         tools:showIn="@layout/activity_znam_details_spomenik">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="@dimen/text_margin">
@@ -94,18 +94,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/opis_text"
                 android:layout_marginBottom="@dimen/text_margin"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Galerija slika:"
-                android:layout_marginBottom="@dimen/text_margin"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewGalerija"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
                 android:orientation="horizontal"
-                android:background="@color/cardview_light_background"
+                android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/text_margin"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

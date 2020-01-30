@@ -1,6 +1,5 @@
 package com.example.spomenik_znamenitost;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,12 +11,14 @@ import com.example.database.Listeners.LokacijaListener;
 import com.example.database.Listeners.ZnamenitostListener;
 import com.example.database.LokacijaHelper;
 import com.example.database.ZnamenitostiHelper;
+import com.example.spomenik_znamenitost.recyclerView.GalerijaRecyclerAdapter;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -90,15 +91,12 @@ public class ZnamDetailsSpomenikActivity extends AppCompatActivity implements Zn
         lokacijaHelper.dohvatiZnamenitostPremaId(znamenitost.getIdLokacija());
         txtOpisZnamenitosti.setText(znamenitost.getOpis());
 
-        Log.d("SpomenikTag", "Slike prikazujemo ako ih ima...");
-        if (znamenitost.getListaSlikaGalerije() != null){
-            if (!znamenitost.getListaSlikaGalerije().isEmpty()){
-                for (Slika slika: znamenitost.getListaSlikaGalerije()){
-                    Log.d("SpomenikTag", "Slika galerije: " + slika.getLokacijaSlike());
-                }
-            }
-        }
-        //recyclerview komentari
+        //početno postavljanje recyclerView-a
+        GalerijaRecyclerAdapter galerijaRecyclerAdapter = new GalerijaRecyclerAdapter(this, znamenitost.getListaSlikaGalerije());
+        recyclerViewGalerija.setAdapter(galerijaRecyclerAdapter);
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewGalerija.setLayoutManager(layoutManager);
     }
 
     private void prikaziLokaciju(Lokacija lokacija) {
