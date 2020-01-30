@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.core.CurrentActivity;
@@ -42,6 +43,7 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
     TextView textOpisZnamenitosti;
     @BindView(R.id.listaRecenzije)
     RecyclerView recyclerView;
+
 
 
     private List<Komentar> komentari;

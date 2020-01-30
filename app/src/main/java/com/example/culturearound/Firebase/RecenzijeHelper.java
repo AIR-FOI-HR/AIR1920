@@ -60,6 +60,7 @@ public class RecenzijeHelper extends FirebaseHelper {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Komentar> listaRecenzija = new ArrayList<>();
                 for (DataSnapshot temp : dataSnapshot.getChildren()){
+                    Log.d("Anja1", "Dosao do tud ");
                     Komentar komentar = new Komentar();
                     komentar = temp.getValue(Komentar.class);
                     komentar.setUid(temp.getKey());

@@ -2,6 +2,7 @@ package com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ImageView;
 
@@ -35,6 +36,11 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
 
     @BindView(R.id.korinsnik_image)
     ImageView slika;
+
+    @BindView(R.id.recenzija_ocjena_rate)
+    RatingBar rate;
+
+
     /**
      * Default constructor.
      *
@@ -63,13 +69,16 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
         Log.d("Anja", "Setaj--opis");
 
         String opiss = komentar.getOpis();
-        int ocjenaa = komentar.getOcjena();
-        Log.d("Anja", opiss + " "+ ocjenaa);
+        //int ocjenaa = komentar.getOcjena();
+        Log.d("Anja", opiss);
         opis.setText(opiss);
 
         Log.d("Anja", "Setaj--ocjenu");
-        ocjena.setText(Integer.toString(ocjenaa));
-        Log.d("Anja", "Setano sve");
+        ocjena.setText(Integer.toString(komentar.getOcjena()));
+
+
+        rate.setRating(komentar.getOcjena());
+        Log.d("Anja1", "Setano sve");
 
         korime.setText(korisnik.getIme() + " " + korisnik.getPrezime());
         Log.d("Anja", "slika"+ korisnik.getLokacijaSlike());

@@ -12,40 +12,57 @@
 
     >
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        >
+
 
         <ImageView
             android:id="@+id/korinsnik_image"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="10dp"
             android:contentDescription="@string/korisnik_im"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher"
+            />
 
         <TextView
+            android:id="@+id/korime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="-60dp"
-            android:id="@+id/korime"
+            android:layout_toEndOf="@+id/korinsnik_image"
+            android:layout_toRightOf="@+id/korinsnik_image"
+            android:layout_marginTop="5dp"
             android:text="@string/korime"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textIsSelectable="false"
-            />
-
+            android:textStyle="bold"/>
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_toEndOf="@+id/korinsnik_image"
+            android:layout_toRightOf="@+id/korinsnik_image"
+            android:layout_below="@+id/korime"
             android:id="@+id/recenzija_opis"
             android:text="@string/recenzija_opis"
-            android:background="@drawable/inputs_line"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textIsSelectable="false"
+            />
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/korinsnik_image"
+            android:layout_toRightOf="@+id/korinsnik_image"
+            android:layout_below="@+id/recenzija_opis"
+            android:id="@+id/textO"
+            android:text="Ocjena: "
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textIsSelectable="false"
             />
@@ -53,32 +70,33 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_toEndOf="@+id/textO"
+            android:layout_toRightOf="@+id/textO"
+            android:layout_below="@+id/recenzija_opis"
             android:id="@+id/recenzija_ocjena"
             android:text="@string/recenzija_ocjena"
-
-
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textIsSelectable="false"
             />
 
 
-
-        <!--
         <RatingBar
+            android:id="@+id/recenzija_ocjena_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/korinsnik_image"
+            android:layout_toRightOf="@+id/korinsnik_image"
+            android:layout_below="@+id/recenzija_ocjena"
+            android:isIndicator="true"
+            android:max="5"
             android:numStars="5"
-            android:id="@+id/recenzija_ocjena"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.189"
-            app:layout_constraintTop_toBottomOf="@+id/textNapisi"
+            android:scaleX=".5"
+            android:scaleY=".5"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"
             />
--->
+
+    </RelativeLayout>
 
 
-    </LinearLayout>
 </androidx.cardview.widget.CardView>
