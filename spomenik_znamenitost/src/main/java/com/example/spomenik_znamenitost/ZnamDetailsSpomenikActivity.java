@@ -80,18 +80,14 @@ public class ZnamDetailsSpomenikActivity extends AppCompatActivity implements Zn
     }
 
     private void prikaziPodatkeZnamenitosti(Znamenitost znamenitost){
-        Log.d("SpomenikTag","TITLE SET = " + znamenitost.getNaziv());
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
         collapsingToolbarLayout.setTitle(znamenitost.getNaziv());
-
         Picasso.with(this)
                 .load(znamenitost.getLokacijaSlike())
                 .transform(new BlurTransformation(this, 25, 1))
                 .into(imgNaslovnaSlika);
         txtAdresaZnamenitosti.setText(znamenitost.getAdresa());
-
         lokacijaHelper.dohvatiZnamenitostPremaId(znamenitost.getIdLokacija());
-
         txtOpisZnamenitosti.setText(znamenitost.getOpis());
 
         Log.d("SpomenikTag", "Slike prikazujemo ako ih ima...");
