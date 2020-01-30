@@ -1,2 +1,2 @@
-include ':app', ':database', ':core'
+include ':app', ':database', ':core', ':spomenik_znamenitost'
 rootProject.name='CultureAround'

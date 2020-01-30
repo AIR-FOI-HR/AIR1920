@@ -1,5 +1,6 @@
 package com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -14,6 +15,7 @@ import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 import com.example.culturearound.PretrazivanjeZnamenitosti.ZnamDetailsActivity;
 import com.example.culturearound.R;
 import com.example.database.EntitiesFirebase.Znamenitost;
+import com.example.spomenik_znamenitost.ZnamDetailsSpomenikActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -65,15 +67,48 @@ public class ZnamenitostViewHolder extends ParentViewHolder {
                 Toast.LENGTH_SHORT
         ).show();
 
+        Intent intent = null;
+        int kategorija = selectedZnamenitost.getIdKategorijaZnamenitosti();
+
+        switch (kategorija){
+            case 1:
+                intent = postaviIntent(ZnamDetailsActivity.class);
+                break;
+            case 2:
+                intent = postaviIntent(ZnamDetailsActivity.class);
+                break;
+            case 3:
+                intent = postaviIntent(ZnamDetailsSpomenikActivity.class);
+                break;
+            case 4:
+                intent = postaviIntent(ZnamDetailsActivity.class);
+                break;
+            case 5:
+                intent = postaviIntent(ZnamDetailsActivity.class);
+                break;
+            case 6:
+                intent = postaviIntent(ZnamDetailsActivity.class);
+                break;
+            default:
+                intent = postaviIntent(ZnamDetailsActivity.class);
+        }
+
+        if (!intent.equals(null)){
+            intent.putExtra(
+                    "id_znamenitost",
+                    selectedZnamenitost.getIdZnamenitosti()
+            );
+
+            itemView.getContext().startActivity(intent);
+        }
+    }
+
+    private Intent postaviIntent(Class activity){
         Intent intent = new Intent(
                 itemView.getContext(),
-                ZnamDetailsActivity.class
-        );
-        intent.putExtra(
-                "id_znamenitost",
-                selectedZnamenitost.getIdZnamenitosti()
+                activity
         );
 
-        itemView.getContext().startActivity(intent);
+        return intent;
     }
 }
