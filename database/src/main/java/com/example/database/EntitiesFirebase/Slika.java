@@ -1,51 +1,25 @@
 package com.example.database.EntitiesFirebase;
 
-import java.util.List;
-
 public class Slika {
-    int idSlika;
-    String imgUrl;
-    String tekstSlike;
-    List<Integer> idSlikaGalerijeList;
+    String idSlika;
+    String lokacijaSlike;
 
     public Slika() {
     }
 
-    public Slika(int idSlika, String imgUrl, String tekstSlike) {
-        this.idSlika = idSlika;
-        this.imgUrl = imgUrl;
-        this.tekstSlike = tekstSlike;
-    }
-
-    public int getIdSlika() {
+    public String getIdSlika() {
         return idSlika;
     }
 
-    public void setIdSlika(int idSlika) {
+    public void setIdSlika(String idSlika) {
         this.idSlika = idSlika;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String getLokacijaSlike() {
+        return lokacijaSlike;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getTekstSlike() {
-        return tekstSlike;
-    }
-
-    public void setTekstSlike(String tekstSlike) {
-        this.tekstSlike = tekstSlike;
-    }
-
-    public List<Integer> getIdSlikaGalerijeList() {
-        return idSlikaGalerijeList;
-    }
-
-    public void setIdSlikaGalerijeList(List<Integer> idSlikaGalerijeList) {
-        this.idSlikaGalerijeList = idSlikaGalerijeList;
+    public void setLokacijaSlike(String lokacijaSlike) {
+        this.lokacijaSlike = lokacijaSlike;
     }
 }

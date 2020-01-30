@@ -45,6 +45,7 @@ dependencies {
 
     //picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'jp.wasabeef:picasso-transformations:2.2.1'
 
     implementation project(path: ':database')
 }

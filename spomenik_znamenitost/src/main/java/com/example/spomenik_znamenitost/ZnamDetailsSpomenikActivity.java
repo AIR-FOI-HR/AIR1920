@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.database.EntitiesFirebase.Lokacija;
+import com.example.database.EntitiesFirebase.Slika;
 import com.example.database.EntitiesFirebase.Znamenitost;
 import com.example.database.Listeners.LokacijaListener;
 import com.example.database.Listeners.ZnamenitostListener;
 import com.example.database.LokacijaHelper;
 import com.example.database.ZnamenitostiHelper;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -26,6 +28,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class ZnamDetailsSpomenikActivity extends AppCompatActivity implements ZnamenitostListener, LokacijaListener {
     private ZnamenitostiHelper znamenitostiHelper;
@@ -76,9 +80,13 @@ public class ZnamDetailsSpomenikActivity extends AppCompatActivity implements Zn
     }
 
     private void prikaziPodatkeZnamenitosti(Znamenitost znamenitost){
-        setTitle(znamenitost.getNaziv());
+        Log.d("SpomenikTag","TITLE SET = " + znamenitost.getNaziv());
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
+        collapsingToolbarLayout.setTitle(znamenitost.getNaziv());
+
         Picasso.with(this)
                 .load(znamenitost.getLokacijaSlike())
+                .transform(new BlurTransformation(this, 25, 1))
                 .into(imgNaslovnaSlika);
         txtAdresaZnamenitosti.setText(znamenitost.getAdresa());
 
@@ -86,11 +94,20 @@ public class ZnamDetailsSpomenikActivity extends AppCompatActivity implements Zn
 
         txtOpisZnamenitosti.setText(znamenitost.getOpis());
 
+        Log.d("SpomenikTag", "Slike prikazujemo ako ih ima...");
+        if (znamenitost.getListaSlikaGalerije() != null){
+            if (!znamenitost.getListaSlikaGalerije().isEmpty()){
+                for (Slika slika: znamenitost.getListaSlikaGalerije()){
+                    Log.d("SpomenikTag", "Slika galerije: " + slika.getLokacijaSlike());
+                }
+            }
+        }
         //recyclerview komentari
     }
 
     private void prikaziLokaciju(Lokacija lokacija) {
         txtLokacijaZnamenitosti.setText(lokacija.getNaziv());
+
     }
 
     @Override
