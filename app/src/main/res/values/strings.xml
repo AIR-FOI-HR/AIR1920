@@ -35,5 +35,9 @@
     <string name="profileUsername">Korisničko ime</string>
     <string name="profileEmail">Email korisnika</string>
     <string name="profileButtonChangeData">Promijeni podatke</string>
+    <string name="save_changes">Spremi promjene</string>
+    <string name="picture_url">Url slike</string>
+    <string name="update_preview_picture">Učitaj sliku</string>
+    <string name="update_delete_picture">Izbriši sliku</string>
 
 </resources>

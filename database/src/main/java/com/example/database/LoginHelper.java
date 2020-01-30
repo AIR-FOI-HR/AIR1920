@@ -1,4 +1,4 @@
-package com.example.culturearound.Firebase;
+package com.example.database;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,8 +7,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.culturearound.Firebase.EntitiesFirebase.Korisnik;
-import com.example.culturearound.Firebase.Listeners.LoginListener;
+import com.example.database.EntitiesFirebase.Korisnik;
+import com.example.database.Listeners.LoginListener;
+import com.example.database.FirebaseHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -17,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class LoginHelper extends FirebaseHelper{
+public class LoginHelper extends FirebaseHelper {
     private LoginListener mLoginListener;
 
 
@@ -81,7 +82,7 @@ public class LoginHelper extends FirebaseHelper{
      * @param email
      * @param password
      */
-    public void createAccount(String ime, String prezime, String email, String password) {
+    public void createAccount(final String ime, final String prezime, final String email, final String password) {
         if(provjeriDostupnostMreze()){
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener((Activity) mContext, new OnCompleteListener<AuthResult>() {
@@ -106,7 +107,7 @@ public class LoginHelper extends FirebaseHelper{
 
     private void zapisiKorisnikaNaFirebase(String uid, String ime, String prezime, String email, String lozinka) {
         DatabaseReference rKorisnik = mDatabase.child("Korisnik");
-        Korisnik noviKorisnik = new Korisnik(uid, ime, prezime, email, lozinka, 1);
+        Korisnik noviKorisnik = new Korisnik(uid, ime, prezime, email, lozinka, "https://www.speakingtigerbooks.com/wp-content/uploads/2017/07/no-avatar.png");
         rKorisnik.child(uid).setValue(noviKorisnik);
     }
 
@@ -114,6 +115,8 @@ public class LoginHelper extends FirebaseHelper{
      * Obnavljanje zaporke tako što se šalje poruka na email.
      * @param email
      */
+
+
     public void resetPassword(String email){
         if(provjeriDostupnostMreze()){
             mAuth.sendPasswordResetEmail(email)

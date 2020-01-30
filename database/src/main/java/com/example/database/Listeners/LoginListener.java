@@ -1,4 +1,4 @@
-package com.example.culturearound.Firebase.Listeners;
+package com.example.database.Listeners;
 
 /**
  * Listener za prijavu i registraciju korisnika.

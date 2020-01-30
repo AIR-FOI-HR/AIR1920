@@ -1,4 +1,4 @@
-package com.example.culturearound.Firebase.EntitiesFirebase;
+package com.example.database.EntitiesFirebase;
 
 import java.util.List;
 

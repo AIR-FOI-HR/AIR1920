@@ -1,26 +1,17 @@
-package com.example.culturearound.Firebase;
+package com.example.database;
 
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.culturearound.Firebase.EntitiesFirebase.Korisnik;
-import com.example.culturearound.Firebase.Listeners.UserListener;
+import com.example.database.EntitiesFirebase.Korisnik;
+import com.example.database.Listeners.UserListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.Tag;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static android.content.ContentValues.TAG;
 
 
 public class UserHelper extends FirebaseHelper {
@@ -43,7 +34,7 @@ public class UserHelper extends FirebaseHelper {
         if(provjeriDostupnostMreze()) {
             mQuery = mDatabase.child("Korisnik").child(userId);
 
-            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            mQuery.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -62,6 +53,25 @@ public class UserHelper extends FirebaseHelper {
         }
     }
 
+    public void updateData(String firstName, String lastName, String email, String pictureUrl) {
+
+        if (firstName != "") {
+            mDatabase.child("Korisnik").child(userId).child("ime").setValue(firstName);
+        }
+
+        if (lastName != "") {
+            mDatabase.child("Korisnik").child(userId).child("prezime").setValue(lastName);
+        }
+
+        if (email != "") {
+            mDatabase.child("Korisnik").child(userId).child("email").setValue(email);
+            user.updateEmail(email);
+        }
+
+        if (pictureUrl != "") {
+            mDatabase.child("Korisnik").child(userId).child("lokacijaSlike").setValue(pictureUrl);
+        }
+    }
 
 }
 

@@ -63,7 +63,7 @@ dependencies {
     implementation 'com.bignerdranch.android:expandablerecyclerview:3.0.0-RC1'
 
     //picasso
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //firebase -analitycs
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
@@ -80,3 +80,5 @@ dependencies {
 
 //firebase
 apply plugin: 'com.google.gms.google-services'
+   
+}
