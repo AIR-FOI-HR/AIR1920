@@ -40,8 +40,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-
-
     //butterknife
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
@@ -49,6 +47,7 @@ dependencies {
     //module dependancies
     implementation project(path: ':database')
     implementation project(path: ':core')
+    implementation project(path: ':spomenik_znamenitost')
 
     //room database framework
     def room_version = "2.2.1"
@@ -64,6 +63,5 @@ dependencies {
 
     //picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation project(path: ':spomenik_znamenitost')
 }
 
