@@ -62,12 +62,6 @@ public class ZnamenitostViewHolder extends ParentViewHolder {
     //Klik znamenitosti na recycleview-u
     @OnClick
     public void znamenitostSelected(){
-        Toast.makeText(
-                itemView.getContext(),
-                selectedZnamenitost.getNaziv(),
-                Toast.LENGTH_SHORT
-        ).show();
-
         Intent intent = null;
         int kategorija = selectedZnamenitost.getIdKategorijaZnamenitosti();
 

@@ -12,8 +12,14 @@ import com.example.database.EntitiesFirebase.Slika;
 import com.example.spomenik_znamenitost.R;
 import com.squareup.picasso.Picasso;
 
-public class GalerijaViewHolder extends ParentViewHolder {
+public class GalerijaViewHolder extends ParentViewHolder implements View.OnClickListener{
+    private SlikaGalerijeListener slikaGalerijeListener;
+
     private View itemView;
+    public View getItemView() {
+        return itemView;
+    }
+
     private Slika odabranaSlika = null;
     ImageView imgGalerija;
 
@@ -25,16 +31,24 @@ public class GalerijaViewHolder extends ParentViewHolder {
     public GalerijaViewHolder(@NonNull View itemView) {
         super(itemView);
         this.itemView = itemView;
+        itemView.setOnClickListener(this);
     }
 
-    public void bindToData(Slika slika, Context context){
+    public void bindToData(Slika slika, SlikaGalerijeListener slikaGalerijeListener){
+        this.slikaGalerijeListener = slikaGalerijeListener;
         this.odabranaSlika = slika;
         imgGalerija = itemView.findViewById(R.id.imgGalerija);
         Picasso.with(itemView
                 .getContext())
-                .load(slika.getLokacijaSlike())
+                .load(odabranaSlika.getLokacijaSlike())
                 .into(imgGalerija);
         CardView cardView = itemView.findViewById(R.id.cardViewSlikeGalerije);
         cardView.getLayoutParams().width = imgGalerija.getLayoutParams().width;
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        slikaGalerijeListener.onItemClick(odabranaSlika.getLokacijaSlike());
     }
 }

@@ -11,6 +11,7 @@ import com.example.database.Listeners.ZnamenitostListener;
 import com.example.database.LokacijaHelper;
 import com.example.database.ZnamenitostiHelper;
 import com.example.spomenik_znamenitost.recyclerView.GalerijaRecyclerAdapter;
+import com.example.spomenik_znamenitost.recyclerView.SlikaGalerijeListener;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -29,9 +30,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import jp.wasabeef.picasso.transformations.BlurTransformation;
-
-public class SpomenikActivity extends AppCompatActivity implements ZnamenitostListener, LokacijaListener {
+public class SpomenikActivity extends AppCompatActivity implements ZnamenitostListener, LokacijaListener, SlikaGalerijeListener {
     private ZnamenitostiHelper znamenitostiHelper;
     private LokacijaHelper lokacijaHelper;
 
@@ -84,7 +83,6 @@ public class SpomenikActivity extends AppCompatActivity implements ZnamenitostLi
         collapsingToolbarLayout.setTitle(znamenitost.getNaziv());
         Picasso.with(this)
                 .load(znamenitost.getLokacijaSlike())
-                .transform(new BlurTransformation(this, 25, 1))
                 .into(imgNaslovnaSlika);
         txtAdresaZnamenitosti.setText(znamenitost.getAdresa());
         lokacijaHelper.dohvatiZnamenitostPremaId(znamenitost.getIdLokacija());
@@ -120,5 +118,12 @@ public class SpomenikActivity extends AppCompatActivity implements ZnamenitostLi
     @Override
     public void onLoadLokacijaFail(String message) {
         Log.d("SpomenikTag", message);
+    }
+
+    @Override
+    public void onItemClick(String imageUrl) {
+        Picasso.with(this)
+                .load(imageUrl)
+                .into(imgNaslovnaSlika);
     }
 }

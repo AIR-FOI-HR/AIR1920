@@ -14,7 +14,7 @@ import com.example.spomenik_znamenitost.R;
 import java.util.List;
 
 public class GalerijaRecyclerAdapter extends RecyclerView.Adapter<GalerijaViewHolder> {
-    private Context context;
+    private SlikaGalerijeListener slikaGalerijeListener;
 
     private List<Slika> slike;
 
@@ -25,8 +25,8 @@ public class GalerijaRecyclerAdapter extends RecyclerView.Adapter<GalerijaViewHo
         this.slike = slike;
     }
 
-    public GalerijaRecyclerAdapter(Context context, @NonNull List<Slika> slike){
-        this.context = context;
+    public GalerijaRecyclerAdapter(SlikaGalerijeListener slikaGalerijeListener, @NonNull List<Slika> slike){
+        this.slikaGalerijeListener = slikaGalerijeListener;
         this.slike = slike;
     }
 
@@ -40,7 +40,7 @@ public class GalerijaRecyclerAdapter extends RecyclerView.Adapter<GalerijaViewHo
 
     @Override
     public void onBindViewHolder(@NonNull GalerijaViewHolder holder, int position) {
-        holder.bindToData(slike.get(position), context);
+        holder.bindToData(slike.get(position), slikaGalerijeListener);
     }
 
     @Override
