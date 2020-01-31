@@ -75,8 +75,8 @@ public class MapModule extends Fragment implements OnMapReadyCallback, Znamenito
         if(znamenitosti != null)
             for (Znamenitost z: znamenitosti) {
                 LatLng position =
-                        new LatLng(z.getLatitude() / 1000000d,
-                                z.getLongitude() / 1000000d);
+                        new LatLng(z.getLatitude(),
+                                z.getLongitude());
                 map.addMarker(
                         new MarkerOptions()
                                 .position(position)
