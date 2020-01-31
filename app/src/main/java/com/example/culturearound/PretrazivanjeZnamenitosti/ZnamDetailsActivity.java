@@ -9,11 +9,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.core.CurrentActivity;
+
 import com.example.culturearound.Firebase.EntitiesFirebase.Komentar;
 import com.example.culturearound.Firebase.Listeners.RecenzijaListener;
 import com.example.culturearound.Firebase.Listeners.ZnamenitostListener;
@@ -22,6 +27,8 @@ import com.example.culturearound.Firebase.ZnamenitostiHelper;
 import com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview.RecenzijeRecycelerAdapter;
 import com.example.culturearound.R;
 import com.example.culturearound.Firebase.EntitiesFirebase.Znamenitost;
+
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,6 +36,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
 
 import static com.example.core.CurrentActivity.getActivity;
 
@@ -47,6 +55,13 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
     @BindView(R.id.sveOcjena)
     RatingBar rateSve;
 
+    private EditText UbaciRecenziju;
+    private EditText UbaciOcjenu;
+    private Button Recenzija;
+    int znamenitostID;
+
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String uID = user.getUid();
 
 
     private List<Komentar> komentari;
@@ -71,6 +86,32 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
         recenzijeHelper = new RecenzijeHelper(CurrentActivity.getActivity(), this);
 
 
+
+        UbaciRecenziju = findViewById(R.id.upisiRecenziju);
+        UbaciOcjenu= findViewById(R.id.upisiOcjenu);
+        Recenzija = findViewById(R.id.upisiRecenzijuBtn);
+
+        Recenzija.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateInformation(
+                        UbaciRecenziju.getText().toString(),
+                        UbaciOcjenu.getText().toString(),
+                        znamenitostID
+
+                        );
+
+            }
+        });
+
+    }
+
+    private void validateInformation (String ubaciRecenziju,String Ubaciocjenu,int znamenitostID) {
+        Log.d("Anja3", ubaciRecenziju);
+        Log.d("Anja3",Ubaciocjenu);
+       recenzijeHelper.zapisiRecenziju(ubaciRecenziju,Integer.parseInt(Ubaciocjenu),znamenitostID,uID);
+        Toast.makeText(this, "Uspješna recenzija", Toast.LENGTH_LONG).show();
+
     }
 
 
@@ -87,6 +128,8 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
         }
     }
 
+
+
     private void prikaziPodatkeZnamenitosti(Znamenitost znamenitost){
         textNaziv.setText(znamenitost.getNaziv());
         Picasso.with(this)
@@ -96,6 +139,7 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
         textOpisZnamenitosti.setText(znamenitost.getOpis());
 
         recenzijeHelper.dohvatiRecenzijePremaId(znamenitost.getIdZnamenitosti());
+        znamenitostID=znamenitost.getIdZnamenitosti();
 
 
     }
@@ -105,8 +149,6 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
         Log.d("Anja","Ovdje staje jelda?");
         recenzijeRecycelerAdapter.notifyDataSetChanged();
         Log.d("Anja", "Maybe not...");
-
-
     }
 
 

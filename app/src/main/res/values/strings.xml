@@ -41,5 +41,9 @@
     <string name="korime">Korime</string>
     <string name="korisnik_im">im</string>
     <string name="sveOcjena">sveOcjena</string>
+    <string name="unosRecenzije">unosRecenzije</string>
+    <string name="input_recenziju">upisiRecenziju</string>
+    <string name="upisiRecenzijuBtn">Recenziraj</string>
+    <string name="input_ocjena">upisiOcjenu</string>
 
 </resources>

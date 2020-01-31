@@ -69,12 +69,12 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
         Log.d("Anja", "Setaj--opis");
 
         String opiss = komentar.getOpis();
-        //int ocjenaa = komentar.getOcjena();
-        Log.d("Anja", opiss);
+        int ocjenaa = komentar.getOcjena();
+        Log.d("Anja3", opiss);
         opis.setText(opiss);
 
-        Log.d("Anja", "Setaj--ocjenu");
-        ocjena.setText(Integer.toString(komentar.getOcjena()));
+        Log.d("Anja3", "Setaj--ocjenu");
+        ocjena.setText(Integer.toString(ocjenaa));
 
 
         rate.setRating(komentar.getOcjena());

@@ -70,4 +70,7 @@ public class ZnamenitostiHelper extends FirebaseHelper {
             }
         });
     }
+
+
+
 }

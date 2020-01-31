@@ -2,11 +2,14 @@ package com.example.culturearound.Firebase;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import com.example.culturearound.Firebase.EntitiesFirebase.Komentar;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.culturearound.Firebase.Listeners.RecenzijaListener;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -65,8 +68,6 @@ public class RecenzijeHelper extends FirebaseHelper {
     double brRec=0;
     double vrijednost;
 
-
-
     public void dohvatiRecenzijePremaId(int idZnamenitost){
         mQuery = mDatabase.child("komentar").child(Integer.toString(idZnamenitost));
         mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -118,8 +119,13 @@ public class RecenzijeHelper extends FirebaseHelper {
 
 
 
+    public void zapisiRecenziju(String opis, int ocjena, int idZnamenitost, String uid){
+        DatabaseReference aKomentar = mDatabase.child("komentar");
+        Log.d("Anja3:","ovdje sam");
+        Komentar noviKomentar = new Komentar(7,opis,ocjena, uid,idZnamenitost,0,0);
+        aKomentar.child(Integer.toString(idZnamenitost)).child(uid).setValue(noviKomentar);
+        Log.d("Anja3:","ovdje sam2");
 
-
-
+    }
 
 }

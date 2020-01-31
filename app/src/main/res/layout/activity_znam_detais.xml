@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,6 +11,89 @@
 
 
 
+    <!-- <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/linearno"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/textNapisi"
+
+        > -->
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/upisiOcjenu"
+        android:hint="@string/input_ocjena"
+        android:layout_marginStart="50dp"
+        android:inputType="text"
+        android:background="@drawable/inputs_line_black"
+        android:drawablePadding="10dp"
+        style="@style/input"
+
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+
+        />
+
+    <EditText
+        android:id="@+id/upisiRecenziju"
+        android:hint="@string/input_recenziju"
+        android:layout_marginStart="50dp"
+        android:inputType="text"
+        android:background="@drawable/inputs_line_black"
+        android:drawablePadding="10dp"
+        style="@style/input"
+
+        app:layout_constraintTop_toBottomOf="@+id/upisiOcjenu"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent"
+
+        />
+
+
+
+
+
+
+    <!-- </LinearLayout>-->
+
+
+
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/linearno"
+        >-->
+
+    <Button
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:id="@+id/upisiRecenzijuBtn"
+        style="@style/YellowButton"
+        android:layout_marginTop="10dp"
+        android:text="@string/upisiRecenzijuBtn"
+        tools:layout_editor_absoluteX="48dp"
+        app:layout_constraintTop_toBottomOf="@+id/upisiRecenziju"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+
+
+   <!-- app:layout_constraintTop_toBottomOf="@+id/textNaziv"
+
+    />-->
+
+    <!--</LinearLayout>-->
+
 
     <TextView
         android:id="@+id/textNaziv"
@@ -20,10 +104,16 @@
         android:layout_marginEnd="12dp"
         android:text="Naziv"
         android:textSize="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        app:layout_constraintTop_toBottomOf="@+id/upisiRecenzijuBtn"
+
+        />
+        <!--app:layout_constraintEnd_toEndOf="parent"
+        -->
+        <!--
+        app:layout_constraintTop_toTopOf="parent"/>-->
 
     <ImageView
         android:id="@+id/imageZnamenitost"
@@ -60,6 +150,8 @@
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textNaziv" />
 
+
+
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
@@ -69,6 +161,7 @@
         android:text="Opis:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageZnamenitost" />
+
 
     <TextView
         android:id="@+id/textOpisZnamenitosti"
@@ -81,6 +174,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+
+
+
 
     <TextView
         android:id="@+id/textRecenzija"
@@ -147,6 +244,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listaRecenzije"/>
+
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
