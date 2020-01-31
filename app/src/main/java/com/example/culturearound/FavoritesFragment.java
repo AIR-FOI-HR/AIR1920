@@ -3,8 +3,10 @@ package com.example.culturearound;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.SearchEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,17 +32,21 @@ import butterknife.ButterKnife;
 
 public class FavoritesFragment extends Fragment implements ZnamenitostListener, UserListener {
 
+    @BindView(R.id.favorites_search)
+    SearchView searchView;
+
     @BindView(R.id.favorites_recycler)
     RecyclerView recyclerView;
 
-    private List<Znamenitost> listOfFavorites;
-    private List<Integer> allIdsOfFavorites;
     private FavoritesRecyclerAdapter favoritesRecyclerAdapter;
     private ZnamenitostiHelper znamenitostiHelper;
     private UserHelper userHelper;
 
-    private String userId ;
     private Korisnik currentUser;
+    private String userId ;
+
+    private List<Znamenitost> listOfFavorites;
+    private List<Integer> allIdsOfFavorites;
 
 
     @Nullable
@@ -66,6 +72,28 @@ public class FavoritesFragment extends Fragment implements ZnamenitostListener, 
 
         znamenitostiHelper = new ZnamenitostiHelper(CurrentActivity.getActivity(), this);
 
+        searchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        searchView.clearFocus();
+                        return false;
+                    }
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        List<Znamenitost> searchResult = searchFavoritesByName();
+                        loadData(searchResult);
+                        return false;
+                    }
+                }
+        );
+        searchView.setOnCloseListener(
+                () -> {
+                    searchView.clearFocus();
+                    return false;
+                }
+        );
+
     }
 
     private void retrieveListOfFavorites( Korisnik currentUser) {
@@ -75,6 +103,16 @@ public class FavoritesFragment extends Fragment implements ZnamenitostListener, 
         }
         znamenitostiHelper.dohvatiSpremljeneZnamenitosti(allIdsOfFavorites);
 
+    }
+
+    private List <Znamenitost> searchFavoritesByName(){
+        List<Znamenitost> searchResult = new ArrayList<Znamenitost>();
+        for (Znamenitost temp: listOfFavorites){
+            String favoriteName = temp.getNaziv();
+            if (favoriteName.toLowerCase().contains(searchView.getQuery().toString().toLowerCase()))
+                searchResult.add(temp);
+        }
+        return searchResult;
     }
 
     private void loadData (List<Znamenitost> listOfFavorites) {

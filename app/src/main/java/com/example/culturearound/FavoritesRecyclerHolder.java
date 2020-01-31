@@ -1,6 +1,7 @@
 package com.example.culturearound;
 import android.content.Context;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,8 +36,10 @@ public class FavoritesRecyclerHolder extends ParentViewHolder {
 
     public void bindToData(Znamenitost znamenitost, Context context){
         this.selectedZnamenitost = znamenitost;
-        znamenitostName.setText(znamenitost.getNaziv());
-        znamenitostDesc.setText(znamenitost.getOpis());
+        String nazivZnamenitosti = znamenitost.getNaziv();
+        String opisZnamenitosti = znamenitost.getOpis();
+        znamenitostName.setText(nazivZnamenitosti);
+        znamenitostDesc.setText(opisZnamenitosti);
 
         String urlSlike = znamenitost.getLokacijaSlike();
 
