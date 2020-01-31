@@ -1,19 +1,20 @@
-apply plugin: 'com.android.application'
-
-//firebase
-//apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
+
+
     defaultConfig {
-        applicationId "com.example.culturearound"
         minSdkVersion 22
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -21,11 +22,6 @@ android {
         }
     }
 
-    //dodano jer inace baca compatibility error
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
 dependencies {
@@ -33,26 +29,11 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.navigation:navigation-fragment:2.2.0'
-    implementation 'androidx.navigation:navigation-ui:2.2.0'
+
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
-    //butterknife
-    implementation 'com.jakewharton:butterknife:10.2.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
-
-    //module dependancies
-    implementation project(path: ':database')
-    implementation project(path: ':core')
-    implementation project(path: ':spomenik_znamenitost')
-
-    //room database framework
-    def room_version = "2.2.1"
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
 
     //expandable recyclerview and cardview
     def recyclerview_version = "1.0.0"
@@ -63,8 +44,7 @@ dependencies {
 
     //picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation project(path: ':kino_znamenitost')
-    implementation project(path: ':setaliste_znamenitost')
-    implementation project(path: ':default_znamenitost')
-}
+    implementation 'jp.wasabeef:picasso-transformations:2.2.1'
 
+    implementation project(path: ':database')
+}
