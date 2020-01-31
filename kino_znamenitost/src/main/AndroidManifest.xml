@@ -1,2 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.kino_znamenitost" />
+    package="com.example.kino_znamenitost">
+
+    <application>
+        <activity
+            android:name=".KinoActivity"
+            android:label="@string/title_activity_kino"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+
+</manifest>

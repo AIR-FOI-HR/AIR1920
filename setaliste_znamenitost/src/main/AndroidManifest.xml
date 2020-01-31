@@ -1,2 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.setaliste_znamenitost" />
+    package="com.example.setaliste_znamenitost">
+
+    <application>
+        <activity
+            android:name=".SetalisteActivity"
+            android:label="@string/title_activity_setaliste"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+
+</manifest>

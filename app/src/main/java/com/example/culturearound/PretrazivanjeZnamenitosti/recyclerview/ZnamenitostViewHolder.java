@@ -1,9 +1,7 @@
 package com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +13,9 @@ import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 import com.example.culturearound.PretrazivanjeZnamenitosti.ZnamDetailsActivity;
 import com.example.culturearound.R;
 import com.example.database.EntitiesFirebase.Znamenitost;
-import com.example.spomenik_znamenitost.ZnamDetailsSpomenikActivity;
+import com.example.kino_znamenitost.KinoActivity;
+import com.example.setaliste_znamenitost.SetalisteActivity;
+import com.example.spomenik_znamenitost.SpomenikActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -78,16 +78,16 @@ public class ZnamenitostViewHolder extends ParentViewHolder {
                 intent = postaviIntent(ZnamDetailsActivity.class);
                 break;
             case 3:
-                intent = postaviIntent(ZnamDetailsSpomenikActivity.class);
+                intent = postaviIntent(SpomenikActivity.class);
                 break;
             case 4:
-                intent = postaviIntent(ZnamDetailsActivity.class);
+                intent = postaviIntent(SetalisteActivity.class);
                 break;
             case 5:
                 intent = postaviIntent(ZnamDetailsActivity.class);
                 break;
             case 6:
-                intent = postaviIntent(ZnamDetailsActivity.class);
+                intent = postaviIntent(KinoActivity.class);
                 break;
             default:
                 intent = postaviIntent(ZnamDetailsActivity.class);
