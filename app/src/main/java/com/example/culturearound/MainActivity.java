@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.core.CurrentActivity;
+import com.example.maps.MapModule;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity  {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Fragment selectedFragment = null;
+            MapModule mapModule = new MapModule();
 
             // ovisno o odabiru ikone, instancira odgovarajuci fragment
 
@@ -59,7 +61,8 @@ public class MainActivity extends AppCompatActivity  {
                     break;
 
                 case R.id.navigation_location:
-                    selectedFragment = new LocationFragment();
+                    //selectedFragment = new LocationFragment();
+                    selectedFragment = mapModule;
                     System.out.println(("HOLA"));
                     break;
 
