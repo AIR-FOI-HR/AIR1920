@@ -1,7 +1,6 @@
-package com.example.culturearound;
+package com.example.culturearound.FavoritiRecycler;
 import android.content.Context;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
+import com.example.culturearound.R;
 import com.example.database.EntitiesFirebase.Znamenitost;
 import com.squareup.picasso.Picasso;
 

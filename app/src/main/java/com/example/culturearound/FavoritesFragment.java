@@ -1,13 +1,10 @@
 package com.example.culturearound;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.SearchEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.core.CurrentActivity;
-import com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview.ZnamenitostRecyclerAdapter;
+import com.example.culturearound.FavoritiRecycler.FavoritesRecyclerAdapter;
 import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.EntitiesFirebase.Znamenitost;
 import com.example.database.Listeners.UserListener;
