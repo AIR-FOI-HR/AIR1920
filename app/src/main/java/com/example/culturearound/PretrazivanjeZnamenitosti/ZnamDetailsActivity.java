@@ -94,23 +94,40 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
         Recenzija.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateInformation(
+                provjeraUnosa(
                         UbaciRecenziju.getText().toString(),
                         UbaciOcjenu.getText().toString(),
-                        znamenitostID
-
-                        );
+                        znamenitostID);
 
             }
         });
 
     }
 
-    private void validateInformation (String ubaciRecenziju,String Ubaciocjenu,int znamenitostID) {
-        Log.d("Anja3", ubaciRecenziju);
-        Log.d("Anja3",Ubaciocjenu);
-       recenzijeHelper.zapisiRecenziju(ubaciRecenziju,Integer.parseInt(Ubaciocjenu),znamenitostID,uID);
-        Toast.makeText(this, "Uspješna recenzija", Toast.LENGTH_LONG).show();
+    private void provjeraUnosa (String ubaciRecenziju,String Ubaciocjenu,int znamenitostID) {
+        if(Ubaciocjenu.length()==0){
+            Toast.makeText(this, "Ocjena se mora unijeti", Toast.LENGTH_LONG).show();
+        }
+        else{int ocjena=Integer.parseInt(Ubaciocjenu);
+            if(ocjena<1|| ocjena>5){
+                Toast.makeText(this, "Ocjene su od 1-5", Toast.LENGTH_LONG).show();
+
+            }
+            else{
+                if(ubaciRecenziju.length()== 0){
+                    ubaciRecenziju="Nema komentara";
+                    recenzijeHelper.zapisiRecenziju(ubaciRecenziju,ocjena,znamenitostID,uID);
+                    Toast.makeText(this, "Uspješna recenzija", Toast.LENGTH_LONG).show();
+
+                }
+                else{
+                    recenzijeHelper.zapisiRecenziju(ubaciRecenziju,ocjena,znamenitostID,uID);
+                    Toast.makeText(this, "Uspješna recenzija", Toast.LENGTH_LONG).show();
+                }
+
+            }}
+
+
 
     }
 
