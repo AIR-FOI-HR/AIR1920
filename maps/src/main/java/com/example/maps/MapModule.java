@@ -14,17 +14,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.database.EntitiesFirebase.Znamenitost;
+import com.example.database.Listeners.ZnamenitostListener;
+import com.example.database.ZnamenitostiHelper;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
-public class MapModule extends Fragment implements OnMapReadyCallback {
+public class MapModule extends Fragment implements OnMapReadyCallback, ZnamenitostListener {
     GoogleMap map;
     SupportMapFragment mapFragment;
     private List<Znamenitost> znamenitosti;
@@ -32,18 +35,6 @@ public class MapModule extends Fragment implements OnMapReadyCallback {
     private boolean moduleReadyFlag = false;
     private boolean dataReadyFlag = false;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // Retrieve the content view that renders the map.
-        // Get the SupportMapFragment and request notification
-        // when the map is ready to be used.
-        System.out.println(("HOLA2 ViewCreated"));
-        mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-    }
-
-    /*
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,39 +44,24 @@ public class MapModule extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        System.out.println(("HOLA2 ViewCreated"));
 
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.map, mapFragment).commit();
+        mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        //mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        //mapFragment.getMapAsync(this);
     }
-    */
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
 
         moduleReadyFlag = true;
-        //tryToDisplayData();
-        System.out.println(("HOLA OnMapReady"));
-        map.addMarker(new MarkerOptions().position(new LatLng(37.7750, 122.4183)).title("San Francisco"));
-        mockData();
+
+        getData();
     }
 
-    private void mockData() {
-        LatLng sydney = new LatLng(0, 0);
-        //map.addMarker(new MarkerOptions().position(new LatLng(37.7750, 122.4183)).title("San Francisco"));
-        //map.addMarker(new MarkerOptions().position(new LatLng(37.7750, 122.4183)).title("San Francisco").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-        if(map != null) {
-        System.out.println(("HOLA MockData"));
-            map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        } else {
-            System.out.println(("HOLA ELSE"));
-        }
+    private void getData() {
+        ZnamenitostiHelper znamenitostiHelper = new ZnamenitostiHelper(getActivity(), this);
+        znamenitostiHelper.dohvatiSveZnamenitosti();
     }
 
     public void tryToDisplayData() {
@@ -111,5 +87,17 @@ public class MapModule extends Fragment implements OnMapReadyCallback {
                     cameraReady = true;
                 }
             }
+    }
+
+    @Override
+    public void onLoadZnamenitostSucess(String message, List<Znamenitost> listaZnamenitosti) {
+        znamenitosti = listaZnamenitosti;
+        dataReadyFlag = true;
+        tryToDisplayData();
+    }
+
+    @Override
+    public void onLoadZnamenitostFail(String message) {
+        Log.d("ZnamenitostTag", "Load Fail");
     }
 }
