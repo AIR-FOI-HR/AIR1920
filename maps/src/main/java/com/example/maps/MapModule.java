@@ -39,7 +39,7 @@ public class MapModule extends Fragment implements OnMapReadyCallback {
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
         System.out.println(("HOLA2 ViewCreated"));
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
@@ -70,8 +70,8 @@ public class MapModule extends Fragment implements OnMapReadyCallback {
 
         moduleReadyFlag = true;
         //tryToDisplayData();
-        System.out.println(("OnMapReady"));
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(37.7750, 122.4183)).title("San Francisco"));
+        System.out.println(("HOLA OnMapReady"));
+        map.addMarker(new MarkerOptions().position(new LatLng(37.7750, 122.4183)).title("San Francisco"));
         mockData();
     }
 
@@ -79,11 +79,13 @@ public class MapModule extends Fragment implements OnMapReadyCallback {
         LatLng sydney = new LatLng(0, 0);
         //map.addMarker(new MarkerOptions().position(new LatLng(37.7750, 122.4183)).title("San Francisco"));
         //map.addMarker(new MarkerOptions().position(new LatLng(37.7750, 122.4183)).title("San Francisco").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-        //if(map != null) {
-        System.out.println(("MockData"));
-            //map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            //map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        //}
+        if(map != null) {
+        System.out.println(("HOLA MockData"));
+            map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+            map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        } else {
+            System.out.println(("HOLA ELSE"));
+        }
     }
 
     public void tryToDisplayData() {
