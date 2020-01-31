@@ -15,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.core.CurrentActivity;
 import com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview.ZnamenitostRecyclerAdapter;
+import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.EntitiesFirebase.Znamenitost;
+import com.example.database.Listeners.UserListener;
 import com.example.database.Listeners.ZnamenitostListener;
+import com.example.database.UserHelper;
 import com.example.database.ZnamenitostiHelper;
 
 import java.util.ArrayList;
@@ -25,14 +28,20 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FavoritesFragment extends Fragment implements ZnamenitostListener {
+public class FavoritesFragment extends Fragment implements ZnamenitostListener, UserListener {
 
     @BindView(R.id.favorites_recycler)
     RecyclerView recyclerView;
 
-    private List<Znamenitost> znamenitosti;
+    private List<Znamenitost> listOfFavorites;
+    private List<Integer> allIdsOfFavorites;
     private FavoritesRecyclerAdapter favoritesRecyclerAdapter;
     private ZnamenitostiHelper znamenitostiHelper;
+    private UserHelper userHelper;
+
+    private String userId ;
+    private Korisnik currentUser;
+
 
     @Nullable
     @Override
@@ -44,30 +53,58 @@ public class FavoritesFragment extends Fragment implements ZnamenitostListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        znamenitosti = new ArrayList<>();
+        listOfFavorites = new ArrayList<>();
 
-        //početno postavljanje recyclerView-a
-        favoritesRecyclerAdapter = new FavoritesRecyclerAdapter(CurrentActivity.getActivity(), znamenitosti);
+        userHelper = new UserHelper(getContext(),this);
+        userId = userHelper.returnUserId();
+        userHelper.findUserById(userId);
+
+
+        favoritesRecyclerAdapter = new FavoritesRecyclerAdapter(CurrentActivity.getActivity(), listOfFavorites);
         recyclerView.setAdapter(favoritesRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
         znamenitostiHelper = new ZnamenitostiHelper(CurrentActivity.getActivity(), this);
-        znamenitostiHelper.dohvatiSveZnamenitosti();
+
+    }
+
+    private void retrieveListOfFavorites( Korisnik currentUser) {
+        allIdsOfFavorites = new ArrayList<>();
+        for(Znamenitost temp : currentUser.getListaSpremljenihZnamenitosti()) {
+            allIdsOfFavorites.add(temp.getIdZnamenitosti());
+        }
+        znamenitostiHelper.dohvatiSpremljeneZnamenitosti(allIdsOfFavorites);
+
+    }
+
+    private void loadData (List<Znamenitost> listOfFavorites) {
+        favoritesRecyclerAdapter.setZnamenitosti(listOfFavorites);
+        favoritesRecyclerAdapter.notifyDataSetChanged();
     }
 
 
     @Override
     public void onLoadZnamenitostSucess(String message, List<Znamenitost> listaZnamenitosti) {
         if (!listaZnamenitosti.isEmpty()){
-            this.znamenitosti = listaZnamenitosti;
-            favoritesRecyclerAdapter.setZnamenitosti(znamenitosti);
-            favoritesRecyclerAdapter.notifyDataSetChanged();
+            listOfFavorites = listaZnamenitosti;
+            loadData(listOfFavorites);
         }
     }
 
     @Override
     public void onLoadZnamenitostFail(String message) {
+
+    }
+
+    @Override
+    public void onLoadUserSuccess(String message, Korisnik user) {
+        currentUser = user;
+        retrieveListOfFavorites(currentUser);
+
+    }
+
+    @Override
+    public void onLoadUserFail(String message) {
 
     }
 }

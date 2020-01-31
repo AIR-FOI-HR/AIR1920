@@ -17,9 +17,6 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
     private Context context;
     private List<Znamenitost> znamenitosti;
 
-    public List<Znamenitost> getZnamenitosti() {
-        return znamenitosti;
-    }
 
     public void setZnamenitosti(List<Znamenitost> znamenitosti) {
         this.znamenitosti = znamenitosti;

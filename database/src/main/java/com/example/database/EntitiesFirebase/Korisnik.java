@@ -15,7 +15,7 @@ public class Korisnik {
     String lokacijaSlike;
 
     //favoriti korisnika
-    List<Integer> idFavouriteZnamenitostiList;
+    List<Znamenitost> listaSpremljenihZnamenitosti;
 
     public Korisnik() {
     }
@@ -101,11 +101,13 @@ public class Korisnik {
         this.lokacijaSlike = lokacijaSlike;
     }
 
-    public List<Integer> getIdFavouriteZnamenitostiList() {
-        return idFavouriteZnamenitostiList;
+    public List<Znamenitost> getListaSpremljenihZnamenitosti() {
+        return listaSpremljenihZnamenitosti;
     }
 
-    public void setIdFavouriteZnamenitostiList(List<Integer> idFavouriteZnamenitostiList) {
-        this.idFavouriteZnamenitostiList = idFavouriteZnamenitostiList;
+    public void setListaSpremljenihZnamenitosti(List<Znamenitost> listaSpremljenihZnamenitosti) {
+        this.listaSpremljenihZnamenitosti = listaSpremljenihZnamenitosti;
     }
+
+
 }
