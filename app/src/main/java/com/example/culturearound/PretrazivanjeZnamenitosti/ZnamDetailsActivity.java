@@ -119,13 +119,16 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
                     recenzijeHelper.zapisiRecenziju(ubaciRecenziju,ocjena,znamenitostID,uID);
                     Toast.makeText(this, "Uspješna recenzija", Toast.LENGTH_LONG).show();
 
+
                 }
                 else{
                     recenzijeHelper.zapisiRecenziju(ubaciRecenziju,ocjena,znamenitostID,uID);
                     Toast.makeText(this, "Uspješna recenzija", Toast.LENGTH_LONG).show();
+
                 }
 
             }}
+
 
 
 
