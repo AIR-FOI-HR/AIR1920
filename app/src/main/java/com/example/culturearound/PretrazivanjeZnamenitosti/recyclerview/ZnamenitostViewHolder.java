@@ -13,6 +13,7 @@ import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 import com.example.culturearound.PretrazivanjeZnamenitosti.ZnamDetailsActivity;
 import com.example.culturearound.R;
 import com.example.database.EntitiesFirebase.Znamenitost;
+import com.example.default_znamenitost.DefaultZnamenitostActivity;
 import com.example.kino_znamenitost.KinoActivity;
 import com.example.setaliste_znamenitost.SetalisteActivity;
 import com.example.spomenik_znamenitost.SpomenikActivity;
@@ -72,7 +73,7 @@ public class ZnamenitostViewHolder extends ParentViewHolder {
 
         switch (kategorija){
             case 1:
-                intent = postaviIntent(ZnamDetailsActivity.class);
+                intent = postaviIntent(DefaultZnamenitostActivity.class);
                 break;
             case 2:
                 intent = postaviIntent(ZnamDetailsActivity.class);
@@ -90,7 +91,7 @@ public class ZnamenitostViewHolder extends ParentViewHolder {
                 intent = postaviIntent(KinoActivity.class);
                 break;
             default:
-                intent = postaviIntent(ZnamDetailsActivity.class);
+                intent = postaviIntent(DefaultZnamenitostActivity.class);
         }
 
         if (!intent.equals(null)){
