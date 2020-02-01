@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.core.CurrentActivity;
 import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.EntitiesFirebase.Znamenitost;
-import com.example.culturearound.R;
-import com.example.database.Listeners.UserFavouriteZnamenitostListener;
 import com.example.database.Listeners.UserListener;
 import com.example.database.UserHelper;
 

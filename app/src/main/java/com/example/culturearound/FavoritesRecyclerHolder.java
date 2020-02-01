@@ -1,31 +1,19 @@
 package com.example.culturearound;
 import android.content.Context;
 
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
-import com.example.culturearound.FavoritesRecyclerAdapter;
-import com.example.culturearound.R;
 import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.EntitiesFirebase.Znamenitost;
-import com.example.database.FirebaseHelper;
-import com.example.database.Listeners.UserFavouriteZnamenitostListener;
 import com.example.database.Listeners.UserListener;
-import com.example.database.Listeners.ZnamenitostListener;
 import com.example.database.UserHelper;
-import com.example.database.ZnamenitostiHelper;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +21,7 @@ import butterknife.ButterKnife;
 
 
 
-public class FavoritesRecyclerHolder extends ParentViewHolder implements UserListener, UserFavouriteZnamenitostListener, View.OnClickListener{
+public class FavoritesRecyclerHolder extends ParentViewHolder implements UserListener, View.OnClickListener{
     private View itemView;
 
     @BindView(R.id.znamenitost_name)
@@ -100,11 +88,6 @@ public class FavoritesRecyclerHolder extends ParentViewHolder implements UserLis
 
     @Override
     public void onLoadUserFail(String message) {
-
-    }
-
-    @Override
-    public void onFavouriteZnamenitostRemoved(Integer znamenitostId) {
 
     }
 }
