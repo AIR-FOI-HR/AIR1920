@@ -23,6 +23,8 @@ import com.example.culturearound.ProfilKorisnika.UpdateDataDialog;
 import com.squareup.picasso.Picasso;
 
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -109,7 +111,6 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
 
     @Override
     public void onLoadUserSuccess(String message, Korisnik currentUser) {
-        Log.d(TAG, "Ucitano2 " + currentUser.getIme() + currentUser.getPrezime() + currentUser.getEmail());
         loadData(currentUser);
     }
 

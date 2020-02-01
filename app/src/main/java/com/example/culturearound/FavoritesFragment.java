@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.core.CurrentActivity;
-import com.example.culturearound.FavoritiRecycler.FavoritesRecyclerAdapter;
 import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.EntitiesFirebase.Znamenitost;
 import com.example.database.Listeners.UserListener;
 import com.example.database.Listeners.ZnamenitostListener;
 import com.example.database.UserHelper;
 import com.example.database.ZnamenitostiHelper;
+import com.example.culturearound.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,14 +58,13 @@ public class FavoritesFragment extends Fragment implements ZnamenitostListener, 
         ButterKnife.bind(this, view);
         listOfFavorites = new ArrayList<>();
 
-        userHelper = new UserHelper(getContext(),this);
-        userId = userHelper.returnUserId();
-        userHelper.findUserById(userId);
-
-
         favoritesRecyclerAdapter = new FavoritesRecyclerAdapter(CurrentActivity.getActivity(), listOfFavorites);
         recyclerView.setAdapter(favoritesRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        userHelper = new UserHelper(CurrentActivity.getActivity(),this);
+        userId = userHelper.returnUserId();
+        userHelper.findUserById(userId);
 
         znamenitostiHelper = new ZnamenitostiHelper(CurrentActivity.getActivity(), this);
 
@@ -94,12 +93,7 @@ public class FavoritesFragment extends Fragment implements ZnamenitostListener, 
     }
 
     private void retrieveListOfFavorites( Korisnik currentUser) {
-        allIdsOfFavorites = new ArrayList<>();
-        for(Znamenitost temp : currentUser.getListaSpremljenihZnamenitosti()) {
-            allIdsOfFavorites.add(temp.getIdZnamenitosti());
-        }
-        znamenitostiHelper.dohvatiSpremljeneZnamenitosti(allIdsOfFavorites);
-
+        znamenitostiHelper.dohvatiSpremljeneZnamenitosti(currentUser.getIdoviZnamenitosti());
     }
 
     private List <Znamenitost> searchFavoritesByName(){
@@ -120,10 +114,8 @@ public class FavoritesFragment extends Fragment implements ZnamenitostListener, 
 
     @Override
     public void onLoadZnamenitostSucess(String message, List<Znamenitost> listaZnamenitosti) {
-        if (!listaZnamenitosti.isEmpty()){
             listOfFavorites = listaZnamenitosti;
             loadData(listOfFavorites);
-        }
     }
 
     @Override
@@ -132,8 +124,8 @@ public class FavoritesFragment extends Fragment implements ZnamenitostListener, 
     }
 
     @Override
-    public void onLoadUserSuccess(String message, Korisnik user) {
-        currentUser = user;
+    public void onLoadUserSuccess(String message, Korisnik currentUser) {
+        this.currentUser = currentUser;
         retrieveListOfFavorites(currentUser);
 
     }
@@ -142,4 +134,5 @@ public class FavoritesFragment extends Fragment implements ZnamenitostListener, 
     public void onLoadUserFail(String message) {
 
     }
+
 }

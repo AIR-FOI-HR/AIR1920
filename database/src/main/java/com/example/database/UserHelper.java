@@ -2,21 +2,30 @@ package com.example.database;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Adapter;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.EntitiesFirebase.Znamenitost;
+import com.example.database.Listeners.UserFavouriteZnamenitostListener;
 import com.example.database.Listeners.UserListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class UserHelper extends FirebaseHelper {
@@ -47,19 +56,12 @@ public class UserHelper extends FirebaseHelper {
             mQuery.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    Korisnik currentUser = new Korisnik();
-                    currentUser = dataSnapshot.getValue(Korisnik.class);
-                    currentUser.setUid(userId);
-                    List<Znamenitost> listOfFavorites = new ArrayList<>();
-                    for (DataSnapshot ds : dataSnapshot.child("listaSpremljenihZnamenitosti").getChildren()){
-                        Znamenitost znamenitost = ds.getValue(Znamenitost.class);
-                        znamenitost.setIdZnamenitosti(Integer.parseInt(ds.getKey()));
-                        listOfFavorites.add(znamenitost);
-                        Log.d("user", Integer.toString(znamenitost.getIdZnamenitosti()));
-                    }
-                    currentUser.setListaSpremljenihZnamenitosti(listOfFavorites);
-                    userListener.onLoadUserSuccess("Uspjesno dohvaćanje- listener", currentUser);
-                }
+                    if(dataSnapshot.exists()){
+                        Korisnik currentUser = new Korisnik();
+                        currentUser = dataSnapshot.getValue(Korisnik.class);
+                        currentUser.setUid(userId);
+                        userListener.onLoadUserSuccess("Uspjesno dohvaćanje- listener", currentUser);
+                }}
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -89,6 +91,40 @@ public class UserHelper extends FirebaseHelper {
         }
     }
 
+    public void removeItemFromFavorites(final String userId, final Integer selectedItemId){
 
+        if(provjeriDostupnostMreze()) {
+            Query query = mDatabase
+                    .child("Korisnik")
+                    .child(userId)
+                    .child("listaSpremljenihZnamenitosti");
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    List<Map<String, Long>> updatedListZnamenitosti = new ArrayList<>();
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        Map<String,Long> value = (Map<String,Long>) ds.getValue();
+                        Long idZnamenitosti = value.get("idZnamenitosti");
+                        Log.d("haha-d-idZnamenitosti",idZnamenitosti.toString());
+                        Log.d("haha-d-selectedItemId", selectedItemId.toString());
+                        if (idZnamenitosti.intValue() != selectedItemId){
+                            updatedListZnamenitosti.add(value);
+                        }
+                    }
+                    Map<String,Object> lista = new HashMap<>();
+                    lista.put("listaSpremljenihZnamenitosti", updatedListZnamenitosti);
+                    mDatabase.child("Korisnik")
+                            .child(userId)
+                            .updateChildren(lista);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
 }
 

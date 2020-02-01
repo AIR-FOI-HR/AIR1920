@@ -1,6 +1,8 @@
 package com.example.database.EntitiesFirebase;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Korisnik {
     String uid;
@@ -15,7 +17,7 @@ public class Korisnik {
     String lokacijaSlike;
 
     //favoriti korisnika
-    List<Znamenitost> listaSpremljenihZnamenitosti;
+    List<Map<String, Integer>> listaSpremljenihZnamenitosti = new ArrayList<>();
 
     public Korisnik() {
     }
@@ -101,13 +103,23 @@ public class Korisnik {
         this.lokacijaSlike = lokacijaSlike;
     }
 
-    public List<Znamenitost> getListaSpremljenihZnamenitosti() {
+    public List<Map<String, Integer>> getListaSpremljenihZnamenitosti() {
         return listaSpremljenihZnamenitosti;
     }
 
-    public void setListaSpremljenihZnamenitosti(List<Znamenitost> listaSpremljenihZnamenitosti) {
+    public void setListaSpremljenihZnamenitosti(List<Map<String, Integer>> listaSpremljenihZnamenitosti) {
         this.listaSpremljenihZnamenitosti = listaSpremljenihZnamenitosti;
     }
 
+    public List<Integer> getIdoviZnamenitosti() {
+        String kljucZaId = "idZnamenitosti";
+        List<Integer> lista = new ArrayList<>();
+        for(Map keyValue: listaSpremljenihZnamenitosti) {
+            if(keyValue.containsKey(kljucZaId)) {
+                lista.add((Integer)keyValue.get(kljucZaId));
+            }
+        };
+        return lista;
+    }
 
 }
