@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 
 
 
-public class FavoritesRecyclerHolder extends ParentViewHolder implements UserListener, View.OnClickListener{
+public class FavoritesRecyclerHolder extends ParentViewHolder implements UserListener{
     private View itemView;
 
     @BindView(R.id.znamenitost_name)
@@ -40,10 +40,9 @@ public class FavoritesRecyclerHolder extends ParentViewHolder implements UserLis
     private FavoritesRecyclerAdapter adapter;
 
 
-    public FavoritesRecyclerHolder(@NonNull View itemView, @NonNull FavoritesRecyclerAdapter adapter) {
+    public FavoritesRecyclerHolder(@NonNull View itemView) {
         super(itemView);
         this.itemView = itemView;
-        this.adapter = adapter;
 
         ButterKnife.bind(this, itemView);
 

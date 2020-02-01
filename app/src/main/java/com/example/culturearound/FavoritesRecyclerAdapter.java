@@ -39,7 +39,7 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
         View znamenitostView = LayoutInflater.from(parent.getContext()).inflate(R.layout.znamenitost_list_item, parent, false);
         userHelper = new UserHelper(CurrentActivity.getActivity(), this);
         userId = userHelper.returnUserId();
-        return new FavoritesRecyclerHolder(znamenitostView, this);
+        return new FavoritesRecyclerHolder(znamenitostView);
     }
 
     @Override

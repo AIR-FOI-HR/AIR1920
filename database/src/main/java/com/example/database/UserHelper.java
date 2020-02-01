@@ -118,5 +118,47 @@ public class UserHelper extends FirebaseHelper {
             });
         }
     }
+
+    public void addItemToFavourites(final String userId, final Integer selectedItemId){
+
+        if(provjeriDostupnostMreze()) {
+            Query query = mDatabase
+                    .child("Korisnik")
+                    .child(userId)
+                    .child("listaSpremljenihZnamenitosti");
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    List<Map<String, Long>> updatedListZnamenitosti = (List<Map<String, Long>>) dataSnapshot.getValue();
+                    if (updatedListZnamenitosti == null) {
+                        updatedListZnamenitosti = new ArrayList<>();
+                    }
+                    Map map = new HashMap<String, Integer>();
+                    Boolean alreadyExists = false;
+                    for (Map keyValueId : updatedListZnamenitosti) {
+                        if (keyValueId.get("idZnamenitosti") == selectedItemId) {
+                            alreadyExists = true;
+                            break;
+                        }
+                    }
+                    if(!alreadyExists) {
+                        map.put("idZnamenitosti", selectedItemId);
+                        updatedListZnamenitosti.add(map);
+                        Map<String,Object> lista = new HashMap<>();
+                        lista.put("listaSpremljenihZnamenitosti", updatedListZnamenitosti);
+                        mDatabase.child("Korisnik")
+                                .child(userId)
+                                .updateChildren(lista);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
 }
 
