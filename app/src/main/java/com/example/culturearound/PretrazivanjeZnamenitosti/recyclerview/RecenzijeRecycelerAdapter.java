@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,7 @@ public class RecenzijeRecycelerAdapter extends RecyclerView.Adapter<RecenzijeVie
 
     private Context context;
     private List<Komentar> komentari;
+
 
     public List<Komentar> getKomentari() {return komentari;}
 
@@ -39,7 +41,9 @@ public class RecenzijeRecycelerAdapter extends RecyclerView.Adapter<RecenzijeVie
     @Override
     public RecenzijeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View recenzijeView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recenzija_lista, parent, false);
+
         return new RecenzijeViewHolder(recenzijeView);
+
     }
 
     @Override

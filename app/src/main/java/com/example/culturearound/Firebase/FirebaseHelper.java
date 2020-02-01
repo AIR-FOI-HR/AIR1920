@@ -13,6 +13,9 @@ import com.google.firebase.database.Query;
 
 public abstract class FirebaseHelper {
 
+
+
+
     //instanca FirebaseAutorizacije - usluga Authentication
     protected FirebaseAuth mAuth;
     //kontekst koristimo za toast i provjeru spajanja na internet
@@ -24,6 +27,10 @@ public abstract class FirebaseHelper {
     //referenca za upite
 
     protected Query mQuery;
+
+    public FirebaseAuth getmAuth() {
+        return mAuth;
+    }
 
 
     protected Boolean provjeriDostupnostMreze() {

@@ -102,6 +102,8 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
             }
         });
 
+
+
     }
 
     private void provjeraUnosa (String ubaciRecenziju,String Ubaciocjenu,int znamenitostID) {
@@ -133,6 +135,9 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
 
 
     }
+
+
+
 
 
     @Override

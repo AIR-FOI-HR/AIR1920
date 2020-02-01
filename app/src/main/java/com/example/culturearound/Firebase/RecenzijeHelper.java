@@ -115,10 +115,6 @@ public class RecenzijeHelper extends FirebaseHelper {
     }
 
 
-
-
-
-
     public void zapisiRecenziju(String opis, int ocjena, int idZnamenitost, String uid){
         DatabaseReference aKomentar = mDatabase.child("komentar");
         Log.d("Anja3:","ovdje sam");

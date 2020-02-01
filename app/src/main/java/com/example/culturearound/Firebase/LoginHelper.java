@@ -20,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class LoginHelper extends FirebaseHelper{
     private LoginListener mLoginListener;
 
-
     public LoginHelper(LoginListener context) {
         mAuth = FirebaseAuth.getInstance();
         mContext = (Context) context;
@@ -29,6 +28,7 @@ public class LoginHelper extends FirebaseHelper{
 
         mLoginListener = context;
     }
+
 
     /**
      * Provjera je li korisnik ulogiran.
