@@ -40,6 +40,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+
+
     //butterknife
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
@@ -48,6 +50,10 @@ dependencies {
     implementation project(path: ':database')
     implementation project(path: ':core')
     implementation project(path: ':maps')
+
+    implementation project(path: ':kino_znamenitost')
+    implementation project(path: ':setaliste_znamenitost')
+    implementation project(path: ':default_znamenitost')
     implementation project(path: ':spomenik_znamenitost')
 
     //room database framework
@@ -77,12 +83,6 @@ dependencies {
     //maps
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
 }
-    implementation project(path: ':kino_znamenitost')
-    implementation project(path: ':setaliste_znamenitost')
-    implementation project(path: ':default_znamenitost')
-}
 
 //firebase
 apply plugin: 'com.google.gms.google-services'
-
-
