@@ -18,6 +18,16 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp">
 
+        <ImageButton
+            android:id="@+id/favoritesButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_marginStart="7dp"
+            android:layout_weight=".3"
+            android:background="@null"
+            android:src="@drawable/favorite_button_styles" />
+
         <ImageView
             android:id="@+id/znamenitost_image"
             android:layout_width="match_parent"

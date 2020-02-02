@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -20,10 +21,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.core.CurrentActivity;
+import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.EntitiesFirebase.Lokacija;
 import com.example.database.Listeners.LokacijaListener;
+import com.example.database.Listeners.UserListener;
 import com.example.database.Listeners.ZnamenitostListener;
 import com.example.database.LokacijaHelper;
+import com.example.database.UserHelper;
 import com.example.database.ZnamenitostiHelper;
 import com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview.ZnamenitostRecyclerAdapter;
 import com.example.database.EntitiesFirebase.Znamenitost;
@@ -36,7 +40,7 @@ import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends Fragment implements View.OnClickListener, ZnamenitostListener, LokacijaListener {
+public class HomeFragment extends Fragment implements View.OnClickListener, ZnamenitostListener, LokacijaListener{
     @BindView(R.id.btnMuzej)
     Button btnMuzej;
     @BindView(R.id.btnGalerija)
@@ -87,6 +91,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
         znamenitostRecyclerAdapter = new ZnamenitostRecyclerAdapter(getActivity(), znamenitosti);
         recyclerView.setAdapter(znamenitostRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 
         //rad s tražilicom
         trazilica.setOnQueryTextListener(
@@ -290,4 +295,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Znam
     public void onLoadLokacijaFail(String message) {
         Log.d("LokacijaTag", message);
     }
+    
 }
