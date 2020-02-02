@@ -11,11 +11,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
+import com.example.core.CurrentActivity;
 import com.example.culturearound.FavoritesRecyclerAdapter;
 import com.example.culturearound.PretrazivanjeZnamenitosti.ZnamDetailsActivity;
 import com.example.culturearound.R;
 import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.EntitiesFirebase.Znamenitost;
+import com.example.database.Listeners.LoginListener;
+import com.example.database.LoginHelper;
 import com.example.default_znamenitost.DefaultZnamenitostActivity;
 import com.example.kino_znamenitost.KinoActivity;
 import com.example.setaliste_znamenitost.SetalisteActivity;
@@ -30,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ZnamenitostViewHolder extends ParentViewHolder implements UserListener {
+public class ZnamenitostViewHolder extends ParentViewHolder implements UserListener{
     private View itemView;
     private Znamenitost selectedZnamenitost = null;
 
@@ -42,6 +45,7 @@ public class ZnamenitostViewHolder extends ParentViewHolder implements UserListe
     ImageView znamenitostImage;
 
     public ImageButton favoriteButton;
+    private LoginHelper loginHelper;
 
     private UserHelper userHelper;
 
@@ -61,7 +65,7 @@ public class ZnamenitostViewHolder extends ParentViewHolder implements UserListe
         favoriteButton= itemView.findViewById(R.id.favoritesButton);
 
         userHelper = new UserHelper(itemView.getContext(), this);
-        userId = userHelper.returnUserId();
+
     }
 
 
@@ -77,6 +81,7 @@ public class ZnamenitostViewHolder extends ParentViewHolder implements UserListe
                 .getContext())
                 .load(urlSlike)
                 .into(znamenitostImage);
+
 
     }
 

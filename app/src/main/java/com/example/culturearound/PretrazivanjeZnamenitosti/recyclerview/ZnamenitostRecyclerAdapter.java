@@ -15,17 +15,21 @@ import com.example.culturearound.FavoritesRecyclerHolder;
 import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.EntitiesFirebase.Znamenitost;
 import com.example.culturearound.R;
+import com.example.database.FirebaseHelper;
+import com.example.database.Listeners.LoginListener;
 import com.example.database.Listeners.UserListener;
+import com.example.database.LoginHelper;
 import com.example.database.UserHelper;
 
 import java.util.List;
 
-public class ZnamenitostRecyclerAdapter extends RecyclerView.Adapter<ZnamenitostViewHolder> implements UserListener {
+public class ZnamenitostRecyclerAdapter extends RecyclerView.Adapter<ZnamenitostViewHolder> implements UserListener{
     private Context context;
     private List<Znamenitost> znamenitosti;
     private UserHelper userHelper;
     private String userId;
     private Korisnik currentUser ;
+
 
     public List<Znamenitost> getZnamenitosti() {
         return znamenitosti;
@@ -39,24 +43,31 @@ public class ZnamenitostRecyclerAdapter extends RecyclerView.Adapter<Znamenitost
         this.context = context;
         this.znamenitosti = znamenitosti;
         userHelper = new UserHelper(CurrentActivity.getActivity(), this);
-        userId = userHelper.returnUserId();
-        userHelper.findUserById(userId);
+        if(userHelper.checkIfSignedIn()){
+            userId = userHelper.returnUserId();
+            userHelper.findUserById(userId);
+        }
+
     }
 
     @NonNull
     @Override
     public ZnamenitostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View znamenitostView = LayoutInflater.from(parent.getContext()).inflate(R.layout.znamenitost_list_item, parent, false);
+
         return new ZnamenitostViewHolder(znamenitostView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ZnamenitostViewHolder holder, int position) {
         holder.bindToData(znamenitosti.get(position), context);
-        isItInFavourites(holder.favoriteButton, holder.returnSelectedFavorite().getIdZnamenitosti());
-        addItemToFavorites(position, holder);
-
+        if(currentUser != null){
+            isItInFavourites(holder.favoriteButton, holder.returnSelectedFavorite().getIdZnamenitosti());
+            addItemToFavorites(position, holder);
+        }
     }
+
+
 
     private void addItemToFavorites(int position, ZnamenitostViewHolder holder){
         ZnamenitostViewHolder znamenitostViewHolder = holder;
