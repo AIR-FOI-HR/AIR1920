@@ -74,6 +74,7 @@ public class ZnamenitostViewHolder extends ParentViewHolder implements UserListe
                 .getContext())
                 .load(urlSlike)
                 .into(znamenitostImage);
+
     }
 
     //Klik znamenitosti na recycleview-u

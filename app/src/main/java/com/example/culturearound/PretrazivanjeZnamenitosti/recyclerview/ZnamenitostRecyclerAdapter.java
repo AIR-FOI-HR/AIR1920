@@ -55,6 +55,7 @@ public class ZnamenitostRecyclerAdapter extends RecyclerView.Adapter<Znamenitost
         holder.bindToData(znamenitosti.get(position), context);
         isItInFavourites(holder.favoriteButton, holder.returnSelectedFavorite().getIdZnamenitosti());
         addItemToFavorites(position, holder);
+
     }
 
     private void addItemToFavorites(int position, ZnamenitostViewHolder holder){
@@ -79,12 +80,13 @@ public class ZnamenitostRecyclerAdapter extends RecyclerView.Adapter<Znamenitost
 
     private void isItInFavourites (ImageButton favoriteButton, Integer selectedId){
         List<Integer> listOfFavouritesID = currentUser.getIdoviZnamenitosti() ;
-
-        for (Integer currentId : listOfFavouritesID){
-            if(currentId == selectedId)
-                favoriteButton.setSelected(true);
+        if(listOfFavouritesID.contains(selectedId)){
+            favoriteButton.setSelected(true);}
+        else {
+            favoriteButton.setSelected(false);
         }
-    }
+
+        }
 
 
     @Override
