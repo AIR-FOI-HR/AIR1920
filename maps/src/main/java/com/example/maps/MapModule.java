@@ -27,7 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
-public class MapModule extends Fragment implements OnMapReadyCallback, ZnamenitostListener {
+public class MapModule extends Fragment implements OnMapReadyCallback, ZnamenitostListener, GoogleMap.OnMarkerClickListener {
     GoogleMap map;
     SupportMapFragment mapFragment;
     private List<Znamenitost> znamenitosti;
@@ -77,10 +77,16 @@ public class MapModule extends Fragment implements OnMapReadyCallback, Znamenito
                 LatLng position =
                         new LatLng(z.getLatitude(),
                                 z.getLongitude());
-                map.addMarker(
-                        new MarkerOptions()
-                                .position(position)
-                                .title(z.getNaziv()));
+                /*MarkerOptions marker = new MarkerOptions()
+                        .position(position)
+                        .title(z.getNaziv());
+
+                 */
+                Marker marker = map.addMarker(new MarkerOptions()
+                        .position(position)
+                        .title(z.getNaziv()));
+                marker.setTag(z.getIdZnamenitosti());
+
                 if (!cameraReady) {
                     map.moveCamera(CameraUpdateFactory.newLatLng(position));
                     map.moveCamera(CameraUpdateFactory.zoomTo(12));
@@ -99,5 +105,11 @@ public class MapModule extends Fragment implements OnMapReadyCallback, Znamenito
     @Override
     public void onLoadZnamenitostFail(String message) {
         Log.d("ZnamenitostTag", "Load Fail");
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        marker.getTag();
+        return false;
     }
 }
