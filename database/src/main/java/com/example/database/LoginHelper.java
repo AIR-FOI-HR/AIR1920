@@ -121,10 +121,4 @@ public class LoginHelper extends FirebaseHelper {
         }
     }
 
-    public void signOut() {
-        FirebaseAuth.getInstance().signOut();
-        Toast.makeText(mContext, "Korisnik uspješno odjavljen.",
-                Toast.LENGTH_LONG).show();
-        Log.d("FirebaseTag", "Korisnik odjavljan.");
-    }
 }

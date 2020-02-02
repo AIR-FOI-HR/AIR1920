@@ -59,7 +59,6 @@ public class UpdateDataDialog extends AppCompatDialogFragment implements UserLis
         userId = userHelper.returnUserId();
 
         builder.setView(view)
-                .setTitle("Update data")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -1,5 +1,7 @@
 package com.example.culturearound;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.core.CurrentActivity;
 import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.Listeners.UserListener;
 import com.example.database.UserHelper;
@@ -46,6 +50,12 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
     @BindView(R.id.profile_email)
     TextView userMail;
 
+    @BindView(R.id.logoutBtn)
+    ImageView logout;
+
+
+
+
     private UserHelper userHelper;
 
     private String firstName, lastName, email, pictureUrl;
@@ -65,12 +75,13 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
         Log.d(TAG, "Pocetak...");
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        userPicture.bringToFront();
         btnUpdateData.setOnClickListener(this);
+        logout.setOnClickListener(this);
         userHelper = new UserHelper(getContext(),this);
         userId = userHelper.returnUserId();
         Log.d(TAG, "onViewCreated: "+ userId);
         userHelper.findUserById(userId);
-
 
     }
 
@@ -121,6 +132,21 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
 
     @Override
     public void onClick(View v) {
-        openDialogUpdateData();
+
+        switch (v.getId()) {
+
+            case R.id.update_profile:
+                openDialogUpdateData();
+                break;
+
+            case R.id.logoutBtn:
+                userHelper.signOut();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                break;
+
+        }
+
+
     }
 }

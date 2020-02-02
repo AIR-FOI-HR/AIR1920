@@ -53,4 +53,11 @@ public abstract class FirebaseHelper {
             return false;
         }
     }
+
+    public void signOut() {
+        FirebaseAuth.getInstance().signOut();
+        Toast.makeText(mContext, "Korisnik uspješno odjavljen.",
+                Toast.LENGTH_LONG).show();
+        Log.d("FirebaseTag", "Korisnik odjavljan.");
+    }
 }
