@@ -125,12 +125,13 @@ public class RecenzijeHelper extends FirebaseHelper {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(Integer.toString(idZnamenitost)).hasChild(mAuth.getUid())){
-                    Toast.makeText(mContext, "Recenzija postavljena", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "Recenzija već postavljena", Toast.LENGTH_LONG).show();
 
                 }
                 else{
                     Komentar noviKomentar = new Komentar(7,opis,ocjena, mAuth.getUid(),idZnamenitost,0,0);
                     aKomentar.child(Integer.toString(idZnamenitost)).child(mAuth.getUid()).setValue(noviKomentar);
+                    Toast.makeText(mContext, "Uspješna recenzija", Toast.LENGTH_LONG).show();
 
                 }
             }

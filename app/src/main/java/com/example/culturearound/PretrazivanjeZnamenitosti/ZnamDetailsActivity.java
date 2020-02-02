@@ -101,6 +101,7 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
     }
 
     private void provjeraUnosa (String ubaciRecenziju,String Ubaciocjenu,int znamenitostID) {
+
         if(Ubaciocjenu.length()==0){
             Toast.makeText(this, "Ocjena se mora unijeti", Toast.LENGTH_LONG).show();
         }
@@ -113,11 +114,11 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
                 if(ubaciRecenziju.length()== 0){
                     ubaciRecenziju="Nema komentara";
                     recenzijeHelper.zapisiRecenziju(ubaciRecenziju,ocjena,znamenitostID);
-                    Toast.makeText(this, "Uspješna recenzija", Toast.LENGTH_LONG).show();
+
                 }
                 else{
                     recenzijeHelper.zapisiRecenziju(ubaciRecenziju,ocjena,znamenitostID);
-                    Toast.makeText(this, "Uspješna recenzija", Toast.LENGTH_LONG).show();
+
 
                 }
             }}
