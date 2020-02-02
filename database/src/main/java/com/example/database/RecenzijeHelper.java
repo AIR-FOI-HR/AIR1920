@@ -118,12 +118,29 @@ public class RecenzijeHelper extends FirebaseHelper {
     }
 
 
-    public void zapisiRecenziju(String opis, int ocjena, int idZnamenitost){
-        DatabaseReference aKomentar = mDatabase.child("komentar");
+    public void zapisiRecenziju(final String opis, final int ocjena, final int idZnamenitost){
+        final DatabaseReference aKomentar = mDatabase.child("komentar");
         Log.d("Anja3:","ovdje sam");
-        Komentar noviKomentar = new Komentar(7,opis,ocjena, mAuth.getUid(),idZnamenitost,0,0);
-        aKomentar.child(Integer.toString(idZnamenitost)).child(mAuth.getUid()).setValue(noviKomentar);
-        Log.d("Anja3:","ovdje sam2");
+        aKomentar.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(Integer.toString(idZnamenitost)).hasChild(mAuth.getUid())){
+                    Toast.makeText(mContext, "Recenzija postavljena", Toast.LENGTH_LONG).show();
+
+                }
+                else{
+                    Komentar noviKomentar = new Komentar(7,opis,ocjena, mAuth.getUid(),idZnamenitost,0,0);
+                    aKomentar.child(Integer.toString(idZnamenitost)).child(mAuth.getUid()).setValue(noviKomentar);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public void provjeriOcjenuKomentara(String otherUId, final int idZnamenitosti){
