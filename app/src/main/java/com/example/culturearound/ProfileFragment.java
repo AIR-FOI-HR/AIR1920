@@ -118,10 +118,6 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
         updateDataDialog.show(fragManager,"update user data dialog");
     }
 
-    private void logoutUser() {
-
-    }
-
 
 
     @Override
@@ -139,7 +135,7 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
 
         switch (v.getId()) {
 
-            case R.id.update_preview_picture:
+            case R.id.update_profile:
                 openDialogUpdateData();
                 break;
 
