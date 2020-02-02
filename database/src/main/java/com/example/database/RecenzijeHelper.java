@@ -42,6 +42,7 @@ public class RecenzijeHelper extends FirebaseHelper {
 
 
     public void dohvatiSveRecenzije(){
+        if (!provjeriDostupnostMreze()) return;
         mQuery = mDatabase.child("komentar");
         if (provjeriDostupnostMreze()){
             mQuery.addValueEventListener(new ValueEventListener() {
@@ -72,56 +73,53 @@ public class RecenzijeHelper extends FirebaseHelper {
     double vrijednost;
 
     public void dohvatiRecenzijePremaId(final int idZnamenitost){
-        if (provjeriDostupnostMreze() && checkIfSignedIn()){
-            mQuery = mDatabase.child("komentar").child(Integer.toString(idZnamenitost));
-            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    List<Komentar> listaRecenzija = new ArrayList<>();
-                    for (DataSnapshot temp : dataSnapshot.getChildren()){
-                        Log.d("Anja1", "Dosao do tud ");
-                        Komentar komentar = new Komentar();
-                        komentar = temp.getValue(Komentar.class);
-                        komentar.setUid(temp.getKey());
-                        komentar.setIdZnamenitost(idZnamenitost);
-                        Log.d("Anja", "Uid anja: " + komentar.getUid());
-                        Log.d("Anja", "Idznam anja: " + komentar.getIdZnamenitost());
-                        Log.d("Anja", "opis anja: " + komentar.getOpis());
-                        zbrOcjena+=komentar.getOcjena();
-                        brRec+=1;
-                        listaRecenzija.add(komentar);
-                    }
-                    Log.d("Anja1", "Zbroj: " + zbrOcjena);
-                    Log.d("Anja1", "Broj:"+brRec);
+        if (!provjeriDostupnostMreze()) return;
+        mQuery = mDatabase.child("komentar").child(Integer.toString(idZnamenitost));
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Komentar> listaRecenzija = new ArrayList<>();
+                for (DataSnapshot temp : dataSnapshot.getChildren()){
+                    Log.d("Anja1", "Dosao do tud ");
+                    Komentar komentar = new Komentar();
+                    komentar = temp.getValue(Komentar.class);
+                    komentar.setUid(temp.getKey());
+                    komentar.setIdZnamenitost(idZnamenitost);
+                    Log.d("Anja", "Uid anja: " + komentar.getUid());
+                    Log.d("Anja", "Idznam anja: " + komentar.getIdZnamenitost());
+                    Log.d("Anja", "opis anja: " + komentar.getOpis());
+                    zbrOcjena+=komentar.getOcjena();
+                    brRec+=1;
+                    listaRecenzija.add(komentar);
+                }
+                Log.d("Anja1", "Zbroj: " + zbrOcjena);
+                Log.d("Anja1", "Broj:"+brRec);
+                if (zbrOcjena!=0){
+                    vrijednost=zbrOcjena/brRec;
+                    Double toBeTruncated = new Double(vrijednost);
+                    Double truncatedDouble = BigDecimal.valueOf(toBeTruncated)
+                            .setScale(2, RoundingMode.HALF_UP)
+                            .doubleValue();
+                    ukupno=truncatedDouble;}
 
-
-                    if (zbrOcjena!=0){
-                        vrijednost=zbrOcjena/brRec;
-                        Double toBeTruncated = new Double(vrijednost);
-                        Double truncatedDouble = BigDecimal.valueOf(toBeTruncated)
-                                .setScale(2, RoundingMode.HALF_UP)
-                                .doubleValue();
-                        ukupno=truncatedDouble;}
-
-                    else{
-                        ukupno=0;
-                    }
-
-                    Log.d("Anja2", "BrojSve:"+ukupno);
-                    recenzijaListener.onLoadRecenzijaSucess("Uspješno dohvaćanje - listener", listaRecenzija);
+                else{
+                    ukupno=0;
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    recenzijaListener.onLoadRecenzijaFail("Neuspješno dohvaćanje - listener");
-                }
-            });
-        }
+                Log.d("Anja2", "BrojSve:"+ukupno);
+                recenzijaListener.onLoadRecenzijaSucess("Uspješno dohvaćanje - listener", listaRecenzija);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                recenzijaListener.onLoadRecenzijaFail("Neuspješno dohvaćanje - listener");
+            }
+        });
     }
 
 
     public void zapisiRecenziju(final String opis, final int ocjena, final int idZnamenitost){
+        if (!provjeriDostupnostMreze()) return;
         final DatabaseReference aKomentar = mDatabase.child("komentar");
         Log.d("Anja3:","ovdje sam");
         aKomentar.addValueEventListener(new ValueEventListener() {
@@ -148,23 +146,25 @@ public class RecenzijeHelper extends FirebaseHelper {
     }
 
     public void provjeriOcjenuKomentara(String otherUId, final int idZnamenitosti){
-        mQuery = mDatabase.child("Like").child(mAuth.getUid()).child(otherUId);
-        //mQuery = mDatabase.child("Like").child(mAuth.getUid()).child(otherUId).child(Integer.toString(idZnamenitosti));
-        mQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(Integer.toString(idZnamenitosti))){
-                    String mojaOcjenaKomentara =
-                            (String) dataSnapshot.child(Integer.toString(idZnamenitosti)).child("vote").getValue();
-                    recenzijaListener.onOcjenaKomentaraSucess("Dohvaćena ocjena komentara!", mojaOcjenaKomentara);
+        if (checkIfSignedIn() && provjeriDostupnostMreze()){
+            mQuery = mDatabase.child("Like").child(mAuth.getUid()).child(otherUId);
+            //mQuery = mDatabase.child("Like").child(mAuth.getUid()).child(otherUId).child(Integer.toString(idZnamenitosti));
+            mQuery.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.hasChild(Integer.toString(idZnamenitosti))){
+                        String mojaOcjenaKomentara =
+                                (String) dataSnapshot.child(Integer.toString(idZnamenitosti)).child("vote").getValue();
+                        recenzijaListener.onOcjenaKomentaraSucess("Dohvaćena ocjena komentara!", mojaOcjenaKomentara);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                recenzijaListener.onLoadRecenzijaFail("Nije dohvaćena ocjena komentara!");
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    recenzijaListener.onLoadRecenzijaFail("Nije dohvaćena ocjena komentara!");
+                }
+            });
+        }
     }
 
     public void postaviOcjenu(String otherUId, int idZnamenitosti, String ocjena){

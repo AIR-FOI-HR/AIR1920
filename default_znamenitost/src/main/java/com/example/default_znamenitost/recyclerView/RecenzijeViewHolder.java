@@ -18,6 +18,7 @@ import com.example.database.Listeners.UserListener;
 import com.example.database.RecenzijeHelper;
 import com.example.database.UserHelper;
 import com.example.default_znamenitost.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -63,7 +64,6 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
         down = itemView.findViewById(R.id.recenzija_down);
         btnLike = (ImageButton) itemView.findViewById(R.id.likeButton);
         btnDislike = (ImageButton) itemView.findViewById(R.id.dislikeButton);
-
     }
 
     //Bind data i prikazivanje komentarovih podataka
@@ -108,6 +108,11 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!recenzijeHelper.checkIfSignedIn()){
+                    Snackbar.make(v, "Potrebno se je ulogirat za ocjenjivanje komentara.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    return;
+                }
                 Log.d("NjAnja", "Pocetak klika like.");
                 if (mojaOcjenaKomentara.equals("Like")){
                     recenzijeHelper.obrisiOcjenu(korisnik.getUid(), komentar.getIdZnamenitost());
@@ -126,6 +131,11 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
         btnDislike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!recenzijeHelper.checkIfSignedIn()){
+                    Snackbar.make(v, "Potrebno se je ulogirat za ocjenjivanje komentara.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    return;
+                }
                 Log.d("NjAnja", "Pocetak klika dislike.");
                 if (mojaOcjenaKomentara.equals("Dislike")){
                     recenzijeHelper.obrisiOcjenu(korisnik.getUid(), komentar.getIdZnamenitost());

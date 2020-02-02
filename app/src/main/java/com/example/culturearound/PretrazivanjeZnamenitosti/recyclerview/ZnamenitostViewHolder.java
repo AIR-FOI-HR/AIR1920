@@ -11,13 +11,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
-import com.example.core.CurrentActivity;
 import com.example.culturearound.FavoritesRecyclerAdapter;
-import com.example.culturearound.PretrazivanjeZnamenitosti.ZnamDetailsActivity;
 import com.example.culturearound.R;
 import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.EntitiesFirebase.Znamenitost;
-import com.example.database.Listeners.LoginListener;
 import com.example.database.LoginHelper;
 import com.example.default_znamenitost.DefaultZnamenitostActivity;
 import com.example.kino_znamenitost.KinoActivity;
@@ -25,7 +22,6 @@ import com.example.setaliste_znamenitost.SetalisteActivity;
 import com.example.spomenik_znamenitost.SpomenikActivity;
 import com.example.database.Listeners.UserListener;
 import com.example.database.UserHelper;
-import com.example.spomenik_znamenitost.SpomenikActivity;
 
 import com.squareup.picasso.Picasso;
 
@@ -73,7 +69,10 @@ public class ZnamenitostViewHolder extends ParentViewHolder implements UserListe
     public void bindToData(Znamenitost znamenitost, Context context){
         this.selectedZnamenitost = znamenitost;
         znamenitostName.setText(znamenitost.getNaziv());
-        znamenitostDesc.setText(znamenitost.getOpis());
+
+        String opis = znamenitost.getOpis();
+        if (opis.length() > 80) opis = opis.substring(0, 50) + "...";
+        znamenitostDesc.setText(opis);
 
         String urlSlike = znamenitost.getLokacijaSlike();
 
@@ -81,8 +80,6 @@ public class ZnamenitostViewHolder extends ParentViewHolder implements UserListe
                 .getContext())
                 .load(urlSlike)
                 .into(znamenitostImage);
-
-
     }
 
     //Klik znamenitosti na recycleview-u
@@ -96,7 +93,7 @@ public class ZnamenitostViewHolder extends ParentViewHolder implements UserListe
                 intent = postaviIntent(DefaultZnamenitostActivity.class);
                 break;
             case 2:
-                intent = postaviIntent(ZnamDetailsActivity.class);
+                intent = postaviIntent(DefaultZnamenitostActivity.class);
                 break;
             case 3:
                 intent = postaviIntent(SpomenikActivity.class);
@@ -105,7 +102,7 @@ public class ZnamenitostViewHolder extends ParentViewHolder implements UserListe
                 intent = postaviIntent(SetalisteActivity.class);
                 break;
             case 5:
-                intent = postaviIntent(ZnamDetailsActivity.class);
+                intent = postaviIntent(DefaultZnamenitostActivity.class);
                 break;
             case 6:
                 intent = postaviIntent(KinoActivity.class);

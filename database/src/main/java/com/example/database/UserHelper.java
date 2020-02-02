@@ -30,13 +30,12 @@ public class UserHelper extends FirebaseHelper {
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference();
         this.userListener = userListener;
-        //userId= mAuth.getCurrentUser().getUid();
-        //user = mAuth.getCurrentUser();
     }
 
     public String returnUserId () {
         String userId = mAuth.getCurrentUser().getUid();
-        return userId ;
+        if (userId == null) userId = "";
+        return userId;
     }
 
 
@@ -62,6 +61,7 @@ public class UserHelper extends FirebaseHelper {
     }
 
     public void updateData(String firstName, String lastName, String email, String pictureUrl, final String userId) {
+        if (!provjeriDostupnostMreze()) return;
 
         if (firstName != "") {
             mDatabase.child("Korisnik").child(userId).child("ime").setValue(firstName);
@@ -92,7 +92,7 @@ public class UserHelper extends FirebaseHelper {
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    List<Map<String, Long>> updatedListZnamenitosti = new ArrayList<>();
+                    List<Map<String, Long>> updatedListZnamenitosti = new ArrayList<Map<String, Long>>();
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         Map<String,Long> value = (Map<String,Long>) ds.getValue();
                         Long idZnamenitosti = value.get("idZnamenitosti");
@@ -130,7 +130,7 @@ public class UserHelper extends FirebaseHelper {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     List<Map<String, Long>> updatedListZnamenitosti = (List<Map<String, Long>>) dataSnapshot.getValue();
                     if (updatedListZnamenitosti == null) {
-                        updatedListZnamenitosti = new ArrayList<>();
+                        updatedListZnamenitosti = new ArrayList<Map<String, Long>>();
                     }
                     Map map = new HashMap<String, Integer>();
                     Boolean alreadyExists = false;

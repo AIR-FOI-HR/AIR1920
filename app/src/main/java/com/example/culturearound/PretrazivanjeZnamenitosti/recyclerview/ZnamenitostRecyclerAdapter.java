@@ -85,9 +85,7 @@ public class ZnamenitostRecyclerAdapter extends RecyclerView.Adapter<Znamenitost
                     button.setSelected(false);
                     userHelper.removeItemFromFavorites(userId,selectedFavorite.getIdZnamenitosti());
                 }
-
             }
-
         });
     }
 

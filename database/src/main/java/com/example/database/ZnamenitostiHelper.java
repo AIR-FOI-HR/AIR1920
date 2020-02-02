@@ -35,6 +35,7 @@ public class ZnamenitostiHelper extends FirebaseHelper {
     }
 
     public void dohvatiSveZnamenitosti() {
+        if (!provjeriDostupnostMreze()) return;
         mQuery = mDatabase.child("znamenitost");
         if (provjeriDostupnostMreze()) {
             mQuery.addValueEventListener(new ValueEventListener() {
@@ -67,6 +68,7 @@ public class ZnamenitostiHelper extends FirebaseHelper {
     }
 
     public void dohvatiZnamenitostPremaId(int idZnamenitosti) {
+        if (!provjeriDostupnostMreze()) return;
         mQuery = mDatabase.child("znamenitost").child(Integer.toString(idZnamenitosti));
         mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -93,6 +95,7 @@ public class ZnamenitostiHelper extends FirebaseHelper {
     }
 
     public void dohvatiSpremljeneZnamenitosti(final List <Integer> ideviZnamenitosti){
+        if (!provjeriDostupnostMreze()) return;
         final List<Znamenitost> spremljeneZnamenitosti = new ArrayList<>();
         mQuery = mDatabase.child("znamenitost");
         if(provjeriDostupnostMreze()){

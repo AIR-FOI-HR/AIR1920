@@ -53,9 +53,9 @@ public class DefaultZnamenitostActivity extends AppCompatActivity implements Zna
 
     RecyclerView recyclerView;
     RatingBar rateSve;
-    private EditText UbaciRecenziju;
-    private EditText UbaciOcjenu;
-    private Button Recenzija;
+    private EditText ubaciRecenziju;
+    private EditText ubaciOcjenu;
+    private Button btnRecenzija;
 
 
     private List<Komentar> komentari;
@@ -81,9 +81,9 @@ public class DefaultZnamenitostActivity extends AppCompatActivity implements Zna
 
         recyclerView = findViewById(R.id.listaRecenzije);
         rateSve = findViewById(R.id.sveOcjena);
-        UbaciRecenziju = findViewById(R.id.upisiRecenziju);
-        UbaciOcjenu= findViewById(R.id.upisiOcjenu);
-        Recenzija = findViewById(R.id.upisiRecenzijuBtn);
+        ubaciRecenziju = findViewById(R.id.upisiRecenziju);
+        ubaciOcjenu = findViewById(R.id.upisiOcjenu);
+        btnRecenzija = findViewById(R.id.upisiRecenzijuBtn);
 
         imgNaslovnaSlika = (ImageView) findViewById(R.id.imgNaslovnaSlika);
         txtAdresaZnamenitosti = (TextView) findViewById(R.id.txtAdresaZnamenitosti);
@@ -94,7 +94,31 @@ public class DefaultZnamenitostActivity extends AppCompatActivity implements Zna
         recenzijeHelper = new RecenzijeHelper((Context) this, this);
         znamenitostiHelper = new ZnamenitostiHelper((Context) this, this);
         lokacijaHelper = new LokacijaHelper((Context) this, this);
+
+        if (!recenzijeHelper.checkIfSignedIn()){
+            iskljuciDodavanjeKomentara();
+        }
     }
+
+    private void iskljuciDodavanjeKomentara(){
+        ubaciRecenziju.setFocusable(false);
+        ubaciOcjenu.setFocusable(false);
+        ubaciRecenziju.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Potrebno se je ulogirat za dodavanje komentara.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        ubaciOcjenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Potrebno se je ulogirat za dodavanje komentara.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
     @Override
     protected void onResume(){
         super.onResume();
@@ -132,15 +156,20 @@ public class DefaultZnamenitostActivity extends AppCompatActivity implements Zna
         recyclerView.setAdapter(recenzijeRecycelerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //dohvaćanje recenzija
+        //dohvaćanje Recenzija
         recenzijeHelper.dohvatiRecenzijePremaId(znamenitost.getIdZnamenitosti());
 
-        Recenzija.setOnClickListener(new View.OnClickListener() {
+        btnRecenzija.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!recenzijeHelper.checkIfSignedIn()){
+                    Snackbar.make(v, "Potrebno se je ulogirat za dodavanje komentara.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    return;
+                }
                 provjeraUnosa(
-                        UbaciRecenziju.getText().toString(),
-                        UbaciOcjenu.getText().toString(),
+                        ubaciRecenziju.getText().toString(),
+                        ubaciOcjenu.getText().toString(),
                         znamenitost.getIdZnamenitosti());
             }
         });

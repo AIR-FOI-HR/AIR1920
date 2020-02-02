@@ -30,6 +30,7 @@ public class LokacijaHelper extends FirebaseHelper {
     }
 
     public void dohvatiSveLokacije(){
+        if (!provjeriDostupnostMreze()) return;
         mQuery = mDatabase.child("lokacija");
         if (provjeriDostupnostMreze()){
             mQuery.addValueEventListener(new ValueEventListener() {
@@ -54,6 +55,7 @@ public class LokacijaHelper extends FirebaseHelper {
     }
 
     public void dohvatiZnamenitostPremaId(int idLokacija){
+        if (!provjeriDostupnostMreze()) return;
         mQuery = mDatabase.child("lokacija").child(Integer.toString(idLokacija));
         mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

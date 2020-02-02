@@ -30,7 +30,6 @@ public abstract class FirebaseHelper {
 
     public boolean checkIfSignedIn(){
         if(mAuth.getUid() == null) {
-            Toast.makeText(mContext,"Nije ulogiran korisnik", Toast.LENGTH_SHORT).show();
             Log.d("FirebaseTag", "Nije ulogiran korisnik");
             return false;
         }
