@@ -94,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/opis_text"
                 android:layout_marginBottom="@dimen/text_margin"/>
+            <!-- Od ovdje Galerija -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewGalerija"
                 android:layout_width="match_parent"
@@ -101,6 +102,94 @@
                 android:orientation="horizontal"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/text_margin"/>
+
+            <!-- Od ovdje Recenzije -->
+
+            <!-- Od ovdje Napiši svoju recenziju -->
+            <TextView
+                android:id="@+id/textNapisi"
+                android:layout_width="385dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:textSize="20dp"
+                android:text="Napišite svoju recenziju:"/>
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:text="Ocjena:" />
+            <EditText
+                android:id="@+id/upisiOcjenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:hint="@string/input_ocjena"
+                android:inputType="text"
+                android:textColor="#000"
+                android:background="@drawable/inputs_line_black"
+                android:drawablePadding="10dp"
+                style="@style/input"/>
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:text="Opis:" />
+            <EditText
+                android:id="@+id/upisiRecenziju"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:hint="@string/input_recenziju"
+                android:inputType="text"
+                android:textColor="#000"
+                android:background="@drawable/inputs_line_black"
+                android:drawablePadding="10dp"
+                style="@style/input" />
+            <Button
+                android:id="@+id/upisiRecenzijuBtn"
+                style="@style/YellowButton"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:text="@string/upisiRecenzijuBtn"
+                android:layout_gravity="center"/>
+
+            <!-- Od ovdje tuđe Recenzije -->
+            <TextView
+                android:id="@+id/textRecenzija"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:textSize="20dp"
+                android:text="Recenzije korisnika"/>
+            <TextView
+                android:id="@+id/textocjena"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:text="Ocjene korisnika:" />
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:isIndicator="true"
+                android:id="@+id/sveOcjena"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="@dimen/text_margin"
+                app:layout_constraintHorizontal_bias="0.189" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listaRecenzije"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:background="@color/cardview_light_background"
+                android:layout_marginBottom="@dimen/text_margin" />
+
+
+
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

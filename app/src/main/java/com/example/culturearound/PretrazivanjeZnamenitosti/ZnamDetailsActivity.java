@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.example.core.CurrentActivity;
 
 import com.example.database.EntitiesFirebase.Komentar;
-import com.example.culturearound.Firebase.Listeners.RecenzijaListener;
+import com.example.database.Listeners.RecenzijaListener;
 import com.example.database.Listeners.ZnamenitostListener;
 import com.example.database.RecenzijeHelper;
 import com.example.database.ZnamenitostiHelper;
@@ -51,7 +51,6 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
     TextView textOpisZnamenitosti;
     @BindView(R.id.listaRecenzije)
     RecyclerView recyclerView;
-
     @BindView(R.id.sveOcjena)
     RatingBar rateSve;
 
@@ -74,6 +73,7 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_znam_detais);
         ButterKnife.bind(this);
+
         znamenitostiHelper = new ZnamenitostiHelper((Context) this, this);
 
         komentari = new ArrayList<>();
@@ -95,7 +95,6 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
                         UbaciRecenziju.getText().toString(),
                         UbaciOcjenu.getText().toString(),
                         znamenitostID);
-
             }
         });
     }
@@ -108,18 +107,14 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
         else{int ocjena=Integer.parseInt(Ubaciocjenu);
             if(ocjena<1|| ocjena>5){
                 Toast.makeText(this, "Ocjene su od 1-5", Toast.LENGTH_LONG).show();
-
             }
             else{
                 if(ubaciRecenziju.length()== 0){
                     ubaciRecenziju="Nema komentara";
                     recenzijeHelper.zapisiRecenziju(ubaciRecenziju,ocjena,znamenitostID);
-
                 }
                 else{
                     recenzijeHelper.zapisiRecenziju(ubaciRecenziju,ocjena,znamenitostID);
-
-
                 }
             }}
     }

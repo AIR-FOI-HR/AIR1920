@@ -131,17 +131,17 @@
         />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listaRecenzije"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:background="@color/cardview_light_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sveOcjena"
-            />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listaRecenzije"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/cardview_light_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sveOcjena"
+        />
 
 
 

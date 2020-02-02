@@ -9,7 +9,7 @@ import com.example.database.EntitiesFirebase.Komentar;
 
 import com.example.database.FirebaseHelper;
 import com.google.firebase.auth.FirebaseAuth;
-import com.example.culturearound.Firebase.Listeners.RecenzijaListener;
+import com.example.database.Listeners.RecenzijaListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;

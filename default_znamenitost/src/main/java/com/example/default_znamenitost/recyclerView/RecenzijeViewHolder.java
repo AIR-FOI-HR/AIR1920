@@ -1,27 +1,24 @@
-package com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview;
+package com.example.default_znamenitost.recyclerView;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.ImageView;
-import android.content.Context;
 
 import androidx.annotation.NonNull;
+
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import com.example.database.Listeners.RecenzijaListener;
-import com.example.database.RecenzijeHelper;
-import com.squareup.picasso.Picasso;
 import com.example.database.EntitiesFirebase.Komentar;
 import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.Listeners.UserListener;
+import com.example.database.RecenzijeHelper;
 import com.example.database.UserHelper;
-import com.example.culturearound.R;
+import com.example.default_znamenitost.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,20 +32,12 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
     Korisnik korisnik;
     String mojaOcjenaKomentara="";
 
-
-    @BindView(R.id.recenzija_opis)
     TextView opis;
-    @BindView(R.id.recenzija_ocjena)
     TextView ocjena;
-    @BindView(R.id.korime)
     TextView korime;
-    @BindView(R.id.korinsnik_image)
     ImageView slika;
-    @BindView(R.id.recenzija_ocjena_rate)
     RatingBar rate;
-    @BindView(R.id.recenzija_up)
     TextView up;
-    @BindView(R.id.recenzija_down)
     TextView down;
     public ImageButton btnLike;
     public ImageButton btnDislike;
@@ -64,7 +53,14 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
      */
     public RecenzijeViewHolder(@NonNull View itemView) {
         super(itemView);
-        ButterKnife.bind(this, itemView);
+
+        opis = itemView.findViewById(R.id.recenzija_opis);
+        ocjena = itemView.findViewById(R.id.recenzija_ocjena);
+        korime = itemView.findViewById(R.id.korime);
+        slika = itemView.findViewById(R.id.korinsnik_image);
+        rate = itemView.findViewById(R.id.recenzija_ocjena_rate);
+        up = itemView.findViewById(R.id.recenzija_up);
+        down = itemView.findViewById(R.id.recenzija_down);
         btnLike = (ImageButton) itemView.findViewById(R.id.likeButton);
         btnDislike = (ImageButton) itemView.findViewById(R.id.dislikeButton);
 

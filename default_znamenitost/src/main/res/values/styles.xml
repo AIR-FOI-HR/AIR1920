@@ -10,4 +10,22 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="input">
+        <item name="android:layout_width">350dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textColor">#CEFFFFFF</item>
+        <item name="android:textColorHint">#D3FFFFFF</item>
+    </style>
+
+    <style name="Button" >
+        <item name="android:layout_width">350dp</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_marginTop">35dp</item>
+    </style>
+    <style name="YellowButton" parent="Button">
+        <item name="android:background"><![CDATA[@drawable/button_yellow]]></item>
+    </style>
 </resources>
