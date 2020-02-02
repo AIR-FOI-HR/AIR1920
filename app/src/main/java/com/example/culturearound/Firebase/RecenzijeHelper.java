@@ -23,6 +23,8 @@ import java.util.Arrays;
 
 public class RecenzijeHelper extends FirebaseHelper {
     private RecenzijaListener recenzijaListener;
+
+
     public RecenzijeHelper (Context context, RecenzijaListener recenzijaListener){
         mAuth = FirebaseAuth.getInstance();
         mContext = context;
@@ -121,7 +123,78 @@ public class RecenzijeHelper extends FirebaseHelper {
         Komentar noviKomentar = new Komentar(7,opis,ocjena, uid,idZnamenitost,0,0);
         aKomentar.child(Integer.toString(idZnamenitost)).child(uid).setValue(noviKomentar);
         Log.d("Anja3:","ovdje sam2");
-
     }
 
+    public void provjeriOcjenuKomentara(String otherUId, int idZnamenitosti){
+        mQuery = mDatabase.child("Like").child(mAuth.getUid()).child(otherUId);
+        //mQuery = mDatabase.child("Like").child(mAuth.getUid()).child(otherUId).child(Integer.toString(idZnamenitosti));
+        mQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(Integer.toString(idZnamenitosti))){
+                    String mojaOcjenaKomentara =
+                            (String) dataSnapshot.child(Integer.toString(idZnamenitosti)).child("vote").getValue();
+                    recenzijaListener.onOcjenaKomentaraSucess("Dohvaćena ocjena komentara!", mojaOcjenaKomentara);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                recenzijaListener.onLoadRecenzijaFail("Nije dohvaćena ocjena komentara!");
+            }
+        });
+    }
+
+    public void postaviOcjenu(String otherUId, int idZnamenitosti, String ocjena){
+        Log.d("NjAnja", "Postavlja ocjenu... " + ocjena + " sa idZnam " + Integer.toString(idZnamenitosti) + " otherUID " + otherUId);
+        mDatabase.child("Like").child(mAuth.getUid()).child(otherUId).child(Integer.toString(idZnamenitosti)).child("vote").setValue(ocjena);
+        mQuery = mDatabase.child("Komentar").child(Integer.toString(idZnamenitosti)).child(otherUId);
+        if (ocjena.equals("Like")){
+            Log.d("NjAnja","PromijeniVrijednost ocjene...");
+
+
+
+            //promijeniVrijednostOcjene(otherUId, idZnamenitosti, "brojUp");
+
+
+
+            Log.d("NjAnja","PromijeniVrijednost ocjene...Done");
+        }
+        else{
+            //promijeniVrijednostOcjene(otherUId, idZnamenitosti, "brojDown");
+        }
+
+        //korisnik dobiva bodove
+    }
+
+    private void promijeniVrijednostOcjene(String otherUId, int idZnamenitosti, String smjer){
+        mQuery = mDatabase.child("komentar").child(Integer.toString(idZnamenitosti)).child(otherUId).child(smjer);
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("NjAnja", "!!Dohvaćanje broja...");
+                Log.d("NjAnja", "!!Dohvaćanje broja..." + (String)dataSnapshot.getValue());
+                int broj = Integer.parseInt((String)dataSnapshot.getValue());
+                Log.d("NjAnja", "!!Dohvaćen broj je " + (String)dataSnapshot.getValue());
+                if (smjer.equals("brojUp")) broj++; //plus 1 lajk
+                else broj--;
+                Log.d("NjAnja", "!!Spremanje broja...");
+                mDatabase.child("komentar")
+                        .child(Integer.toString(idZnamenitosti))
+                        .child(otherUId)
+                        .child(smjer).setValue(Integer.toString(broj));
+                Log.d("NjAnja", "!!Spremanje broja...DONE");
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("FirebaseTag","aAnja");
+            }
+        });
+    }
+
+    public void obrisiOcjenu(String otherUId, int idZnamenitosti){
+        mDatabase.child("Like").child(mAuth.getUid()).child(otherUId).child(Integer.toString(idZnamenitosti)).child("vote").removeValue();
+        Log.d("kuda","dosao tu");
+        //korisnik gubi bodove
+    }
 }

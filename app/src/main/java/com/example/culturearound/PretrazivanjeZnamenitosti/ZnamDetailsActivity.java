@@ -204,6 +204,11 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
     }
 
     @Override
+    public void onOcjenaKomentaraSucess(String message, String mojaOcjenaKomentara) {
+        //generirana listener metoda
+    }
+
+    @Override
     public void onLoadRecenzijaFail(String message) {
         Log.d("RecenzijaTag", "Load Fail");
     }

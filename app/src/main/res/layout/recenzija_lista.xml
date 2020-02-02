@@ -99,41 +99,72 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="70dp"
         android:layout_marginTop="90dp"
         android:layout_marginLeft="90dp"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
+        android:id="@+id/layout2"
+        android:gravity="right"
         >
-
-        <ImageButton
-            android:id="@+id/likeButton"
-            android:layout_width="0dip"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:srcCompat="@mipmap/ic_like_white_round"
-            android:layout_gravity="right"
-            android:layout_weight=".01"
-            android:background="@null"
-            android:paddingLeft="50dp"
-            android:padding="5dp"
+            android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/likeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/ic_like_white_round"
+                android:layout_gravity="right"
+                android:layout_weight=".01"
+                android:background="@null"
+                android:paddingLeft="50dp"
+                android:padding="5dp"
+                />
 
+            <TextView
+                android:id="@+id/recenzija_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recenzija_opis"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textIsSelectable="false"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
 
-            />
-
-        <ImageButton
-            android:id="@+id/dislikeButton"
-            android:layout_width="0dip"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:srcCompat="@mipmap/ic_dislike_white_round"
-            android:layout_gravity="left"
-            android:layout_weight=".01"
-            android:background="@null"
-            android:padding="5dp"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageButton
+                android:id="@+id/dislikeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:srcCompat="@mipmap/ic_dislike_white_round"
+                android:layout_gravity="left"
+                android:layout_weight=".01"
+                android:background="@null"
+                android:padding="5dp"
 
 
-            />
+                />
+
+            <TextView
+                android:id="@+id/recenzija_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recenzija_opis"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textIsSelectable="false" />
+        </LinearLayout>
+
 
     </LinearLayout>
+
+
 
 
 </androidx.cardview.widget.CardView>
