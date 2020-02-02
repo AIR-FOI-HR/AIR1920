@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.culturearound.Firebase.EntitiesFirebase.Komentar;
+import com.example.database.EntitiesFirebase.Komentar;
 import com.example.culturearound.R;
 
 import java.util.List;

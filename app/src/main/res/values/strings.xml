@@ -35,6 +35,7 @@
     <string name="profileUsername">Korisničko ime</string>
     <string name="profileEmail">Email korisnika</string>
     <string name="profileButtonChangeData">Promijeni podatke</string>
+
     <string name="recenzija_korime">korime</string>
     <string name="recenzija_opis">opis</string>
     <string name="recenzija_ocjena">ocjena</string>
@@ -45,5 +46,10 @@
     <string name="input_recenziju">upisiRecenziju</string>
     <string name="upisiRecenzijuBtn">Recenziraj</string>
     <string name="input_ocjena">upisiOcjenu</string>
+
+    <string name="save_changes">Spremi promjene</string>
+    <string name="picture_url">Url slike</string>
+    <string name="update_preview_picture">Učitaj sliku</string>
+    <string name="update_delete_picture">Izbriši sliku</string>
 
 </resources>

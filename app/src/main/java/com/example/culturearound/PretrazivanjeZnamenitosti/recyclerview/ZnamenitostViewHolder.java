@@ -12,7 +12,11 @@ import androidx.annotation.NonNull;
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 import com.example.culturearound.PretrazivanjeZnamenitosti.ZnamDetailsActivity;
 import com.example.culturearound.R;
-import com.example.culturearound.Firebase.EntitiesFirebase.Znamenitost;
+import com.example.database.EntitiesFirebase.Znamenitost;
+import com.example.default_znamenitost.DefaultZnamenitostActivity;
+import com.example.kino_znamenitost.KinoActivity;
+import com.example.setaliste_znamenitost.SetalisteActivity;
+import com.example.spomenik_znamenitost.SpomenikActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -58,21 +62,48 @@ public class ZnamenitostViewHolder extends ParentViewHolder {
     //Klik znamenitosti na recycleview-u
     @OnClick
     public void znamenitostSelected(){
-        Toast.makeText(
-                itemView.getContext(),
-                selectedZnamenitost.getNaziv(),
-                Toast.LENGTH_SHORT
-        ).show();
+        Intent intent = null;
+        int kategorija = selectedZnamenitost.getIdKategorijaZnamenitosti();
 
+        switch (kategorija){
+            case 1:
+                intent = postaviIntent(DefaultZnamenitostActivity.class);
+                break;
+            case 2:
+                intent = postaviIntent(ZnamDetailsActivity.class);
+                break;
+            case 3:
+                intent = postaviIntent(SpomenikActivity.class);
+                break;
+            case 4:
+                intent = postaviIntent(SetalisteActivity.class);
+                break;
+            case 5:
+                intent = postaviIntent(ZnamDetailsActivity.class);
+                break;
+            case 6:
+                intent = postaviIntent(KinoActivity.class);
+                break;
+            default:
+                intent = postaviIntent(DefaultZnamenitostActivity.class);
+        }
+
+        if (!intent.equals(null)){
+            intent.putExtra(
+                    "id_znamenitost",
+                    selectedZnamenitost.getIdZnamenitosti()
+            );
+
+            itemView.getContext().startActivity(intent);
+        }
+    }
+
+    private Intent postaviIntent(Class activity){
         Intent intent = new Intent(
                 itemView.getContext(),
-                ZnamDetailsActivity.class
-        );
-        intent.putExtra(
-                "id_znamenitost",
-                selectedZnamenitost.getIdZnamenitosti()
+                activity
         );
 
-        itemView.getContext().startActivity(intent);
+        return intent;
     }
 }

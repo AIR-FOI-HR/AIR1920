@@ -20,13 +20,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.core.CurrentActivity;
-import com.example.culturearound.Firebase.EntitiesFirebase.Lokacija;
-import com.example.culturearound.Firebase.Listeners.LokacijaListener;
-import com.example.culturearound.Firebase.Listeners.ZnamenitostListener;
-import com.example.culturearound.Firebase.LokacijaHelper;
-import com.example.culturearound.Firebase.ZnamenitostiHelper;
+import com.example.database.EntitiesFirebase.Lokacija;
+import com.example.database.Listeners.LokacijaListener;
+import com.example.database.Listeners.ZnamenitostListener;
+import com.example.database.LokacijaHelper;
+import com.example.database.ZnamenitostiHelper;
 import com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview.ZnamenitostRecyclerAdapter;
-import com.example.culturearound.Firebase.EntitiesFirebase.Znamenitost;
+import com.example.database.EntitiesFirebase.Znamenitost;
 
 import java.util.ArrayList;
 import java.util.Arrays;

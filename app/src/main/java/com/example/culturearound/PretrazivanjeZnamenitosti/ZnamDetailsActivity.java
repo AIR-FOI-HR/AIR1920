@@ -19,16 +19,17 @@ import android.widget.Toast;
 
 import com.example.core.CurrentActivity;
 
-import com.example.culturearound.Firebase.EntitiesFirebase.Komentar;
+import com.example.database.EntitiesFirebase.Komentar;
 import com.example.culturearound.Firebase.Listeners.RecenzijaListener;
-import com.example.culturearound.Firebase.Listeners.ZnamenitostListener;
-import com.example.culturearound.Firebase.RecenzijeHelper;
-import com.example.culturearound.Firebase.ZnamenitostiHelper;
+import com.example.database.Listeners.ZnamenitostListener;
+import com.example.database.RecenzijeHelper;
+import com.example.database.ZnamenitostiHelper;
 import com.example.culturearound.PretrazivanjeZnamenitosti.recyclerview.RecenzijeRecycelerAdapter;
 import com.example.culturearound.R;
-import com.example.culturearound.Firebase.EntitiesFirebase.Znamenitost;
-
-import com.google.firebase.auth.FirebaseUser;
+import com.example.database.EntitiesFirebase.Znamenitost;
+import com.example.database.Listeners.ZnamenitostListener;
+import com.example.database.ZnamenitostiHelper;
+import com.example.database.EntitiesFirebase.Znamenitost;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -36,7 +37,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.google.firebase.auth.FirebaseAuth;
 
 import static com.example.core.CurrentActivity.getActivity;
 
@@ -60,9 +60,6 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
     private Button Recenzija;
     int znamenitostID;
 
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String uID = user.getUid();
-
 
     private List<Komentar> komentari;
     private RecenzijeRecycelerAdapter recenzijeRecycelerAdapter;
@@ -80,7 +77,7 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
         znamenitostiHelper = new ZnamenitostiHelper((Context) this, this);
 
         komentari = new ArrayList<>();
-        recenzijeRecycelerAdapter = new RecenzijeRecycelerAdapter(getActivity(), komentari);
+        recenzijeRecycelerAdapter = new RecenzijeRecycelerAdapter((Context) this, komentari);
         recyclerView.setAdapter(recenzijeRecycelerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recenzijeHelper = new RecenzijeHelper(CurrentActivity.getActivity(), this);
@@ -101,9 +98,6 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
 
             }
         });
-
-
-
     }
 
     private void provjeraUnosa (String ubaciRecenziju,String Ubaciocjenu,int znamenitostID) {
@@ -118,27 +112,16 @@ public class ZnamDetailsActivity extends AppCompatActivity implements Znamenitos
             else{
                 if(ubaciRecenziju.length()== 0){
                     ubaciRecenziju="Nema komentara";
-                    recenzijeHelper.zapisiRecenziju(ubaciRecenziju,ocjena,znamenitostID,uID);
+                    recenzijeHelper.zapisiRecenziju(ubaciRecenziju,ocjena,znamenitostID);
                     Toast.makeText(this, "Uspješna recenzija", Toast.LENGTH_LONG).show();
-
-
                 }
                 else{
-                    recenzijeHelper.zapisiRecenziju(ubaciRecenziju,ocjena,znamenitostID,uID);
+                    recenzijeHelper.zapisiRecenziju(ubaciRecenziju,ocjena,znamenitostID);
                     Toast.makeText(this, "Uspješna recenzija", Toast.LENGTH_LONG).show();
 
                 }
-
             }}
-
-
-
-
     }
-
-
-
-
 
     @Override
     protected void onResume(){

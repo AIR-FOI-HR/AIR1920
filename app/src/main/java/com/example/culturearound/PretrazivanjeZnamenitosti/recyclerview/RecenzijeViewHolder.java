@@ -15,18 +15,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import com.example.culturearound.Firebase.Listeners.RecenzijaListener;
-import com.example.culturearound.Firebase.RecenzijeHelper;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.database.RecenzijeHelper;
 import com.squareup.picasso.Picasso;
-import com.example.culturearound.Firebase.EntitiesFirebase.Komentar;
-import com.example.culturearound.Firebase.EntitiesFirebase.Korisnik;
-import com.example.culturearound.Firebase.Listeners.UserListener;
-import com.example.culturearound.Firebase.UserHelper;
+import com.example.database.EntitiesFirebase.Komentar;
+import com.example.database.EntitiesFirebase.Korisnik;
+import com.example.database.Listeners.UserListener;
+import com.example.database.UserHelper;
 import com.example.culturearound.R;
 
 import java.util.List;
@@ -59,11 +53,6 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
     public ImageButton btnLike;
     public ImageButton btnDislike;
 
-
-    private DatabaseReference mDataLike;
-    private DatabaseReference mDataKomentar;
-    DatabaseReference mDataBaseLike;
-    FirebaseAuth mAuth;
     private boolean mProcess=false;
     String rface;
     String rface2;
@@ -79,10 +68,6 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
         btnLike = (ImageButton) itemView.findViewById(R.id.likeButton);
         btnDislike = (ImageButton) itemView.findViewById(R.id.dislikeButton);
 
-        //firebase
-        mDataBaseLike=FirebaseDatabase.getInstance().getReference().child("Like");
-        mAuth=FirebaseAuth.getInstance();
-        mDataBaseLike.keepSynced(true);
     }
 
     //Bind data i prikazivanje komentarovih podataka
