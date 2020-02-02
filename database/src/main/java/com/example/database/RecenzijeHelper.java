@@ -5,11 +5,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.example.database.EntitiesFirebase.Komentar;
 
 import com.example.database.FirebaseHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.database.Listeners.RecenzijaListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -122,7 +125,7 @@ public class RecenzijeHelper extends FirebaseHelper {
         if (!provjeriDostupnostMreze()) return;
         final DatabaseReference aKomentar = mDatabase.child("komentar");
         Log.d("Anja3:","ovdje sam");
-        aKomentar.addValueEventListener(new ValueEventListener() {
+        aKomentar.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(Integer.toString(idZnamenitost)).hasChild(mAuth.getUid())){
@@ -152,6 +155,7 @@ public class RecenzijeHelper extends FirebaseHelper {
             mQuery.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.d("PromjenaTag", "onDataChange");
                     if (dataSnapshot.hasChild(Integer.toString(idZnamenitosti))){
                         String mojaOcjenaKomentara =
                                 (String) dataSnapshot.child(Integer.toString(idZnamenitosti)).child("vote").getValue();
@@ -173,31 +177,28 @@ public class RecenzijeHelper extends FirebaseHelper {
         mQuery = mDatabase.child("Komentar").child(Integer.toString(idZnamenitosti)).child(otherUId);
         if (ocjena.equals("Like")){
             Log.d("NjAnja","PromijeniVrijednost ocjene...");
-            //promijeniVrijednostOcjene(otherUId, idZnamenitosti, "brojUp");
+            promijeniVrijednostOcjene(otherUId, idZnamenitosti, "brojUp", "povecaj");
             Log.d("NjAnja","PromijeniVrijednost ocjene...Done");
         }
         else{
-            //promijeniVrijednostOcjene(otherUId, idZnamenitosti, "brojDown");
+            promijeniVrijednostOcjene(otherUId, idZnamenitosti, "brojDown", "povecaj");
         }
         //korisnik dobiva bodove
     }
 
-    private void promijeniVrijednostOcjene(final String otherUId, final int idZnamenitosti, final String smjer){
+    private void promijeniVrijednostOcjene(final String otherUId, final int idZnamenitosti, final String smjer, final String radnja){
         mQuery = mDatabase.child("komentar").child(Integer.toString(idZnamenitosti)).child(otherUId).child(smjer);
         mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("NjAnja", "!!Dohvaćanje broja...");
-                Log.d("NjAnja", "!!Dohvaćanje broja..." + (String)dataSnapshot.getValue());
-                int broj = Integer.parseInt((String)dataSnapshot.getValue());
-                Log.d("NjAnja", "!!Dohvaćen broj je " + (String)dataSnapshot.getValue());
-                if (smjer.equals("brojUp")) broj++; //plus 1 lajk
+                int broj = Integer.parseInt(dataSnapshot.getValue().toString());
+                if (radnja.equals("povecaj")) broj++; //plus 1 lajk
                 else broj--;
                 Log.d("NjAnja", "!!Spremanje broja...");
                 mDatabase.child("komentar")
                         .child(Integer.toString(idZnamenitosti))
                         .child(otherUId)
-                        .child(smjer).setValue(Integer.toString(broj));
+                        .child(smjer).setValue(broj);
                 Log.d("NjAnja", "!!Spremanje broja...DONE");
             }
             @Override
@@ -207,9 +208,18 @@ public class RecenzijeHelper extends FirebaseHelper {
         });
     }
 
-    public void obrisiOcjenu(String otherUId, int idZnamenitosti){
+    public void obrisiOcjenu(String otherUId, int idZnamenitosti, String ocjena){
         mDatabase.child("Like").child(mAuth.getUid()).child(otherUId).child(Integer.toString(idZnamenitosti)).child("vote").removeValue();
         Log.d("kuda","dosao tu");
+        mQuery = mDatabase.child("Komentar").child(Integer.toString(idZnamenitosti)).child(otherUId);
+        if (ocjena.equals("Like")){
+            Log.d("NjAnja","PromijeniVrijednost ocjene...");
+            promijeniVrijednostOcjene(otherUId, idZnamenitosti, "brojUp", "smanji");
+            Log.d("NjAnja","PromijeniVrijednost ocjene...Done");
+        }
+        else{
+            promijeniVrijednostOcjene(otherUId, idZnamenitosti, "brojDown", "smanji");
+        }
         //korisnik gubi bodove
     }
 }

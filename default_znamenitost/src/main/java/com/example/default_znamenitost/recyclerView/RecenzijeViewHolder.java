@@ -115,7 +115,7 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
                 }
                 Log.d("NjAnja", "Pocetak klika like.");
                 if (mojaOcjenaKomentara.equals("Like")){
-                    recenzijeHelper.obrisiOcjenu(korisnik.getUid(), komentar.getIdZnamenitost());
+                    recenzijeHelper.obrisiOcjenu(korisnik.getUid(), komentar.getIdZnamenitost(), "Like");
                     Log.d("kuda", "dosao sam tu");
                     mojaOcjenaKomentara="";
                 }
@@ -138,7 +138,7 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
                 }
                 Log.d("NjAnja", "Pocetak klika dislike.");
                 if (mojaOcjenaKomentara.equals("Dislike")){
-                    recenzijeHelper.obrisiOcjenu(korisnik.getUid(), komentar.getIdZnamenitost());
+                    recenzijeHelper.obrisiOcjenu(korisnik.getUid(), komentar.getIdZnamenitost(), "Dislike");
                     mojaOcjenaKomentara="";
                 }
                 else{
@@ -191,7 +191,6 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
         Log.d("NjAnja", message);
         if (mojaOcjenaKomentara == null) mojaOcjenaKomentara = "";
 
-        Log.d("NjAnja", "Listener ocj komentara je " + mojaOcjenaKomentara);
         this.mojaOcjenaKomentara = mojaOcjenaKomentara;
         prikaziOcjenuKomentara();
     }

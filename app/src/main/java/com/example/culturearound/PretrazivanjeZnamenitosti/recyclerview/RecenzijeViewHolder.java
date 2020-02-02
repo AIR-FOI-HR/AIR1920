@@ -114,7 +114,7 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
             public void onClick(View v) {
                 Log.d("NjAnja", "Pocetak klika like.");
                 if (mojaOcjenaKomentara.equals("Like")){
-                    recenzijeHelper.obrisiOcjenu(korisnik.getUid(), komentar.getIdZnamenitost());
+                    recenzijeHelper.obrisiOcjenu(korisnik.getUid(), komentar.getIdZnamenitost(), "Like");
                     Log.d("kuda", "dosao sam tu");
                     mojaOcjenaKomentara="";
                 }
@@ -132,7 +132,7 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
             public void onClick(View v) {
                 Log.d("NjAnja", "Pocetak klika dislike.");
                 if (mojaOcjenaKomentara.equals("Dislike")){
-                    recenzijeHelper.obrisiOcjenu(korisnik.getUid(), komentar.getIdZnamenitost());
+                    recenzijeHelper.obrisiOcjenu(korisnik.getUid(), komentar.getIdZnamenitost(), "Dislike");
                     mojaOcjenaKomentara="";
                 }
                 else{
