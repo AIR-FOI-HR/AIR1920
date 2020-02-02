@@ -52,19 +52,14 @@
         <item name="android:layout_width">200dp</item>
         <item name="android:textColor">#404040</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_alignParentEnd">true</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_marginEnd">18dp</item>
+
     </style>
 
     <style name="ButtonProfile">
         <item name="android:layout_width">380dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_alignParentStart">true</item>
-        <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_marginStart">15dp</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
