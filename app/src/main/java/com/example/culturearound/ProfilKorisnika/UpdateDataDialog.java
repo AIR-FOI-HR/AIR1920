@@ -42,6 +42,7 @@ public class UpdateDataDialog extends AppCompatDialogFragment implements UserLis
     Button previewPicture;
     Button deletePicture;
 
+    private String userId;
     private UserHelper userHelper;
     private  Bundle mArgs ;
 
@@ -55,6 +56,7 @@ public class UpdateDataDialog extends AppCompatDialogFragment implements UserLis
 
         loadData(view);
         userHelper = new UserHelper(view.getContext(), this);
+        userId = userHelper.returnUserId();
 
         builder.setView(view)
                 .setTitle("Update data")
@@ -129,9 +131,7 @@ public class UpdateDataDialog extends AppCompatDialogFragment implements UserLis
             currentPictureUrl = "";
         }
 
-
-
-        userHelper.updateData(currentUserName, currentLastName, currentEmail, currentPictureUrl);
+        userHelper.updateData(currentUserName, currentLastName, currentEmail, currentPictureUrl, userId);
     }
 
 

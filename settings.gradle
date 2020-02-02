@@ -1,2 +1,2 @@
-include ':app', ':database', ':core', ':maps'
+include ':app', ':database', ':core', ':spomenik_znamenitost', ':setaliste_znamenitost', ':kino_znamenitost', ':default_znamenitost'
 rootProject.name='CultureAround'

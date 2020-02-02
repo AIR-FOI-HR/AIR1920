@@ -10,24 +10,11 @@ public class Znamenitost {
     String opis;
     double longitude;
     double latitude;
-
     int idLokacija;
     String lokacijaSlike;
-    List<String> slikeGalerijeList;
+    List<Slika> listaSlikaGalerije;
 
     public Znamenitost(){}
-
-    public Znamenitost(int idZnamenitosti, String naziv, String adresa, int idKategorijaZnamenitosti, String opis, double longitude, double latitude, int idLokacija, String lokacijaSlike) {
-        this.idZnamenitosti = idZnamenitosti;
-        this.naziv = naziv;
-        this.adresa = adresa;
-        this.idKategorijaZnamenitosti = idKategorijaZnamenitosti;
-        this.opis = opis;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.idLokacija = idLokacija;
-        this.lokacijaSlike = lokacijaSlike;
-    }
 
     public int getIdZnamenitosti() {
         return idZnamenitosti;
@@ -101,11 +88,10 @@ public class Znamenitost {
         this.lokacijaSlike = lokacijaSlike;
     }
 
-    public List<String> getSlikeGalerijeList() {
-        return slikeGalerijeList;
+    public List<Slika> getListaSlikaGalerije() {
+        return listaSlikaGalerije;
     }
-
-    public void setSlikeGalerijeList(List<String> slikeGalerijeList) {
-        this.slikeGalerijeList = slikeGalerijeList;
+    public void setListaSlikaGalerije(List<Slika> listaSlikaGalerije) {
+        this.listaSlikaGalerije = listaSlikaGalerije;
     }
 }

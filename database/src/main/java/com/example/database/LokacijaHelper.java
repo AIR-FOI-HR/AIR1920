@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LokacijaHelper extends FirebaseHelper {
@@ -50,5 +51,23 @@ public class LokacijaHelper extends FirebaseHelper {
                 }
             });
         }
+    }
+
+    public void dohvatiZnamenitostPremaId(int idLokacija){
+        mQuery = mDatabase.child("lokacija").child(Integer.toString(idLokacija));
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Lokacija lokacija = new Lokacija();
+                lokacija = dataSnapshot.getValue(Lokacija.class);
+                lokacija.setIdLokacija(Integer.parseInt(dataSnapshot.getKey()));
+                lokacijaListener.onLoadLokacijaSucess("Uspješno dohvaćanje lokacije prema ID-u", Arrays.asList(lokacija));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                lokacijaListener.onLoadLokacijaFail("Neuspješno dohvaćanje lokacije prema ID-u");
+            }
+        });
     }
 }

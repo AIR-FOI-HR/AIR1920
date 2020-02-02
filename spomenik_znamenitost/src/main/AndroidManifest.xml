@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.spomenik_znamenitost">
+
+    <application>
+        <activity
+            android:name=".SpomenikActivity"
+            android:label="@string/title_activity_znam_details_spomenik"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+
+</manifest>
