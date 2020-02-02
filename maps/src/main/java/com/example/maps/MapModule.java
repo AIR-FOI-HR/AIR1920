@@ -39,7 +39,7 @@ public class MapModule extends Fragment implements OnMapReadyCallback, Znamenito
     private List<Znamenitost> znamenitosti;
     private Znamenitost selectedZnamenitost = null;
     private View itemView;
-    private MarkerTag markerTag = new MarkerTag();
+    private MarkerTag markerTag;
 
     private boolean moduleReadyFlag = false;
     private boolean dataReadyFlag = false;
@@ -82,14 +82,15 @@ public class MapModule extends Fragment implements OnMapReadyCallback, Znamenito
         boolean cameraReady = false;
         if(znamenitosti != null)
             for (Znamenitost z: znamenitosti) {
-                LatLng position =
-                        new LatLng(z.getLatitude(), z.getLongitude());
+                markerTag = new MarkerTag();
+                LatLng position = new LatLng(z.getLatitude(), z.getLongitude());
 
-                Marker marker = map.addMarker(new MarkerOptions().position(position).title(z.getNaziv()) );
-
-                marker.showInfoWindow();
                 markerTag.setId(z.getIdZnamenitosti());
                 markerTag.setIdKategorija(z.getIdKategorijaZnamenitosti());
+
+                Marker marker = map.addMarker(new MarkerOptions().position(position).title(z.getNaziv()));
+
+                marker.showInfoWindow();
                 marker.setTag(markerTag);
 
                 if (!cameraReady) {
@@ -128,10 +129,7 @@ public class MapModule extends Fragment implements OnMapReadyCallback, Znamenito
                 }
 
                 if (!intent.equals(null)){
-                    intent.putExtra(
-                            "id_znamenitost",
-                            markerTag.getId()
-                    );
+                    intent.putExtra("id_znamenitost", markerTag.getId());
 
                     itemView.getContext().startActivity(intent);
                     return true;
