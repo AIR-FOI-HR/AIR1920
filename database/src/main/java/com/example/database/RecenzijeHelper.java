@@ -72,49 +72,52 @@ public class RecenzijeHelper extends FirebaseHelper {
     double vrijednost;
 
     public void dohvatiRecenzijePremaId(final int idZnamenitost){
-        mQuery = mDatabase.child("komentar").child(Integer.toString(idZnamenitost));
-        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Komentar> listaRecenzija = new ArrayList<>();
-                for (DataSnapshot temp : dataSnapshot.getChildren()){
-                    Log.d("Anja1", "Dosao do tud ");
-                    Komentar komentar = new Komentar();
-                    komentar = temp.getValue(Komentar.class);
-                    komentar.setUid(temp.getKey());
-                    komentar.setIdZnamenitost(idZnamenitost);
-                    Log.d("Anja", "Uid anja: " + komentar.getUid());
-                    Log.d("Anja", "Idznam anja: " + komentar.getIdZnamenitost());
-                    Log.d("Anja", "opis anja: " + komentar.getOpis());
-                    zbrOcjena+=komentar.getOcjena();
-                    brRec+=1;
-                    listaRecenzija.add(komentar);
+        if (provjeriDostupnostMreze() && checkIfSignedIn()){
+            mQuery = mDatabase.child("komentar").child(Integer.toString(idZnamenitost));
+            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    List<Komentar> listaRecenzija = new ArrayList<>();
+                    for (DataSnapshot temp : dataSnapshot.getChildren()){
+                        Log.d("Anja1", "Dosao do tud ");
+                        Komentar komentar = new Komentar();
+                        komentar = temp.getValue(Komentar.class);
+                        komentar.setUid(temp.getKey());
+                        komentar.setIdZnamenitost(idZnamenitost);
+                        Log.d("Anja", "Uid anja: " + komentar.getUid());
+                        Log.d("Anja", "Idznam anja: " + komentar.getIdZnamenitost());
+                        Log.d("Anja", "opis anja: " + komentar.getOpis());
+                        zbrOcjena+=komentar.getOcjena();
+                        brRec+=1;
+                        listaRecenzija.add(komentar);
+                    }
+                    Log.d("Anja1", "Zbroj: " + zbrOcjena);
+                    Log.d("Anja1", "Broj:"+brRec);
+
+
+                    if (zbrOcjena!=0){
+                        vrijednost=zbrOcjena/brRec;
+                        Double toBeTruncated = new Double(vrijednost);
+                        Double truncatedDouble = BigDecimal.valueOf(toBeTruncated)
+                                .setScale(2, RoundingMode.HALF_UP)
+                                .doubleValue();
+                        ukupno=truncatedDouble;}
+
+                    else{
+                        ukupno=0;
+                    }
+
+                    Log.d("Anja2", "BrojSve:"+ukupno);
+                    recenzijaListener.onLoadRecenzijaSucess("Uspješno dohvaćanje - listener", listaRecenzija);
                 }
-                Log.d("Anja1", "Zbroj: " + zbrOcjena);
-                Log.d("Anja1", "Broj:"+brRec);
 
-
-                if (zbrOcjena!=0){
-                    vrijednost=zbrOcjena/brRec;
-                    Double toBeTruncated = new Double(vrijednost);
-                    Double truncatedDouble = BigDecimal.valueOf(toBeTruncated)
-                        .setScale(2, RoundingMode.HALF_UP)
-                        .doubleValue();
-                    ukupno=truncatedDouble;}
-
-                else{
-                    ukupno=0;
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    recenzijaListener.onLoadRecenzijaFail("Neuspješno dohvaćanje - listener");
                 }
+            });
+        }
 
-                Log.d("Anja2", "BrojSve:"+ukupno);
-                recenzijaListener.onLoadRecenzijaSucess("Uspješno dohvaćanje - listener", listaRecenzija);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                recenzijaListener.onLoadRecenzijaFail("Neuspješno dohvaćanje - listener");
-            }
-        });
     }
 
 

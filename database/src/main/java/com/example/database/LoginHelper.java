@@ -35,18 +35,6 @@ public class LoginHelper extends FirebaseHelper {
      * Provjera je li korisnik ulogiran.
      * @return
      */
-    public boolean checkIfSignedIn(){
-        if(mAuth.getUid() == null) {
-            Toast.makeText(mContext,"Nije ulogiran korisnik", Toast.LENGTH_SHORT).show();
-            Log.d("FirebaseTag", "Nije ulogiran korisnik");
-            return false;
-        }
-        else {
-            Toast.makeText(mContext,"Dobrodošao " + mAuth.getUid(), Toast.LENGTH_SHORT).show();
-            Log.d("FirebaseTag", "Ulogiran korisnik");
-            return true;
-        }
-    }
 
     /**
      * Login koristeci email i zaporku.

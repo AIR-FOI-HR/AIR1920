@@ -23,13 +23,17 @@ import com.example.culturearound.ProfilKorisnika.UpdateDataDialog;
 import com.squareup.picasso.Picasso;
 
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class ProfileFragment extends Fragment implements UserListener, View.OnClickListener {
+
     @BindView(R.id.update_profile)
     Button btnUpdateData;
+
     @BindView(R.id.profile_userPicture)
     ImageView userPicture;
 
@@ -45,6 +49,7 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
     private UserHelper userHelper;
 
     private String firstName, lastName, email, pictureUrl;
+    private String userId;
 
     private static final String TAG = "profil";
 
@@ -60,12 +65,11 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
         Log.d(TAG, "Pocetak...");
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-
         btnUpdateData.setOnClickListener(this);
-
         userHelper = new UserHelper(getContext(),this);
-        Log.d(TAG, "onViewCreated: "+ userHelper.userId);
-        userHelper.findUserById();
+        userId = userHelper.returnUserId();
+        Log.d(TAG, "onViewCreated: "+ userId);
+        userHelper.findUserById(userId);
 
 
     }
@@ -107,7 +111,6 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
 
     @Override
     public void onLoadUserSuccess(String message, Korisnik currentUser) {
-        Log.d(TAG, "Ucitano2 " + currentUser.getIme() + currentUser.getPrezime() + currentUser.getEmail());
         loadData(currentUser);
     }
 

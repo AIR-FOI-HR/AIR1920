@@ -1,9 +1,14 @@
 package com.example.culturearound;
 
+import android.content.ClipData;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.core.CurrentActivity;
+import com.example.database.EntitiesFirebase.Korisnik;
+import com.example.database.Listeners.UserListener;
+import com.example.database.UserHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -14,9 +19,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
 
+public class MainActivity extends AppCompatActivity implements UserListener{
+
+    private UserHelper userHelper;
 
 
     @Override
@@ -24,6 +32,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        userHelper = new UserHelper(this, this);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_location, R.id.navigation_profile, R.id.navigation_favorites, R.id.navigation_recommended)
@@ -38,6 +47,13 @@ public class MainActivity extends AppCompatActivity  {
         navView.setSelectedItemId(R.id.navigation_home);
 
         CurrentActivity.setActivity(this);
+        if(!userHelper.checkIfSignedIn()){
+            MenuItem profileButton = navView.getMenu().getItem(1);
+            MenuItem favoriteButton = navView.getMenu().getItem(3);
+            profileButton.setEnabled(false);
+            favoriteButton.setEnabled(false);
+
+        }
     }
 
     //kreiranje listenera za klik na određenu ikonu u navigaciji
@@ -55,6 +71,9 @@ public class MainActivity extends AppCompatActivity  {
                     break;
 
                 case R.id.navigation_profile:
+                    if(!userHelper.checkIfSignedIn()){
+                        menuItem.setVisible(false);
+                    }
                     selectedFragment = new ProfileFragment();
                     break;
 
@@ -79,5 +98,13 @@ public class MainActivity extends AppCompatActivity  {
     };
 
 
+    @Override
+    public void onLoadUserSuccess(String message, Korisnik currentUser) {
 
+    }
+
+    @Override
+    public void onLoadUserFail(String message) {
+
+    }
 }

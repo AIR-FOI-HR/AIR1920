@@ -28,13 +28,24 @@ public abstract class FirebaseHelper {
         return mAuth;
     }
 
+    public boolean checkIfSignedIn(){
+        if(mAuth.getUid() == null) {
+            Toast.makeText(mContext,"Nije ulogiran korisnik", Toast.LENGTH_SHORT).show();
+            Log.d("FirebaseTag", "Nije ulogiran korisnik");
+            return false;
+        }
+        else {
+            Log.d("FirebaseTag", "Ulogiran korisnik");
+            return true;
+        }
+    }
+
 
     protected Boolean provjeriDostupnostMreze() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            Log.d("FirebaseTag", "Internet dostupan.");
             return true;
         }
         else{
