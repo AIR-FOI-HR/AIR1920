@@ -54,7 +54,6 @@ public class ZnamenitostiHelper extends FirebaseHelper {
                             listaPoveznica.add(slika);
                         }
                         znamenitost.setListaSlikaGalerije(listaPoveznica);
-
                         listaZnamenitosti.add(znamenitost);
                     }
                     znamenitostListener.onLoadZnamenitostSucess("Uspješno dohvaćanje više znamenitosti - listener", listaZnamenitosti);

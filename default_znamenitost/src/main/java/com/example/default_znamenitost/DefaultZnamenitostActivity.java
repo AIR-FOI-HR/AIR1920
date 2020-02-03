@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.database.EntitiesFirebase.Komentar;
+import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.EntitiesFirebase.Lokacija;
 import com.example.database.EntitiesFirebase.Znamenitost;
 import com.example.database.Listeners.LokacijaListener;
+import com.example.database.Listeners.UserListener;
 import com.example.database.Listeners.ZnamenitostListener;
 import com.example.database.Listeners.RecenzijaListener;
 import com.example.database.LokacijaHelper;
 import com.example.database.RecenzijeHelper;
+import com.example.database.UserHelper;
 import com.example.database.ZnamenitostiHelper;
 import com.example.default_znamenitost.recyclerView.GalerijaRecyclerAdapter;
 import com.example.default_znamenitost.recyclerView.RecenzijeRecycelerAdapter;
@@ -29,6 +32,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -39,7 +43,8 @@ import java.util.List;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
-public class DefaultZnamenitostActivity extends AppCompatActivity implements ZnamenitostListener, LokacijaListener, RecenzijaListener {
+public class DefaultZnamenitostActivity extends AppCompatActivity implements ZnamenitostListener, LokacijaListener, RecenzijaListener, UserListener
+{
     private ZnamenitostiHelper znamenitostiHelper;
     private LokacijaHelper lokacijaHelper;
     private RecenzijeHelper recenzijeHelper;
@@ -56,11 +61,13 @@ public class DefaultZnamenitostActivity extends AppCompatActivity implements Zna
     private EditText ubaciRecenziju;
     private EditText ubaciOcjenu;
     private Button btnRecenzija;
+    private UserHelper userHelper;
+    private Znamenitost izabranaZnamenitost;
 
 
     private List<Komentar> komentari;
     private RecenzijeRecycelerAdapter recenzijeRecycelerAdapter;
-
+    private Korisnik currentUser;
 
 
     @Override
@@ -69,15 +76,12 @@ public class DefaultZnamenitostActivity extends AppCompatActivity implements Zna
         setContentView(R.layout.activity_default_znamenitost);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        userHelper = new UserHelper(this, this);
+        if(userHelper.checkIfSignedIn()){
+            userHelper.findUserById(userHelper.returnUserId());
+        }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         recyclerView = findViewById(R.id.listaRecenzije);
         rateSve = findViewById(R.id.sveOcjena);
@@ -98,6 +102,18 @@ public class DefaultZnamenitostActivity extends AppCompatActivity implements Zna
         if (!recenzijeHelper.checkIfSignedIn()){
             iskljuciDodavanjeKomentara();
         }
+
+
+    }
+
+    private void isItInFavourites (FloatingActionButton favoriteButton, Integer selectedId){
+        List<Integer> listOfFavouritesID = currentUser.getIdoviZnamenitosti() ;
+        if(listOfFavouritesID.contains(selectedId)){
+            favoriteButton.setSelected(true);}
+        else {
+            favoriteButton.setSelected(false);
+        }
+
     }
 
     private void iskljuciDodavanjeKomentara(){
@@ -173,6 +189,30 @@ public class DefaultZnamenitostActivity extends AppCompatActivity implements Zna
                         znamenitost.getIdZnamenitosti());
             }
         });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if(currentUser != null) {
+
+            isItInFavourites(fab, izabranaZnamenitost.getIdZnamenitosti());
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (!view.isSelected()) {
+                        view.setSelected(true);
+                        userHelper.addItemToFavourites(userHelper.returnUserId(), izabranaZnamenitost.getIdZnamenitosti());
+                        Snackbar.make(view, "Znamenitost dodana u favorite", Snackbar.LENGTH_LONG)
+                                .setAction("Dodavanje", null).show();
+                    } else {
+                        view.setSelected(false);
+                        userHelper.removeItemFromFavorites(userHelper.returnUserId(), izabranaZnamenitost.getIdZnamenitosti());
+                        Snackbar.make(view, "Znamenitost maknuta iz favorita", Snackbar.LENGTH_LONG)
+                                .setAction("Dodavanje", null).show();
+                    }
+
+                }
+            });
+        }
     }
 
     private void prikaziLokaciju(Lokacija lokacija) {
@@ -209,6 +249,7 @@ public class DefaultZnamenitostActivity extends AppCompatActivity implements Zna
     //Znamenitost Listener
     @Override
     public void onLoadZnamenitostSucess(String message, List<Znamenitost> listaZnamenitosti) {
+        izabranaZnamenitost = listaZnamenitosti.get(0);
         prikaziPodatkeZnamenitosti(listaZnamenitosti.get(0));
     }
 
@@ -248,6 +289,16 @@ public class DefaultZnamenitostActivity extends AppCompatActivity implements Zna
 
     @Override
     public void onLoadRecenzijaFail(String message) {
+
+    }
+
+    @Override
+    public void onLoadUserSuccess(String message, Korisnik currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    @Override
+    public void onLoadUserFail(String message) {
 
     }
 }

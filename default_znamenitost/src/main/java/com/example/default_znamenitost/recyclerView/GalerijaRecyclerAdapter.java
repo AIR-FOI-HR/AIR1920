@@ -43,6 +43,8 @@ public class GalerijaRecyclerAdapter extends RecyclerView.Adapter<GalerijaViewHo
         holder.bindToData(slike.get(position), context);
     }
 
+
+
     @Override
     public int getItemCount() {
         return slike.size();

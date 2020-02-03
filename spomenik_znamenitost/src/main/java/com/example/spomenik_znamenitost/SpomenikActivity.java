@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.EntitiesFirebase.Lokacija;
 import com.example.database.EntitiesFirebase.Znamenitost;
 import com.example.database.Listeners.LokacijaListener;
+import com.example.database.Listeners.UserListener;
 import com.example.database.Listeners.ZnamenitostListener;
 import com.example.database.LokacijaHelper;
+import com.example.database.UserHelper;
 import com.example.database.ZnamenitostiHelper;
 import com.example.spomenik_znamenitost.recyclerView.GalerijaRecyclerAdapter;
 import com.example.spomenik_znamenitost.recyclerView.SlikaGalerijeListener;
@@ -30,7 +33,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class SpomenikActivity extends AppCompatActivity implements ZnamenitostListener, LokacijaListener, SlikaGalerijeListener {
+public class SpomenikActivity extends AppCompatActivity implements ZnamenitostListener, LokacijaListener, SlikaGalerijeListener, UserListener {
     private ZnamenitostiHelper znamenitostiHelper;
     private LokacijaHelper lokacijaHelper;
 
@@ -40,6 +43,10 @@ public class SpomenikActivity extends AppCompatActivity implements ZnamenitostLi
     TextView txtOpisZnamenitosti;
     RecyclerView recyclerViewGalerija;
 
+    private UserHelper userHelper;
+    private Korisnik currentUser;
+    private Znamenitost izabranaZnamenitost;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,14 +54,10 @@ public class SpomenikActivity extends AppCompatActivity implements ZnamenitostLi
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btnFavourite);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Dodaj u favourite", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        userHelper = new UserHelper(this, this);
+        if(userHelper.checkIfSignedIn()){
+            userHelper.findUserById(userHelper.returnUserId());
+        }
 
         znamenitostiHelper = new ZnamenitostiHelper((Context) this, this);
         lokacijaHelper = new LokacijaHelper((Context) this, this);
@@ -94,6 +97,40 @@ public class SpomenikActivity extends AppCompatActivity implements ZnamenitostLi
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewGalerija.setLayoutManager(layoutManager);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btnFavourite);
+        if(currentUser != null) {
+
+            isItInFavourites(fab, izabranaZnamenitost.getIdZnamenitosti());
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (!view.isSelected()) {
+                        view.setSelected(true);
+                        userHelper.addItemToFavourites(userHelper.returnUserId(), izabranaZnamenitost.getIdZnamenitosti());
+                        Snackbar.make(view, "Znamenitost dodana u favorite", Snackbar.LENGTH_LONG)
+                                .setAction("Dodavanje", null).show();
+                    } else {
+                        view.setSelected(false);
+                        userHelper.removeItemFromFavorites(userHelper.returnUserId(), izabranaZnamenitost.getIdZnamenitosti());
+                        Snackbar.make(view, "Znamenitost maknuta iz favorita", Snackbar.LENGTH_LONG)
+                                .setAction("Dodavanje", null).show();
+                    }
+
+                }
+            });
+        }
+    }
+
+    private void isItInFavourites (FloatingActionButton favoriteButton, Integer selectedId){
+        List<Integer> listOfFavouritesID = currentUser.getIdoviZnamenitosti() ;
+        if(listOfFavouritesID.contains(selectedId)){
+            favoriteButton.setSelected(true);}
+        else {
+            favoriteButton.setSelected(false);
+        }
+
     }
 
     private void prikaziLokaciju(Lokacija lokacija) {
@@ -102,7 +139,9 @@ public class SpomenikActivity extends AppCompatActivity implements ZnamenitostLi
 
     @Override
     public void onLoadZnamenitostSucess(String message, List<Znamenitost> listaZnamenitosti) {
+        this.izabranaZnamenitost = listaZnamenitosti.get(0);
         prikaziPodatkeZnamenitosti(listaZnamenitosti.get(0));
+
     }
 
     @Override
@@ -112,6 +151,7 @@ public class SpomenikActivity extends AppCompatActivity implements ZnamenitostLi
 
     @Override
     public void onLoadLokacijaSucess(String message, List<Lokacija> listaLokacija) {
+
         prikaziLokaciju(listaLokacija.get(0));
     }
 
@@ -125,5 +165,15 @@ public class SpomenikActivity extends AppCompatActivity implements ZnamenitostLi
         Picasso.with(this)
                 .load(imageUrl)
                 .into(imgNaslovnaSlika);
+    }
+
+    @Override
+    public void onLoadUserSuccess(String message, Korisnik currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    @Override
+    public void onLoadUserFail(String message) {
+
     }
 }
