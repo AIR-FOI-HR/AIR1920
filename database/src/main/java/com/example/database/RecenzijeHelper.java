@@ -130,16 +130,18 @@ public class RecenzijeHelper extends FirebaseHelper {
     public void zapisiRecenziju(final String opis, final int ocjena, final int idZnamenitost){
         if (!provjeriDostupnostMreze()) return;
         final DatabaseReference aKomentar = mDatabase.child("komentar");
-        aKomentar.addValueEventListener(new ValueEventListener() {
+        aKomentar.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(Integer.toString(idZnamenitost)).hasChild(mAuth.getUid())){
-                    Toast.makeText(mContext, "Recenzija postavljena", Toast.LENGTH_LONG).show();
+
+
                 }
                 else{
                     Komentar noviKomentar = new Komentar(7,opis,ocjena, mAuth.getUid(),idZnamenitost,0,0);
                     aKomentar.child(Integer.toString(idZnamenitost)).child(mAuth.getUid()).setValue(noviKomentar);
-                    Toast.makeText(mContext, "Recenzija postavljena", Toast.LENGTH_LONG).show();
+                    bodoviZaRecenziju();
+
                 }
             }
             @Override
@@ -147,6 +149,30 @@ public class RecenzijeHelper extends FirebaseHelper {
             }
         });
     }
+
+
+    private void bodoviZaRecenziju(){
+        mQuery = mDatabase.child("Korisnik").child(mAuth.getUid()).child("progressbar");
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("Bodovi", "Dohvaćamo bodove...");
+                int progresBroj = Integer.parseInt(dataSnapshot.getValue().toString());
+                progresBroj=progresBroj+150;
+                Log.d("Bodovi", "Progress +50 " + Integer.toString(progresBroj));
+                mDatabase.child("Korisnik").child(mAuth.getUid()).child("progressbar").setValue(progresBroj);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+
 
     public void provjeriOcjenuKomentara(String otherUId, final int idZnamenitosti){
         if (checkIfSignedIn() && provjeriDostupnostMreze()){
@@ -178,17 +204,122 @@ public class RecenzijeHelper extends FirebaseHelper {
         else{
             promijeniVrijednostOcjene(otherUId, idZnamenitosti, "brojDown", "povecaj");
         }
-        //korisnik dobiva bodove
+
+
     }
 
-    private void promijeniVrijednostOcjene(final String otherUId, final int idZnamenitosti, final String smjer, final String radnja){
+
+    public void bodoviZaLikeProgressBarKorisnikKojiGaJeDao(){
+        mQuery = mDatabase.child("Korisnik").child(mAuth.getUid()).child("progressbar");
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("Bodovi", "Dohvaćamo bodove...");
+                int progresBroj = Integer.parseInt(dataSnapshot.getValue().toString());
+                progresBroj=progresBroj+50;
+                Log.d("Bodovi", "Progress +50 " + Integer.toString(progresBroj));
+                mDatabase.child("Korisnik").child(mAuth.getUid()).child("progressbar").setValue(progresBroj);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+
+    public void bodoviAkojeKorisnikOdustao(){
+        mQuery = mDatabase.child("Korisnik").child(mAuth.getUid()).child("progressbar");
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("Bodovi", "Dohvaćamo bodove...");
+                int progresBroj = Integer.parseInt(dataSnapshot.getValue().toString());
+                progresBroj=progresBroj-50;
+                Log.d("Bodovi", "Progress +50 " + Integer.toString(progresBroj));
+                mDatabase.child("Korisnik").child(mAuth.getUid()).child("progressbar").setValue(progresBroj);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+
+
+
+    private void bodoviZaLikeanuRecenziju(final String otherUid){
+        mQuery = mDatabase.child("Korisnik").child(otherUid).child("progressbar");
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int progresBroj = Integer.parseInt(dataSnapshot.getValue().toString());
+                progresBroj = progresBroj+100;
+                mDatabase.child("Korisnik").child(otherUid).child("progressbar").setValue(progresBroj);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    private void bodoviZaDisLikeanuRecenziju(final String otherUid){
+        mQuery = mDatabase.child("Korisnik").child(otherUid).child("progressbar");
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int progresBroj = Integer.parseInt(dataSnapshot.getValue().toString());
+                progresBroj=progresBroj-100;
+                mDatabase.child("Korisnik").child(otherUid).child("progressbar").setValue(progresBroj);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+
+    public void promijeniVrijednostOcjene(final String otherUId, final int idZnamenitosti, final String smjer, final String radnja){
         mQuery = mDatabase.child("komentar").child(Integer.toString(idZnamenitosti)).child(otherUId).child(smjer);
         mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int broj = Integer.parseInt(dataSnapshot.getValue().toString());
-                if (radnja.equals("povecaj")) broj++; //plus 1 lajk
-                else broj--;
+                if (radnja.equals("povecaj")) {
+                    //plus 1 lajk
+                    broj++;
+                    if(smjer.equals("brojUp")){
+                        bodoviZaLikeanuRecenziju(otherUId);
+                    }
+                    else{
+                        bodoviZaDisLikeanuRecenziju(otherUId);
+                    }
+                }
+                else{
+                    broj--;
+                    if(smjer.equals("brojUp")){
+
+                        bodoviZaDisLikeanuRecenziju(otherUId);
+                    }
+                    else{
+                        bodoviZaLikeanuRecenziju(otherUId);
+
+                    }
+                }
                 mDatabase.child("komentar")
                         .child(Integer.toString(idZnamenitosti))
                         .child(otherUId)
@@ -202,13 +333,13 @@ public class RecenzijeHelper extends FirebaseHelper {
 
     public void obrisiOcjenu(String otherUId, int idZnamenitosti, String ocjena){
         mDatabase.child("Like").child(mAuth.getUid()).child(otherUId).child(Integer.toString(idZnamenitosti)).child("vote").removeValue();
-        mQuery = mDatabase.child("Komentar").child(Integer.toString(idZnamenitosti)).child(otherUId);
+        mQuery = mDatabase.child("komentar").child(Integer.toString(idZnamenitosti)).child(otherUId);
         if (ocjena.equals("Like")){
             promijeniVrijednostOcjene(otherUId, idZnamenitosti, "brojUp", "smanji");
         }
         else{
             promijeniVrijednostOcjene(otherUId, idZnamenitosti, "brojDown", "smanji");
         }
-        //korisnik gubi bodove
+
     }
 }

@@ -10,6 +10,7 @@ public class Korisnik {
     String prezime;
     String email;
     String lozinka;
+    int progressbar;
 
 
 
@@ -22,21 +23,23 @@ public class Korisnik {
     public Korisnik() {
     }
 
-    public Korisnik(String ime, String prezime, String email, String lozinka, String lokacijaSlike) {
+    public Korisnik(String ime, String prezime, String email, String lozinka, String lokacijaSlike,int progressbar) {
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
         this.lozinka = lozinka;
         this.lokacijaSlike = lokacijaSlike;
+        this.progressbar=progressbar;
     }
 
-    public Korisnik(String uid, String ime, String prezime, String email, String lozinka, String lokacijaSlike) {
+    public Korisnik(String uid, String ime, String prezime, String email, String lozinka, String lokacijaSlike,int progressbar) {
         this.uid = uid;
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
         this.lozinka = lozinka;
         this.lokacijaSlike = lokacijaSlike;
+        this.progressbar=progressbar;
     }
     public String getUid() {
         return uid;
@@ -121,5 +124,14 @@ public class Korisnik {
         };
         return lista;
     }
+
+    public int getProgressbar() {
+        return progressbar;
+    }
+
+    public void setProgressbar(int progressbar) {
+        this.progressbar = progressbar;
+    }
+
 
 }

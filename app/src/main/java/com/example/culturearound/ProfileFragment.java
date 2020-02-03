@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -63,6 +64,18 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
     @BindView(R.id.recenzije)
     RecyclerView recyclerView;
 
+    @BindView(R.id.level_points)
+    TextView points;
+
+    @BindView(R.id.slikaGemifikacije)
+    ImageView slikaGem;
+
+
+    @BindView(R.id.level_name)
+    TextView levelIme;
+
+
+
     private UserHelper userHelper;
     private RecenzijeHelper recenzijeHelper;
     private ProfileRecyclerAdapter profileRecyclerAdapter;
@@ -76,6 +89,9 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile,container,false);
+
+
+
 
     }
 
@@ -100,13 +116,18 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
 
     }
 
+    int point;
+
     private void loadData(Korisnik korisnik){
-        Log.d(TAG, "Ucitano " + korisnik.getIme() + korisnik.getPrezime() + korisnik.getEmail());
+        Log.d("ucitaj", "Ucitano " + korisnik.getIme() + korisnik.getPrezime());
 
         firstName = korisnik.getIme();
         lastName = korisnik.getPrezime();
         email = korisnik.getEmail();
         pictureUrl = korisnik.getLokacijaSlike();
+
+        point = korisnik.getProgressbar();
+        points.setText(Integer.toString(point));
 
         userFirstName.setText(firstName);
         userLastName.setText(lastName);
@@ -115,9 +136,81 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
                 .load(pictureUrl)
                 .into(userPicture);
 
+
         recenzijeHelper.dohvatiRecenzijePremaKorisniku(korisnik.getUid());
         //ZnamenitostiHelper znamenitostiHelper = new ZnamenitostiHelper(CurrentActivity.getActivity(), this);
         //znamenitostiHelper.dohvatiMojeZnamenitosti();
+
+
+        if(point<=100){
+
+            levelIme.setText("Level 1-Izgubljeni početnik");
+            slikaGem.setImageResource(R.drawable.slika1);
+
+        }
+
+        else if(point>100 && point<=200){
+
+            levelIme.setText("Level 2-Šokirani paničar ");
+            slikaGem.setImageResource(R.drawable.slika2);
+
+        }
+
+        else if(point>200 && point<=300){
+
+            levelIme.setText("Level 3-Zaigrani amater");
+            slikaGem.setImageResource(R.drawable.slika3);
+
+        }
+
+        else if(point>300 && point<=400){
+
+            levelIme.setText("Level 4-Zbunjeni laik");
+            slikaGem.setImageResource(R.drawable.slika4);
+
+        }
+
+        else if(point>400 && point<=500){
+
+            levelIme.setText("Level 5-Socijalni istraživač");
+            slikaGem.setImageResource(R.drawable.slika5);
+
+        }
+
+        else if(point>500 && point<=600){
+
+            levelIme.setText("Level 6-Treasure Hunter");
+            slikaGem.setImageResource(R.drawable.slika6);
+
+        }
+
+        else if(point>600 && point<=700){
+
+            levelIme.setText("Level 7-Veseli profić");
+            slikaGem.setImageResource(R.drawable.slika7);
+
+        }
+
+        else if(point>700 && point<=800){
+
+            levelIme.setText("Level 8-Veliki avanturista");
+            slikaGem.setImageResource(R.drawable.slika8);
+
+        }
+
+        else if(point>800 && point<=900){
+
+            levelIme.setText("Level 9-Društveni manijak");
+            slikaGem.setImageResource(R.drawable.slika9);
+
+        }
+
+        else if(point>900){
+
+            levelIme.setText("Level 10-Kralj putovanja");
+            slikaGem.setImageResource(R.drawable.slika10);
+
+        }
     }
 
 

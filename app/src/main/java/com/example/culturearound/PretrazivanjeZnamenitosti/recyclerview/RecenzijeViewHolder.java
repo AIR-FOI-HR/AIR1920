@@ -50,6 +50,7 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
     TextView up;
     @BindView(R.id.recenzija_down)
     TextView down;
+
     public ImageButton btnLike;
     public ImageButton btnDislike;
 
