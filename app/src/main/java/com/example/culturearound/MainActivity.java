@@ -12,9 +12,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.core.CurrentActivity;
+
 import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.Listeners.UserListener;
 import com.example.database.UserHelper;
+
+import com.example.maps.MapModule;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -84,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements UserListener{
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Fragment selectedFragment = null;
+            MapModule mapModule = new MapModule();
 
             // ovisno o odabiru ikone, instancira odgovarajuci fragment
 
@@ -103,7 +107,8 @@ public class MainActivity extends AppCompatActivity implements UserListener{
                     break;
 
                 case R.id.navigation_location:
-                    selectedFragment = new LocationFragment();
+                    //selectedFragment = new LocationFragment();
+                    selectedFragment = mapModule;
                     break;
 
                 case R.id.navigation_favorites:
