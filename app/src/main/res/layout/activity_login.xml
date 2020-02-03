@@ -1,95 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/template"
+    tools:context=".LoginActivity">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:background="@drawable/template"
-        tools:context=".LoginActivity">
-
+        android:orientation="vertical"
+        android:gravity="center">
         <ImageView
             android:id="@+id/logo"
-            style="@style/logo"
-            android:src="@drawable/ic_loo"/>
-
+            android:layout_height="100dp"
+            android:layout_width="100dp"
+            android:src="@drawable/ic_loo"
+            android:layout_gravity="center"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:text="@string/app_name"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="170dp"
             android:textSize="40dp"/>
+        <EditText
+            android:id="@+id/login_email"
+            style="@style/input"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/inputs_line"
+            android:drawableLeft="@drawable/ic_person_black_24dp"
+            android:drawablePadding="10dp"
+            android:inputType="text"
+            android:hint="@string/input_username"/>
+        <EditText
+            android:id="@+id/login_password"
+            style="@style/input"
+            android:layout_gravity="center"
+            android:hint="@string/input_password"
+            android:inputType="textPassword"
+            android:background="@drawable/inputs_line"
+            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+            android:drawablePadding="10dp"/>
+        <Button
+            android:id="@+id/login_button"
+            android:text= "@string/login_button_text"
+            style="@style/YellowButton"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="220dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:textColor="#ffffff"
+            android:text="ILI"
+            />
 
-            <EditText
-                android:id="@+id/login_email"
-                android:hint="@string/input_username"
-                android:inputType="text"
-                android:background="@drawable/inputs_line"
-                android:drawableLeft="@drawable/ic_person_black_24dp"
-                android:drawablePadding="10dp"
-                style="@style/input" />
+        <Button
+            android:id="@+id/register_button"
+            style="@style/BlueButton"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:text="@string/register_button_text"/>
 
-            <EditText
-                android:id="@+id/login_password"
-                android:hint="@string/input_password"
-                android:inputType="textPassword"
-                android:background="@drawable/inputs_line"
-                android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
-                android:drawablePadding="10dp"
-                style="@style/input"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="320dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/login_button"
-                android:text= "@string/login_button_text"
-                style="@style/YellowButton"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginTop="15dp"
-                android:textColor="#ffffff"
-                android:text="ILI"
-                />
-
-            <Button
-                android:id="@+id/register_button"
-                style="@style/BlueButton"
-                android:layout_marginTop="5dp"
-                android:text="@string/register_button_text" />
-
-            <Button
-                android:id="@+id/lozinka_button"
-                style="@style/BlueButton"
-                android:background="@color/common_google_signin_btn_text_dark_disabled"
-                android:textColor="#ffffff"
-                android:layout_marginTop="15dp"
-                android:text="Zaboravljena lozinka" />
-            <Button
-                android:id="@+id/bez_prijave_button"
-                style="@style/BlueButton"
-                android:background="@color/common_google_signin_btn_text_dark_disabled"
-                android:textColor="#ffffff"
-                android:layout_marginTop="15dp"
-                android:text="Nastavi bez prijave" />
-        </LinearLayout>
-    </RelativeLayout>
+        <Button
+            android:id="@+id/lozinka_button"
+            style="@style/BlueButton"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:textColor="#ffffff"
+            android:layout_margin="5dp"
+            android:text="Zaboravljena lozinka" />
+        <Button
+            android:id="@+id/bez_prijave_button"
+            style="@style/BlueButton"
+            android:background="@android:color/transparent"
+            android:textColor="#ffffff"
+            android:layout_margin="0dp"
+            android:text="Nastavi bez prijave" />
+    </LinearLayout>
+</RelativeLayout>
 
 
 

@@ -30,6 +30,11 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        loginHelper = new LoginHelper(this);
+
+        if (loginHelper.checkIfSignedIn()) pokreniPocetnuStranicu();
+
         setContentView(R.layout.activity_login);
 
         txtEmail = findViewById(R.id.login_email);
@@ -38,9 +43,6 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         btnRegister = findViewById(R.id.register_button);
         btnForgottenPassword = findViewById(R.id.lozinka_button);
         btnUnregisteredUser = findViewById(R.id.bez_prijave_button);
-
-        loginHelper = new LoginHelper(this);
-
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,15 +80,11 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     private List<Korisnik> users = new ArrayList<Korisnik>();
 
     private void validateInformation (String email, String password) {
-        //Boolean userExist = false;
 
         if(email.isEmpty() || password.isEmpty()){
             Toast.makeText(this, "Niste unijeli korisničke podatke.", Toast.LENGTH_LONG).show();
         }
         else {
-
-            //Firebase od ovdje:
-            loginHelper.signOut();
             loginHelper.signIn(email, password);
         }
     }

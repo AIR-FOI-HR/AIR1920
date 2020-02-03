@@ -1,9 +1,15 @@
 package com.example.culturearound;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.core.CurrentActivity;
 import com.example.database.EntitiesFirebase.Korisnik;
@@ -25,6 +31,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements UserListener{
 
     private UserHelper userHelper;
+
+    DialogInterface.OnClickListener dialogClickListener;
 
 
     @Override
@@ -48,12 +56,26 @@ public class MainActivity extends AppCompatActivity implements UserListener{
 
         CurrentActivity.setActivity(this);
         if(!userHelper.checkIfSignedIn()){
-            MenuItem profileButton = navView.getMenu().getItem(1);
-            MenuItem favoriteButton = navView.getMenu().getItem(3);
-            profileButton.setEnabled(false);
-            favoriteButton.setEnabled(false);
-
+            dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            pokrenutiPrijavu();
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                }
+            };
         }
+    }
+
+    private void pokrenutiPrijavu(){
+        Log.d("Dijalog", "Pokretanje prijave");
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        this.finish();
     }
 
     //kreiranje listenera za klik na određenu ikonu u navigaciji
@@ -71,8 +93,11 @@ public class MainActivity extends AppCompatActivity implements UserListener{
                     break;
 
                 case R.id.navigation_profile:
-                    if(!userHelper.checkIfSignedIn()){
-                        menuItem.setVisible(false);
+                    if (dialogClickListener != null){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CurrentActivity.getActivity());
+                        builder.setMessage("Morate se prijaviti ako želite pristupiti pregledu vlastitog profila.Želite li se prijaviti?").setPositiveButton("Da", dialogClickListener)
+                                .setNegativeButton("Ne", dialogClickListener).show();
+                        return false;
                     }
                     selectedFragment = new ProfileFragment();
                     break;
@@ -81,11 +106,17 @@ public class MainActivity extends AppCompatActivity implements UserListener{
                     selectedFragment = new LocationFragment();
                     break;
 
-                    case R.id.navigation_favorites:
+                case R.id.navigation_favorites:
+                    if (dialogClickListener != null){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CurrentActivity.getActivity());
+                        builder.setMessage("Morate se prijaviti ako želite pristupiti favoritima. Želite li se prijaviti?").setPositiveButton("Da", dialogClickListener)
+                                .setNegativeButton("Ne", dialogClickListener).show();
+                        return false;
+                    }
                     selectedFragment = new FavoritesFragment();
                     break;
 
-                    case R.id.navigation_recommended:
+                case R.id.navigation_recommended:
                     selectedFragment = new RecommendedFragment();
                     break;
             }
@@ -93,7 +124,6 @@ public class MainActivity extends AppCompatActivity implements UserListener{
             //mijenjanje prethodno otvorenog fragmenta s novoodabranim
             getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, selectedFragment).commit();
             return true;
-
         }
     };
 

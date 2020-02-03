@@ -17,7 +17,6 @@ import com.example.database.LoginHelper;
 public class RegistryActivity extends AppCompatActivity implements LoginListener {
     private EditText Ime;
     private EditText Prezime;
-    private EditText Korime;
     private EditText Email;
     private EditText Lozinka;
     private EditText PonoviLozinku;
@@ -29,42 +28,39 @@ public class RegistryActivity extends AppCompatActivity implements LoginListener
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        loginHelper = new LoginHelper(this);
+
+        if (loginHelper.checkIfSignedIn()) pokreniPocetnuStranicu();
+
         setContentView(R.layout.activity_registry);
 
         Ime = findViewById(R.id.re_ime);
         Prezime = findViewById(R.id.re_prezime);
-        Korime = findViewById(R.id.re_username);
         Email=findViewById(R.id.re_email);
         Lozinka = findViewById(R.id.re_password);
         PonoviLozinku = findViewById(R.id.re_password2);
         Registriraj = findViewById(R.id.register_button);
-
-        loginHelper = new LoginHelper(this);
-
-
         Registriraj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validateInformation(
                         Ime.getText().toString(),
                         Prezime.getText().toString(),
-                        Korime.getText().toString(),
                         Email.getText().toString(),
                         Lozinka.getText().toString(),
                         PonoviLozinku.getText().toString());
             }
         });
-
     }
 
-    private void validateInformation (String ime, String prezime, String korime, String email, String lozinka, String ponLozinku) {
+    private void validateInformation (String ime, String prezime, String email, String lozinka, String ponLozinku) {
 
         if(ime.isEmpty() || prezime.isEmpty() || email.isEmpty() || lozinka.isEmpty() || ponLozinku.isEmpty()  ){
             Toast.makeText(this, "Niste unijeli korisničke podatke.", Toast.LENGTH_LONG).show();
         }
         else {
             if(lozinka.equals(ponLozinku)){
-                loginHelper.signOut();
                 loginHelper.createAccount(ime, prezime, email, lozinka);
             }
             else{
