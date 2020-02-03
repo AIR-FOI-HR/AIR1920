@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.core.CurrentActivity;
+import com.example.culturearound.FavoritesRecyclerHolder;
+import com.example.culturearound.R;
 import com.example.database.EntitiesFirebase.Korisnik;
 import com.example.database.EntitiesFirebase.Znamenitost;
 import com.example.database.Listeners.UserListener;

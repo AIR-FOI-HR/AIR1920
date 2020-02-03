@@ -1,5 +1,6 @@
 package com.example.culturearound;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +20,17 @@ import com.example.database.Listeners.UserListener;
 import com.example.database.Listeners.ZnamenitostListener;
 import com.example.database.UserHelper;
 import com.example.database.ZnamenitostiHelper;
-import com.example.culturearound.R;
+import com.example.default_znamenitost.DefaultZnamenitostActivity;
+import com.example.kino_znamenitost.KinoActivity;
+import com.example.setaliste_znamenitost.SetalisteActivity;
+import com.example.spomenik_znamenitost.SpomenikActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class FavoritesFragment extends Fragment implements ZnamenitostListener, UserListener {
 
