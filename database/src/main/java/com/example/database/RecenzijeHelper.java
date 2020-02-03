@@ -65,23 +65,11 @@ public class RecenzijeHelper extends FirebaseHelper {
                     vrijednost=zbrOcjena/brRec;
                     Double toBeTruncated = new Double(vrijednost);
                     Double truncatedDouble = BigDecimal.valueOf(toBeTruncated)
-                        .setScale(2, RoundingMode.HALF_UP)
-                        .doubleValue();
+                            .setScale(2, RoundingMode.HALF_UP)
+                            .doubleValue();
                     ukupno=truncatedDouble;
-                    mDataZnamenitist.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.hasChild("averageGrade")){
-                                mDataZnamenitist.child("averageGrade").setValue(ukupno);
-                            }
-                            else{
-                                mDataZnamenitist.child("averageGrade").setValue(ukupno);
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
+                    mDataZnamenitist.child("averageGrade").setValue(ukupno);
+
                 }
                 else{
                     ukupno=0;
@@ -112,7 +100,7 @@ public class RecenzijeHelper extends FirebaseHelper {
                                 komentar2.setUid(mAuth.getUid());
                                 Log.d("hehe", komentar2.getOpis());
                                 listaRecenzija.add(komentar2);}
-                    }}
+                        }}
                     Log.d("Anja", "Dobavljanje DONE");
                     recenzijaListener.onLoadRecenzijaSucess("Uspješno dohvaćanje - listener", listaRecenzija);
                 }
