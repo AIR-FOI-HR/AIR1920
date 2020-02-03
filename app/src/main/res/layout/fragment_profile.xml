@@ -85,9 +85,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="-10dp"
+        android:layout_marginStart="-2dp"
         android:layout_marginTop="526dp"
-        android:layout_marginEnd="11dp"
+        android:layout_marginEnd="3dp"
         android:background="@android:color/darker_gray" />
 
     <TextView
@@ -97,15 +97,15 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="556dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="574dp"
         android:text="RECENZIJE KORISNIKA"
         android:textColor="#404040"
         android:textSize="20dp"
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/slikaGemifikacije"
         android:layout_width="137dp"
         android:layout_height="88dp"
         android:layout_alignParentStart="true"
@@ -118,16 +118,35 @@
         android:padding="4dp"
         app:srcCompat="@drawable/gamification_avatar" />
 
+
     <TextView
         android:id="@+id/level_points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="163dp"
-        android:layout_marginTop="464dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="470dp"
         android:layout_marginBottom="10dp"
-        android:text="456 bodova"
+        android:text="@string/bodovi"
+        android:textColor="#404040"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/level_points_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="470dp"
+
+        android:layout_marginBottom="10dp"
+        android:text="bodova"
         android:textColor="#404040"
         android:textSize="20dp"
         android:textStyle="bold" />
@@ -139,14 +158,12 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="428dp"
+        android:layout_marginStart="126dp"
+        android:layout_marginTop="420dp"
         android:text="Razina 10 - Veteran"
         android:textColor="#404040"
         android:textSize="18dp"
         android:textStyle="bold" />
-
-
 
 
 </RelativeLayout>

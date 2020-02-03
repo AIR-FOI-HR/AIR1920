@@ -116,12 +116,22 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
                 Log.d("NjAnja", "Pocetak klika like.");
                 if (mojaOcjenaKomentara.equals("Like")){
                     recenzijeHelper.obrisiOcjenu(korisnik.getUid(), komentar.getIdZnamenitost(), "Like");
+                    recenzijeHelper.bodoviAkojeKorisnikOdustao();
                     Log.d("kuda", "dosao sam tu");
                     mojaOcjenaKomentara="";
                 }
                 else {
-                    recenzijeHelper.postaviOcjenu(korisnik.getUid(), komentar.getIdZnamenitost(), "Like");
-                    mojaOcjenaKomentara="Like";
+                    if(mojaOcjenaKomentara.equals("Dislike")){
+                        recenzijeHelper.postaviOcjenu(korisnik.getUid(), komentar.getIdZnamenitost(), "Like");
+                        recenzijeHelper.promijeniVrijednostOcjene(korisnik.getUid(), komentar.getIdZnamenitost(), "brojDown", "smanji");
+                        mojaOcjenaKomentara="Like";
+                    }
+                    else{
+                        recenzijeHelper.postaviOcjenu(korisnik.getUid(), komentar.getIdZnamenitost(), "Like");
+                        recenzijeHelper.bodoviZaLikeProgressBarKorisnikKojiGaJeDao();
+                        mojaOcjenaKomentara="Like";
+                    }
+
                 }
                 prikaziOcjenuKomentara();
                 Log.d("kuda", "Kraj klika like.");
@@ -139,11 +149,24 @@ public class RecenzijeViewHolder extends ParentViewHolder implements UserListene
                 Log.d("NjAnja", "Pocetak klika dislike.");
                 if (mojaOcjenaKomentara.equals("Dislike")){
                     recenzijeHelper.obrisiOcjenu(korisnik.getUid(), komentar.getIdZnamenitost(), "Dislike");
+                    recenzijeHelper.bodoviAkojeKorisnikOdustao();
                     mojaOcjenaKomentara="";
                 }
                 else{
-                    recenzijeHelper.postaviOcjenu(korisnik.getUid(), komentar.getIdZnamenitost(), "Dislike");
-                    mojaOcjenaKomentara="Dislike";
+
+                    if(mojaOcjenaKomentara.equals("Like")){
+
+                        recenzijeHelper.postaviOcjenu(korisnik.getUid(), komentar.getIdZnamenitost(), "Dislike");
+                        recenzijeHelper.promijeniVrijednostOcjene(korisnik.getUid(), komentar.getIdZnamenitost(), "brojUp", "smanji");
+                        mojaOcjenaKomentara="Dislike";
+                    }
+                    else{
+                        recenzijeHelper.postaviOcjenu(korisnik.getUid(), komentar.getIdZnamenitost(), "Dislike");
+                        recenzijeHelper.bodoviZaLikeProgressBarKorisnikKojiGaJeDao();
+                        mojaOcjenaKomentara="Dislike";
+                    }
+
+
                 }
                 prikaziOcjenuKomentara();
                 Log.d("NjAnja", "Kraj klika dislike.");

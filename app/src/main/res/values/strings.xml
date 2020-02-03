@@ -51,5 +51,6 @@
     <string name="picture_url">Url slike</string>
     <string name="update_preview_picture">Učitaj sliku</string>
     <string name="update_delete_picture">Izbriši sliku</string>
+    <string name="bodovi">Bodovi</string>
 
 </resources>

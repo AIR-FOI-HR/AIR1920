@@ -95,7 +95,7 @@ public class LoginHelper extends FirebaseHelper {
 
     private void zapisiKorisnikaNaFirebase(String uid, String ime, String prezime, String email, String lozinka) {
         DatabaseReference rKorisnik = mDatabase.child("Korisnik");
-        Korisnik noviKorisnik = new Korisnik(uid, ime, prezime, email, lozinka, "https://www.speakingtigerbooks.com/wp-content/uploads/2017/07/no-avatar.png");
+        Korisnik noviKorisnik = new Korisnik(uid, ime, prezime, email, lozinka, "https://www.speakingtigerbooks.com/wp-content/uploads/2017/07/no-avatar.png",0);
         rKorisnik.child(uid).setValue(noviKorisnik);
     }
 
