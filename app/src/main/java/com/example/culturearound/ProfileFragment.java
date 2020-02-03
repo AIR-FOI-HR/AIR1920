@@ -1,39 +1,46 @@
 package com.example.culturearound;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.core.CurrentActivity;
+import com.example.culturearound.ProfilKorisnika.ProfileRecyclerAdapter;
+import com.example.database.EntitiesFirebase.Komentar;
 import com.example.database.EntitiesFirebase.Korisnik;
+import com.example.database.EntitiesFirebase.Znamenitost;
+import com.example.database.Listeners.RecenzijaListener;
 import com.example.database.Listeners.UserListener;
+import com.example.database.Listeners.ZnamenitostListener;
+import com.example.database.RecenzijeHelper;
 import com.example.database.UserHelper;
 import com.example.culturearound.ProfilKorisnika.UpdateDataDialog;
+import com.example.database.ZnamenitostiHelper;
 import com.squareup.picasso.Picasso;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class ProfileFragment extends Fragment implements UserListener, View.OnClickListener {
+public class ProfileFragment extends Fragment implements UserListener, View.OnClickListener, RecenzijaListener {
 
     @BindView(R.id.update_profile)
     Button btnUpdateData;
@@ -53,14 +60,15 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
     @BindView(R.id.logoutBtn)
     ImageView logout;
 
-
-
+    @BindView(R.id.recenzije)
+    RecyclerView recyclerView;
 
     private UserHelper userHelper;
-
+    private RecenzijeHelper recenzijeHelper;
+    private ProfileRecyclerAdapter profileRecyclerAdapter;
     private String firstName, lastName, email, pictureUrl;
     private String userId;
-
+    private List<Komentar> listOfComments;
     private static final String TAG = "profil";
 
 
@@ -75,11 +83,18 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
         Log.d(TAG, "Pocetak...");
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        listOfComments = new ArrayList<>();
+
+        profileRecyclerAdapter = new ProfileRecyclerAdapter(CurrentActivity.getActivity(),listOfComments);
+        recyclerView.setAdapter(profileRecyclerAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         userPicture.bringToFront();
         btnUpdateData.setOnClickListener(this);
         logout.setOnClickListener(this);
         userHelper = new UserHelper(getContext(),this);
         userId = userHelper.returnUserId();
+        recenzijeHelper = new RecenzijeHelper(getContext(), this);
         Log.d(TAG, "onViewCreated: "+ userId);
         userHelper.findUserById(userId);
 
@@ -100,10 +115,13 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
                 .load(pictureUrl)
                 .into(userPicture);
 
+        recenzijeHelper.dohvatiRecenzijePremaKorisniku(korisnik.getUid());
+        //ZnamenitostiHelper znamenitostiHelper = new ZnamenitostiHelper(CurrentActivity.getActivity(), this);
+        //znamenitostiHelper.dohvatiMojeZnamenitosti();
     }
 
+
     private void openDialogUpdateData() {
-        Log.d(TAG, "OTVORENO " + "DIJALOOOOG");
 
         Bundle args = new Bundle();
         args.putString("firstName", firstName);
@@ -123,6 +141,8 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
     @Override
     public void onLoadUserSuccess(String message, Korisnik currentUser) {
         loadData(currentUser);
+
+
     }
 
     @Override
@@ -149,4 +169,25 @@ public class ProfileFragment extends Fragment implements UserListener, View.OnCl
 
 
     }
+
+    @Override
+    public void onLoadRecenzijaSucess(String message, List<Komentar> listaKomentara) {
+        if(!listaKomentara.isEmpty()){
+        listOfComments =listaKomentara;
+        Log.d("LukaEna", "Prvi komentar " + listaKomentara.get(0).getOpis());
+
+        profileRecyclerAdapter.setKomentari(listOfComments);
+        profileRecyclerAdapter.notifyDataSetChanged();}
+    }
+
+    @Override
+    public void onOcjenaKomentaraSucess(String message, String mojaOcjenaKomentara) {
+
+    }
+
+    @Override
+    public void onLoadRecenzijaFail(String message) {
+
+    }
+
 }

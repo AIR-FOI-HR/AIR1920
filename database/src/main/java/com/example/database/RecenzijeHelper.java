@@ -77,6 +77,7 @@ public class RecenzijeHelper extends FirebaseHelper {
 
     public void dohvatiRecenzijePremaId(final int idZnamenitost){
         if (!provjeriDostupnostMreze()) return;
+        Log.d("LukaEna", "Dohvaćanje reccenzija prema ID");
         mQuery = mDatabase.child("komentar").child(Integer.toString(idZnamenitost));
         mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -118,6 +119,37 @@ public class RecenzijeHelper extends FirebaseHelper {
                 recenzijaListener.onLoadRecenzijaFail("Neuspješno dohvaćanje - listener");
             }
         });
+    }
+
+    public void dohvatiRecenzijePremaKorisniku(final String userId){
+        if (provjeriDostupnostMreze()){
+            mQuery = mDatabase.child("komentar");
+            mQuery.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    final List<Komentar> listaRecenzija = new ArrayList<>();
+                    Log.d("Anja", "Dobavljanje..");
+                    for (DataSnapshot temp : dataSnapshot.getChildren()){
+                        Log.d("hehe", "Pukne nakon " + temp.getKey());
+                        for(DataSnapshot temp2: temp.getChildren()){
+                            Log.d("LukaEna",temp2.getKey());
+                            if(userId.equals(temp2.getKey())){
+                                Komentar komentar2 = temp2.getValue(Komentar.class);
+                                komentar2.setUid(mAuth.getUid());
+                                Log.d("hehe", komentar2.getOpis());
+                                listaRecenzija.add(komentar2);}
+                    }}
+                    Log.d("Anja", "Dobavljanje DONE");
+                    recenzijaListener.onLoadRecenzijaSucess("Uspješno dohvaćanje - listener", listaRecenzija);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    recenzijaListener.onLoadRecenzijaFail("Neuspješno dohvaćanje - listener");
+                }
+            });
+        }
+
     }
 
 

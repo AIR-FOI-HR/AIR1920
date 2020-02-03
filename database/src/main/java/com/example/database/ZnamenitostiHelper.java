@@ -121,6 +121,34 @@ public class ZnamenitostiHelper extends FirebaseHelper {
 
         }
     }
+
+    public void dohvatiMojeZnamenitosti(){
+        if (!provjeriDostupnostMreze()) return;
+        mQuery = mDatabase.child("komentar");
+        final List<Integer> listaIdZnamenitosti = new ArrayList<>();
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot temp: dataSnapshot.getChildren()){
+                    listaIdZnamenitosti.add(Integer.parseInt(temp.getKey()));
+                    Log.d("LukaEna", temp.getKey());
+                }
+                final List<Znamenitost> listaZnamenitosti = new ArrayList<>();
+
+                for (final Integer idZnamenitosti: listaIdZnamenitosti){
+                    Znamenitost znamenitost = new Znamenitost();
+                    znamenitost.setIdZnamenitosti(idZnamenitosti);
+                    Log.d("LukaEna", "Okrutno je ovo " + Integer.toString(znamenitost.getIdZnamenitosti()));
+                    listaZnamenitosti.add(znamenitost);
+                }
+                znamenitostListener.onLoadZnamenitostSucess("Dohvaćene moje znamenitosti - listener", listaZnamenitosti);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+    }
 }
 
 
