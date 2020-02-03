@@ -41,10 +41,12 @@ public class RecenzijeHelper extends FirebaseHelper {
     double zbrOcjena=0;
     double brRec=0;
     double vrijednost;
+    DatabaseReference mDataZnamenitist;
 
     public void dohvatiRecenzijePremaId(final int idZnamenitost){
         if (!provjeriDostupnostMreze()) return;
         mQuery = mDatabase.child("komentar").child(Integer.toString(idZnamenitost));
+        mDataZnamenitist=mDatabase.child("znamenitost").child(Integer.toString(idZnamenitost));
         mQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -62,10 +64,24 @@ public class RecenzijeHelper extends FirebaseHelper {
                     vrijednost=zbrOcjena/brRec;
                     Double toBeTruncated = new Double(vrijednost);
                     Double truncatedDouble = BigDecimal.valueOf(toBeTruncated)
-                            .setScale(2, RoundingMode.HALF_UP)
-                            .doubleValue();
-                    ukupno=truncatedDouble;}
-
+                        .setScale(2, RoundingMode.HALF_UP)
+                        .doubleValue();
+                    ukupno=truncatedDouble;
+                    mDataZnamenitist.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.hasChild("averageGrade")){
+                                mDataZnamenitist.child("averageGrade").setValue(ukupno);
+                            }
+                            else{
+                                mDataZnamenitist.child("averageGrade").setValue(ukupno);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+                }
                 else{
                     ukupno=0;
                 }
@@ -86,12 +102,12 @@ public class RecenzijeHelper extends FirebaseHelper {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(Integer.toString(idZnamenitost)).hasChild(mAuth.getUid())){
-                    Toast.makeText(mContext, "Recenzija već postavljena", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "Recenzija postavljena", Toast.LENGTH_LONG).show();
                 }
                 else{
                     Komentar noviKomentar = new Komentar(7,opis,ocjena, mAuth.getUid(),idZnamenitost,0,0);
                     aKomentar.child(Integer.toString(idZnamenitost)).child(mAuth.getUid()).setValue(noviKomentar);
-                    Toast.makeText(mContext, "Uspješna recenzija", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "Recenzija postavljena", Toast.LENGTH_LONG).show();
                 }
             }
             @Override

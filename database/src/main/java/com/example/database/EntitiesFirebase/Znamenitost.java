@@ -1,8 +1,9 @@
 package com.example.database.EntitiesFirebase;
 
+import java.util.Comparator;
 import java.util.List;
 
-public class Znamenitost {
+public class Znamenitost implements Comparable<Znamenitost> {
     int idZnamenitosti;
     String naziv;
     String adresa;
@@ -12,7 +13,13 @@ public class Znamenitost {
     double latitude;
     int idLokacija;
     String lokacijaSlike;
+    double averageGrade;
     List<Slika> listaSlikaGalerije;
+
+
+
+
+
 
     public Znamenitost(){}
 
@@ -94,4 +101,35 @@ public class Znamenitost {
     public void setListaSlikaGalerije(List<Slika> listaSlikaGalerije) {
         this.listaSlikaGalerije = listaSlikaGalerije;
     }
+
+    public double getAverageGrade() {
+        return averageGrade;
+    }
+
+    public void setAverageGrade(float averageGrade) {
+        this.averageGrade = averageGrade;
+    }
+
+//   @Override
+ //   public int compareTo(Znamenitost u) {
+      //  if (getAverageGrade() == 0|| u.getAverageGrade() == 0) {
+           // return 0;
+      //  }
+       // return new Double(averageGrade).compareTo( u.averageGrade);
+   // }
+
+
+    @Override
+    public int compareTo(Znamenitost znamenitost) {
+        return Double.compare(znamenitost.getAverageGrade(),this.averageGrade);
+
+    }
+
+
+
+
+
+
+
+
 }
